@@ -1,3 +1,20 @@
+since Version 2.22 (to 3.01):
+
+Bugfixes:
+-- Fixed the Heal/Lesser Heal merge into Greater Heal  
+
+Improvements:
+-- Added SP scaling to Rejuvination
+
+Changes:
+-- Moved all spells into Druid
+-- Moved all buffs into Druid
+
+Features:
+
+
+--------------------------------------------------------------
+
 since Version 2.22 (to 2.23):
 
 Bugfixes:

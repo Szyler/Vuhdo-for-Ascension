@@ -220,7 +220,7 @@ function VUHDO_OnLoad(anInstance)
 		VUHDO_slashCmd(aMessage);
 	end
 
-	VUHDO_Msg("VuhDo |cffffe566['vu:du:]|r v".. VUHDO_VERSION .. ". by Iza(ak)@Gilneas, dedicated to Vuh (use /vd)");
+	-- VUHDO_Msg("VuhDo |cffffe566['vu:du:]|r v".. VUHDO_VERSION .. ". by Iza(ak)@Gilneas, modified for Ascension by Szyler");
 end
 
 
@@ -729,7 +729,7 @@ function VUHDO_slashCmd(aCommand)
 	elseif (aCommand == "?"
 		or strfind(tCommandWord, "help")
 		or aCommand == "") then
-		local tLines = VUHDO_splitString(VUHDO_I18N_COMMAND_LIST, "§");
+		local tLines = VUHDO_splitString(VUHDO_I18N_COMMAND_LIST, "ï¿½");
 		local tCurLine;
 		for _, tCurLine in ipairs(tLines) do
 			VUHDO_MsgC(tCurLine);

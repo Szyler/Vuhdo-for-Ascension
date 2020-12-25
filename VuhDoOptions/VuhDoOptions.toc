@@ -1,8 +1,8 @@
 ## Interface: 30300
-## Title: VuhDo ['vu:du:] - Options
-## Author: Iza@Gilneas
-## Version: 2.23
-## Notes: VuhDo Options
+## Title: VuhDo for Ascension - Options
+## Author: Iza@Gilneas, modded by Szyler
+## Version: 3.01
+## Notes: Needed to configure all options in VuhDo for Ascension
 ## SavedVariables: VUHDO_OPTIONS_SETTINGS
 ## DefaultState: Enabled
 ## Dependencies: VuhDo

@@ -598,34 +598,68 @@ if( playerClass == "DRUID" ) then
 		-- Rejuvenation
 		local Rejuvenation = GetSpellInfo(774)
 		hotData[Rejuvenation] = {interval = 3, ticks = 5, coeff = 0.5,
-			levels = {4, 10, 16, 22, 28, 34, 40, 46, 52, 58, 60, 63, 69, 75, 80}, averages = {32, 56, 116, 180, 244, 304, 388, 488, 608, 756, 888, 932, 1060, 1192, 1690}}
+			--coeff = 0.0677,
+			--maxlevels = { 9, 15, 21, 27, 33, 39, 45, 51, 57, 63, 65, 68, 73, 79, 84},
+			--averages = { 6, 11, 21, 33, 44, 55, 71, 88, 110, 129, 162, 168, 191, 268, 305}
+			levels = {4, 10, 16, 22, 28, 34, 40, 46, 52, 58, 60, 63, 69, 75, 80}, 
+			averages = {32, 56, 116, 180, 244, 304, 388, 488, 608, 756, 888, 932, 1060, 1192, 1690}}
 		-- Regrowth
 		local Regrowth = GetSpellInfo(8936)
 		hotData[Regrowth] = {interval = 3, ticks = 7, coeff = 0.658,
-			levels = {12, 18, 24, 30, 36, 42, 48, 54, 60, 65, 71, 77}, averages = {98, 175, 259, 343, 427, 546, 686, 861, 1064, 1274, 1792, 2345}}
+			--coeff = 0.0564,
+			--averages = {11, 20, 30, 39, 49, 63, 79, 99, 122, 146, 256, 335}
+			levels = {12, 18, 24, 30, 36, 42, 48, 54, 60, 65, 71, 77}, 
+			averages = {98, 175, 259, 343, 427, 546, 686, 861, 1064, 1274, 1792, 2345}}
+			
 		-- Lifebloom
 		local Lifebloom = GetSpellInfo(33763)
-		hotData[Lifebloom] = {interval = 1, ticks = 7, coeff = 0.33313, dhCoeff = 0.17162 * 0.8, levels = {64, 72, 80}, averages = {224, 287, 371}, bomb = {480, 616, 776}}
+		hotData[Lifebloom] = {interval = 1, ticks = 7, 
+			coeff = 0.33313, dhCoeff = 0.17162 * 0.8, 
+			--coeff = 0.126,
+			--coeff = 0.023,
+			--averages = {26, 41, 53}
+			--averages = {384, 616, 776}
+			--maxlevels = { 71, 79, 84},
+			levels = {71, 72, 80}, 
+			averages = {224, 287, 371}, 
+			bomb = {480, 616, 776}}
 		-- Wild Growth
 		local WildGrowth = GetSpellInfo(48438)
-		hotData[WildGrowth] = {interval = 1, ticks = 7, coeff = 0.4028, levels = {60, 70, 75, 80}, averages = {686, 861, 1239, 1442}}
+		hotData[WildGrowth] = {interval = 1, ticks = 7, coeff = 0.4028, 
+			--coeff = 0.03452,
+			--maxlevels = { 69, 74, 79, 84},
+			--averages = { 79, 99, 177, 206}
+			levels = {60, 70, 75, 80}, 
+			averages = {686, 861, 1239, 1442}}
 		
 		-- Regrowth
 		spellData[Regrowth] = {coeff = 0.14335,
 			levels = hotData[Regrowth].levels,
-			averages = {avg(84, 98), avg(164, 188), avg(240, 274), avg(318, 360), avg(405, 457), avg(511, 575), avg(646, 724), avg(809, 905), avg(1003, 1119), avg(1215, 1355), avg(1710, 1908), avg(2234, 2494)},
+			--coeff = 0.1616,
+			--maxlevels = { 17, 23, 29, 35, 41, 47, 53, 59, 65, 70, 76, 81},
+			--levelincrease = { 1.8, 2.5, 3.1, 3.6, 4.1, 4.7, 5.3, 6, 6.8, 7.7, 10.8, 7.7}
+			averages = { avg(66, 78), avg(130, 150), avg(191, 219), avg(254, 288), avg(323, 365), avg(408, 460), avg(516, 579), avg(517, 580), avg(641, 716), avg(971, 1084), avg(1709, 1908), avg(2233, 2494)},
 			increase = {122, 155, 173, 180, 180, 178, 169, 156, 136, 115, 97, 23}}
 		-- Healing Touch
 		local HealingTouch = GetSpellInfo(5185)
 		spellData[HealingTouch] = {coeff = 0.45,
+			--coeff = 0.47,
+			--maxlevels = { 5, 13, 19, 25, 31, 37, 43, 49, 55, 61, 65, 67, 73, 78, 83},
+			--levelincrease = { 0.8, 1.3, 1.9, 2.7, 3, 3.4, 3.9, 4.5, 5.1, 5.7, 6.2, 6.3, 7, 9.8, 11.4}
 			levels = {1, 8, 14, 20, 26, 32, 38, 44, 50, 56, 60, 62, 69, 74, 79},
-			averages = {avg(37, 51), avg(88, 112), avg(195, 243), avg(363, 445), avg(490, 594), avg(636, 766), avg(802, 960), avg(1199, 1427), avg(1299, 1539), avg(1620, 1912), avg(1944, 2294), avg(2026, 2392), avg(2321, 2739), avg(3223, 3805), avg(3750, 4428)}}
+			averages = { avg(27, 39), avg(62, 82), avg(137, 176), avg(255, 321), avg(344, 428), avg(447, 552), avg(564, 691), avg(1054, 1283), avg(1142, 1383), avg(1140, 1374), avg(1368, 1649), avg(1425, 1719), avg(1674, 2009), avg(2835, 3418), avg(3299, 3978)}}
 		-- Nourish
-		local Nourish = GetSpellInfo(50464)
-		spellData[Nourish] = {coeff = 0.179002, levels = {80}, averages = {avg(1883, 2187)}}
+		-- local Nourish = GetSpellInfo(50464)
+		-- spellData[Nourish] = {coeff = 0.179002, levels = {80}, averages = {avg(1883, 2187)}}
 		-- Tranquility
 		local Tranquility = GetSpellInfo(740)
-		spellData[Tranquility] = {coeff = 0.5723405, ticks = 4, levels = {30, 40, 50, 60, 70, 75, 80}, averages = {351, 515, 765, 1097, 1518, 2598, 3035}}
+		spellData[Tranquility] = {coeff = 0.5723405, ticks = 4, 
+		--coeff = 0.1616,
+		--maxlevels = { 36, 46, 56, 66, 74, 79, 84},
+		--levelincrease = { 2.2, 2.6, 3.4, 3.7, 4.5, 4.5, 4.5}
+		-- avg(280, 281), avg(411, 412), avg(611, 612), avg(877, 878), avg(1214, 1215), avg(2597, 2598), avg(3034, 3035)
+		levels = {30, 40, 50, 60, 70, 75, 80}, 
+		averages = {351, 515, 765, 1097, 1518, 2598, 3035}}
 	
 		-- Talent data, these are filled in later and modified on talent changes
 		-- Master Shapeshifter (Multi)
@@ -679,13 +713,19 @@ if( playerClass == "DRUID" ) then
 		local HolyLight = GetSpellInfo(635)
 		spellData[HolyLight] = {coeff = 0.445,
 			levels = {1, 6, 14, 22, 30, 38, 46, 54, 60, 62, 70, 75, 80},
-			averages = {avg(50, 60), avg(96, 116), avg(203, 239), avg(397, 455), avg(628, 708), avg(894, 998), avg(1209, 1349), avg(1595, 1777), avg(2034, 2266), avg(2232, 2486), avg(2818, 3138), avg(4199, 4677), avg(4888, 5444)},
+			-- coeff = 0.448,
+			--maxlevels = {5,11,19,27,35,43,51,59,65,67,74,79,84},
+			--levelincrease = {0.8, 1.1, 1.7, 2.4, 3.1, 3.8, 4.6, 5.2, 5.8, 6.4, 7, 10.4, 12.1}
+			averages = { avg(35, 44), avg(69, 86), avg(146, 176), avg(285, 332), avg(451, 516), avg(643, 727), avg(870, 983), avg(1148, 1294), avg(1464, 1650), avg(1606, 1810), avg(1938, 2195), avg(3778, 4257), avg(4398, 4955)},
 			increase = {63, 81, 112, 139, 155, 159, 156, 135, 116, 115, 70, 52, 0}}
 		-- Flash of Light
 		local FlashofLight = GetSpellInfo(19750)
 		spellData[FlashofLight] = {coeff = 0.265,
 			levels = {20, 26, 34, 42, 50, 58, 66, 74, 79},
-			averages = {avg(81, 93), avg(124, 144), avg(189, 211), avg(256, 288), avg(346, 390), avg(445, 499), avg(588, 658), avg(682, 764), avg(785, 879)},
+			--coeff = 0.3,
+			--maxlevels = {25,31,39,47,55,63,70,78,83},
+			--levelincrease = {1, 1.3, 1.6, 1.9, 2.2, 2.6, 3, 3.4, 3.9}
+			averages = {avg(69, 82), avg(106, 126), avg(162, 184), avg(220, 252), avg(294, 337), avg(384, 437), avg(507, 575), avg(735, 835), avg(847, 961)},
 			increase = {60, 70, 73, 72, 66, 57, 42, 20, 3}}
 		
 		-- Talent data
@@ -724,29 +764,60 @@ if( playerClass == "DRUID" ) then
 
 		-- Hot data
 		local Renew = GetSpellInfo(139)
-		hotData[Renew] = {coeff = 0.5, interval = 3, ticks = 5, levels = {8, 14, 20, 26, 32, 38, 44, 50, 56, 60, 65, 70, 75, 80}, averages = {45, 100, 175, 245, 315, 400, 510, 650, 810, 970, 1010, 1110, 1235, 1400}}
+		hotData[Renew] = {coeff = 0.5, interval = 3, ticks = 5, 
+			--coeff = 0.078,
+			--maxlevels = { 13, 19, 25, 31, 37, 43, 49, 55, 61, 65, 69, 74, 79, 84},
+			--averages = { 8, 15, 26, 35, 46, 59, 74, 94, 117, 140, 146, 160, 223, 252}
+			levels = {8, 14, 20, 26, 32, 38, 44, 50, 56, 60, 65, 70, 75, 80}, 
+			averages = {45, 100, 175, 245, 315, 400, 510, 650, 810, 970, 1010, 1110, 1235, 1400}}
 		local GlyphofPoH = GetSpellInfo(56161)
 		hotData[GlyphofPoH] = {isMulti = true, interval = 3}
 		
 		-- Spell data
 		-- Greater Heal
 		local GreaterHeal = GetSpellInfo(2060)
-		spellData[GreaterHeal] = {coeff = 0.425, levels = {1, 4, 10, 16, 22, 28, 34, 40, 46, 52, 58, 60, 63, 68, 73, 78}, increase = {71, 83, 112, 153, 185, 208, 207, 204, 197, 184, 165, 162, 142, 111, 92, 30},
-			averages = {avg(46, 56), avg(71, 85), avg(135, 157), avg(295, 341), avg(429, 491), avg(566, 642), avg(712, 804), avg(899, 1013), avg(1149, 1289), avg(1437, 1609), avg(1798, 2006), avg(1966, 2194), avg(2074, 2410), avg(2394, 2784), avg(3395, 3945), avg(3950, 4590)}}
+		spellData[GreaterHeal] = {coeff = 0.425, 
+			levels = {1, 4, 10, 16, 22, 28, 34, 40, 46, 52, 58, 60, 63, 68, 73, 78}, 
+			increase = {71, 83, 112, 153, 185, 208, 207, 204, 197, 184, 165, 162, 142, 111, 92, 30},
+			--coeff = 0.444,
+			--maxlevels = { 3, 9, 15, 21, 27, 33, 39, 45, 51, 57, 63, 65, 67, 72, 77, 82},
+			--levelincrease = { 0.9, 1.1, 1.6, 2.4, 3.2, 4, 4.5, 5.1, 5.8, 6.6, 7.5, 8.1, 8.4, 9.3, 13.2, 15.4}
+			averages = { avg(36, 45), avg(56, 68), avg(107, 125), avg(225, 259), avg(342, 392), avg(452, 514), avg(569, 643), avg(632, 724), avg(808, 921), avg(1011, 1149), avg(1265, 1432), avg(1383, 1566), avg(1459, 1729), avg(1717, 2028), avg(2987, 3538), avg(3475, 4116)}}
 		-- Prayer of Healing
 		local PrayerofHealing = GetSpellInfo(596)
-		spellData[PrayerofHealing] = {coeff = 0.1399, levels = {30, 40, 50, 60, 60, 68, 76}, increase = {65, 64, 60, 48, 50, 33, 18},
-			averages = {avg(301, 321), avg(444, 472), avg(657, 695), avg(939, 991), avg(997, 1053), avg(1246, 1316), avg(2091, 2209)}}
+		spellData[PrayerofHealing] = {coeff = 0.1399, 
+			levels = {30, 40, 50, 60, 60, 68, 76}, 
+			increase = {65, 64, 60, 48, 50, 33, 18},
+			--coeff = 0.1364,
+			--maxlevels = { 39, 49, 59, 69, 69, 75, 82, 0},
+			--levelincrease = { 1.3, 1.6, 2, 2.4, 2.5, 2.8, 4.7, 0}
+			averages = { avg(208, 225), avg(307, 330), avg(455, 486), avg(650, 692), avg(690, 736), avg(778, 829), avg(1811, 1930), avg(12499, 15000)}}
 		-- Flash Heal
 		local FlashHeal = GetSpellInfo(2061)
-		spellData[FlashHeal] = {coeff = 0.215, levels = {20, 26, 32, 38, 44, 52, 58, 61, 67, 73, 79}, increase = {114, 118, 120, 117, 118, 111, 100, 89, 67, 56, 9},
-			averages = {avg(193, 237), avg(258, 314), avg(327, 393), avg(400, 478), avg(518, 616), avg(644, 764), avg(812, 958), avg(913, 1059), avg(1101, 1279), avg(1578, 1832), avg(1887, 2198)}}
-		-- Binding Heal
-		local BindingHeal = GetSpellInfo(32546)
-		spellData[BindingHeal] = {coeff = 0.215, levels = {64, 72, 78}, averages = {avg(1042, 1338), avg(1619, 2081), avg(1952, 2508)}, increase = {30, 24, 7}}
+		spellData[FlashHeal] = {coeff = 0.215, 
+			levels = {20, 26, 32, 38, 44, 52, 58, 61, 67, 73, 79}, 
+			increase = {114, 118, 120, 117, 118, 111, 100, 89, 67, 56, 9},
+			--coeff = 0.24,
+			--maxlevels = { 25, 31, 37, 43, 49, 55, 61, 65, 71, 78, 84},
+			--levelincrease = { 1.9, 2.2, 2.5, 2.8, 3.3, 3.7, 4.2, 4.7, 5.2, 8, 9.7}
+			averages = { avg(154, 190), avg(206, 252), avg(261, 315), avg(319, 382), avg(414, 493), avg(514, 611), avg(649, 767), avg(730, 848), avg(880, 1023), avg(1577, 1832), avg(1886, 2193)}}
+			-- Binding Heal
+			local BindingHeal = GetSpellInfo(32546)
+			spellData[BindingHeal] = {coeff = 0.215, 
+				levels = {64, 72, 78}, 
+				--coeff = 0.24,
+				--maxlevels = { 71, 76, 82},
+				--levelincrease = { 4.2, 3, 3.6}
+				averages = { avg(748, 870), avg(1618, 2081), avg(1951, 2508)}, 
+				increase = {30, 24, 7}}
 		-- Penance
 		local Penance = GetSpellInfo(53007)
-		spellData[Penance] = {coeff = 0.4285, ticks = 3, levels = {60, 70, 75, 80}, averages = {avg(670, 756), avg(805, 909), avg(1278, 1442), avg(1484, 1676)}}
+		spellData[Penance] = {coeff = 0.4285, ticks = 3, 
+			--coeff = 0.1488,
+			--maxlevels = { 69, 74, 79, 84},
+			--levelincrease = { 4.2, 3, 3.6}
+			levels = {60, 70, 75, 80}, 
+			averages = {avg(354, 400), avg(643, 727), avg(1277, 1442), avg(1483, 1676)}}
 		-- Heal
 		-- local Heal = GetSpellInfo(2054)
 		-- spellData[Heal] = {coeff = 3 / 3.5, levels = {16, 22, 28, 34}, averages = {avg(295, 341), avg(429, 491), avg(566, 642), avg(712, 804)}, increase = {153, 185, 208, 207}}
@@ -788,25 +859,49 @@ if( playerClass == "DRUID" ) then
 		-- Hot data
 		-- Riptide
 		local Riptide = GetSpellInfo(61295)
-		hotData[Riptide] = {interval = 3, ticks = 5, coeff = 0.25, levels = {60, 70, 75, 80}, averages = {665, 885, 1435, 1670}}
+		hotData[Riptide] = {interval = 3, ticks = 5, coeff = 0.25, 
+			--coeff = 0.054,
+			--maxlevels = { 69, 74, 79, 84},
+			--averages = { 388, 515, 876, 1215}
+			levels = {60, 70, 75, 80}, 
+			averages = {665, 885, 1435, 1670}}
 		-- Earthliving Weapon proc
 		local Earthliving = GetSpellInfo(52000)
-		hotData[Earthliving] = {interval = 3, ticks = 4, coeff = 0.40, levels = {30, 40, 50, 60, 70, 80}, averages = {116, 160, 220, 348, 456, 652}}
+		hotData[Earthliving] = {interval = 3, ticks = 4, coeff = 0.40, 
+			--coeff = 0.171,
+			--maxlevels = { 38, 48, 58, 68, 78, 88},
+			--averages = { 16, 23, 31, 49, 64, 163}
+			levels = {30, 40, 50, 60, 70, 80}, 
+			averages = {116, 160, 220, 348, 456, 652}}
 		
 		-- Spell data
 		-- Chain Heal
 		local ChainHeal = GetSpellInfo(1064)
-		spellData[ChainHeal] = {coeff = 0.35, levels = {40, 46, 54, 61, 68, 74, 80}, increase = {100, 95, 85, 72, 45, 22, 0},
-			averages = {avg(320, 368), avg(405, 465), avg(551, 629), avg(605, 691), avg(826, 942), avg(906, 1034), avg(1055, 1205)}}
+		spellData[ChainHeal] = {coeff = 0.35, 
+			levels = {40, 46, 54, 61, 68, 74, 80}, 
+			increase = {100, 95, 85, 72, 45, 22, 0},
+			--coeff = 0.356,
+			--maxlevels = { 45, 51, 59, 66, 73, 79, 84},
+			--levelincrease = { 2.5, 2.8, 3.3, 3.8, 3.8, 3.8, 3.8}
+			averages = { avg(304, 343), avg(384, 433), avg(426, 496), avg(522, 585), avg(581, 675), avg(796, 925), avg(928, 1079)}}
 		-- Healing Wave
 		local HealingWave = GetSpellInfo(331)
-		spellData[HealingWave] = {coeff = 0.45, levels = {1, 6, 12, 18, 24, 32, 40, 48, 56, 60, 63, 70, 75, 80},
-			averages = {avg(34, 44), avg(64, 78), avg(129, 155), avg(268, 316), avg(376, 440), avg(536, 622), avg(740, 854), avg(1017, 1167), avg(1367, 1561), avg(1620, 1850), avg(1725, 1969), avg(2134, 2438), avg(2624, 2996), avg(3034, 3466)},
+		spellData[HealingWave] = {coeff = 0.45, 
+			levels = {1, 6, 12, 18, 24, 32, 40, 48, 56, 60, 63, 70, 75, 80},
+			--coeff = 0.444,
+			--maxlevels = { 5, 11, 17, 23, 29, 37, 45, 53, 61, 65, 68, 74, 79, 84},
+			--levelincrease = { 0.7, 1, 1.5, 2.3, 2.7, 3.3, 3.9, 4.7, 5.5, 5.5, 6.3, 7.1, 8, 9}
+			averages = { avg(24, 33), avg(46, 58), avg(92, 114), avg(192, 231), avg(270, 322), avg(386, 456), avg(532, 624), avg(731, 852), avg(983, 1139), avg(1166, 1351), avg(1342, 1538), avg(1636, 1878), avg(2361, 2734), avg(2730, 3163)},
 			increase = {55, 74, 102, 142, 151, 158, 156, 150, 132, 110, 107, 71, 40, 0}}
 		-- Lesser Healing Wave
 		local LesserHealingWave = GetSpellInfo(8004)
-		spellData[LesserHealingWave] = {coeff = 0.215, levels = {20, 28, 36, 44, 52, 60, 66, 72, 77}, increase = {102, 109, 110, 108, 100, 84, 58, 40, 18},
-			averages = {avg(162, 186), avg(247, 281), avg(337, 381), avg(458, 514), avg(631, 705), avg(832, 928), avg(1039, 1185), avg(1382, 1578), avg(1606, 1834)}}		
+		spellData[LesserHealingWave] = {coeff = 0.215, 
+			levels = {20, 28, 36, 44, 52, 60, 66, 72, 77}, 
+			--coeff = 0.24,
+			--maxlevels = { 25, 33, 41, 49, 57, 65, 70, 76, 81},
+			--levelincrease = { 1.7, 2.1, 2.5, 3, 3.6, 4.2, 4.2, 5, 6}
+			increase = {102, 109, 110, 108, 100, 84, 58, 40, 18},
+			averages = { avg(129, 149), avg(197, 225), avg(269, 305), avg(366, 412), avg(504, 564), avg(665, 743), avg(830, 948), avg(1381, 1578), avg(1605, 1834)}}		
 		-- Talent data
 		local EarthShield = GetSpellInfo(49284)
 		-- Improved Chain Heal (Multi)

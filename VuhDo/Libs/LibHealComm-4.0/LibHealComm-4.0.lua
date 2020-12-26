@@ -724,9 +724,9 @@ if( playerClass == "DRUID" ) then
 
 		-- Hot data
 		local Renew = GetSpellInfo(139)
-		hotData[Renew] = {coeff = 1, interval = 3, ticks = 5, levels = {8, 14, 20, 26, 32, 38, 44, 50, 56, 60, 65, 70, 75, 80}, averages = {45, 100, 175, 245, 315, 400, 510, 650, 810, 970, 1010, 1110, 1235, 1400}}
-		--local GlyphofPoH = GetSpellInfo(56161)
-		--hotData[GlyphofPoH] = {isMulti = true, interval = 3}
+		hotData[Renew] = {coeff = 0.5, interval = 3, ticks = 5, levels = {8, 14, 20, 26, 32, 38, 44, 50, 56, 60, 65, 70, 75, 80}, averages = {45, 100, 175, 245, 315, 400, 510, 650, 810, 970, 1010, 1110, 1235, 1400}}
+		local GlyphofPoH = GetSpellInfo(56161)
+		hotData[GlyphofPoH] = {isMulti = true, interval = 3}
 		
 		-- Spell data
 		-- Greater Heal

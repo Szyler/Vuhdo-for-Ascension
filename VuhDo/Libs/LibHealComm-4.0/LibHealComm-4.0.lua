@@ -1053,8 +1053,11 @@ if( playerClass == "DRUID" ) then
 			local rank = HealComm.rankNumbers[spellRank]
 			local healAmount = hotData[spellName].averages[rank]
 			local spellPower = GetSpellBonusHealing()
-			local healModifier, spModifier = playerHealModifier, 1
-			local bombAmount, totalTicks
+			local healModifier = playerHealModifier
+			local spModifier = hotData[spellName].coeff
+			local interval = hotData[spellName].interval
+			local totalTicks = hotData[spellName].ticks
+			local bombAmount
 			healModifier = healModifier + talentData[GiftofNature].current
 			healModifier = healModifier + talentData[Genesis].current
 					
@@ -1077,22 +1080,15 @@ if( playerClass == "DRUID" ) then
 				-- 22398 - Idol of Rejuvenation, +50 SP to Rejuv
 				elseif( playerCurrentRelic == 22398 ) then
 					spellPower = spellPower + 50
-				end
+				end				
 				
-				local duration, ticks
-				
-				duration = 15
-				ticks = 5
-				totalTicks = 5
-				
-				
-				spellPower = spellPower * (((duration / 15) * 1.88) * (1 + talentData[EmpoweredRejuv].current))
-				spellPower = spellPower / ticks
-				healAmount = healAmount / ticks
+				spModifier = spModifier * (1 + talentData[EmpoweredRejuv].current)
+				-- spellPower = spellPower / ticks
+				-- healAmount = healAmount / ticks
 				
 				--38366 - Idol of Pure Thoughts, +33 SP base per tick
 				if( playerCurrentRelic == 38366 ) then
-					spellPower = spellPower + 33
+					healAmount = healAmount + (33 * ticks)
 				end
 
 				-- Nature's Splendor, +6 seconds
@@ -1100,11 +1096,11 @@ if( playerClass == "DRUID" ) then
 
 			-- Regrowth
 			elseif( spellName == Regrowth ) then
-				spellPower = spellPower * (hotData[spellName].coeff * (1 + talentData[EmpoweredRejuv].current))
-				spellPower = spellPower / hotData[spellName].ticks
-				healAmount = healAmount / hotData[spellName].ticks
+				spModifier = spModifier * (hotData[spellName].coeff * (1 + talentData[EmpoweredRejuv].current))
+				-- spellPower = spellPower / hotData[spellName].ticks
+ 				-- healAmount = healAmount / hotData[spellName].ticks
 				
-				totalTicks = 7
+				-- totalTicks = 7
 				-- Nature's Splendor, +6 seconds
 				if( talentData[NaturesSplendor].mod >= 1 ) then totalTicks = totalTicks + 2 end
 				-- T5 Resto, +6 seconds
@@ -1118,15 +1114,14 @@ if( playerClass == "DRUID" ) then
 					bombSpellPower = bombSpellPower + bloomBombIdols[playerCurrentRelic]
 				end
 				
-				local bombSpell = bombSpellPower * (hotData[spellName].dhCoeff * 1.88)
-				bombAmount = math.ceil(calculateGeneralAmount(hotData[spellName].levels[rank], hotData[spellName].bomb[rank], bombSpell, spModifier, healModifier + talentData[GiftofNature].current))
+				bombAmount = math.ceil(calculateGeneralAmount(hotData[spellName].levels[rank], hotData[spellName].bomb[rank], bombSpellPower, spModifier, healModifier + talentData[GiftofNature].current))
 			
 				-- Figure out the hot tick healing
-				spellPower = spellPower * (hotData[spellName].coeff * (1 + talentData[EmpoweredRejuv].current))
-				spellPower = spellPower / hotData[spellName].ticks
-				healAmount = healAmount / hotData[spellName].ticks
+				spModifier = spModifier * (hotData[spellName].coeff * (1 + talentData[EmpoweredRejuv].current))
+				-- spellPower = spellPower / hotData[spellName].ticks
+ 				-- healAmount = healAmount / hotData[spellName].ticks
 				-- Figure out total ticks
-				totalTicks = 7
+				-- totalTicks = 7
 				
 				-- Idol of Lush Moss, +125 SP per tick
 				if( playerCurrentRelic == 40711 ) then
@@ -1142,7 +1137,7 @@ if( playerClass == "DRUID" ) then
 				if( talentData[NaturesSplendor].mod >= 1 ) then totalTicks = totalTicks + 1 end
 			-- Wild Growth
 			elseif( spellName == WildGrowth ) then
-				spellPower = spellPower * (hotData[spellName].coeff * (1 + talentData[EmpoweredRejuv].current))
+				spModifier = spModifier * (hotData[spellName].coeff * (1 + talentData[EmpoweredRejuv].current))
 				spellPower = spellPower / hotData[spellName].ticks
 				spellPower = calculateSpellPower(hotData[spellName].levels[rank], spellPower)
 				healAmount = healAmount / hotData[spellName].ticks
@@ -1177,13 +1172,11 @@ if( playerClass == "DRUID" ) then
 				if( glyphCache[55674] ) then
 					healModifier = healModifier + 0.25
 					totalTicks = 4
-				else
-					totalTicks = 5
 				end
 				
-				spellPower = spellPower * ((hotData[spellName].coeff * 1.88) * (1 + (talentData[EmpoweredRenew].current)))
-				spellPower = spellPower / hotData[spellName].ticks
-				healAmount = healAmount / hotData[spellName].ticks
+				spellPower = spellPower * (1 + (talentData[EmpoweredRenew].current))
+				-- spellPower = spellPower / hotData[spellName].ticks
+ 				-- healAmount = healAmount / hotData[spellName].ticks
 				
 			end
 			------------------------------------------------------------------------------------------------------------------------------------
@@ -1197,11 +1190,11 @@ if( playerClass == "DRUID" ) then
 				end
 				healModifier = healModifier + talentData[Purification].current
 				
-				spellPower = spellPower * (hotData[spellName].coeff * 1.88)
-				spellPower = spellPower / hotData[spellName].ticks
-				healAmount = healAmount / hotData[spellName].ticks
+				-- spellPower = spellPower * (hotData[spellName].coeff * 1.88)
+				-- spellPower = spellPower / hotData[spellName].ticks
+ 				-- healAmount = healAmount / hotData[spellName].ticks
 				
-				totalTicks = hotData[spellName].ticks
+				-- totalTicks = hotData[spellName].ticks
 				-- Glyph of Riptide, +6 seconds
 				if( glyphCache[63273] ) then totalTicks = totalTicks + 2 end
 				
@@ -1209,11 +1202,11 @@ if( playerClass == "DRUID" ) then
 			elseif( spellName == Earthliving ) then
 				healModifier = healModifier + talentData[Purification].current
 
-				spellPower = (spellPower * (hotData[spellName].coeff * 1.88) * 0.45)
-				spellPower = spellPower / hotData[spellName].ticks
-				healAmount = healAmount / hotData[spellName].ticks
+				-- spellPower = (spellPower * (hotData[spellName].coeff * 1.88) * 0.45)
+				-- spellPower = spellPower / hotData[spellName].ticks
+ 				-- healAmount = healAmount / hotData[spellName].ticks
 				
-				totalTicks = hotData[spellName].ticks
+				-- totalTicks = hotData[spellName].ticks
 			end
 
 	
@@ -1248,7 +1241,7 @@ if( playerClass == "DRUID" ) then
 					healModifier = healModifier * 1.20
 				end
 				
-				spellPower = spellPower * ((spellData[spellName].coeff * 1.88) * (1 + talentData[EmpoweredRejuv].current))
+				spModifier = spModifier * (1 + talentData[EmpoweredRejuv].current)
 			-- Nourish
 			elseif( spellName == Nourish ) then
 				-- 46138 - Idol of Flourishing Life, +187 Nourish SP
@@ -1274,7 +1267,7 @@ if( playerClass == "DRUID" ) then
 					healModifier = healModifier * bonus
 				end
 				
-				spellPower = spellPower * ((spellData[spellName].coeff * 1.88) + talentData[EmpoweredTouch].spent * 0.10)
+				spModifier = spModifier + talentData[EmpoweredTouch].spent * 0.10
 			-- Healing Touch
 			elseif( spellName == HealingTouch ) then
 				-- Glyph of Healing Touch, -50% healing
@@ -1292,13 +1285,13 @@ if( playerClass == "DRUID" ) then
 	
 				-- Rank 1 - 3: 1.5/2/2.5 cast time, Rank 4+: 3 cast time
 				local castTime = rank > 3 and 3 or rank == 3 and 2.5 or rank == 2 and 2 or 1.5
-				spellPower = spellPower * (((castTime / 3.5) * 1.88) + talentData[EmpoweredTouch].current)
+				spModifier = spModifier * (((castTime / 3.5) * 1.88) + talentData[EmpoweredTouch].current)
 	
 			-- Tranquility
 			elseif( spellName == Tranquility ) then
 				healModifier = healModifier + talentData[Genesis].current
 				
-				spellPower = spellPower * ((spellData[spellName].coeff * 1.88) * (1 + talentData[EmpoweredRejuv].current))
+				spModifier = spModifier * (1 + talentData[EmpoweredRejuv].current)
 				spellPower = spellPower / spellData[spellName].ticks
 			end
 			
@@ -1355,14 +1348,14 @@ if( playerClass == "DRUID" ) then
 			
 			-- Greater Heal
 			if( spellName == GreaterHeal ) then
-				spellPower = spellPower * ((spellData[spellName].coeff * 1.88) * (1 + talentData[EmpoweredHealing].current))
+				spModifier = spModifier * (1 + talentData[EmpoweredHealing].current)
 			-- Flash Heal
 			elseif( spellName == FlashHeal ) then
-				spellPower = spellPower * ((spellData[spellName].coeff * 1.88) * (1 + talentData[EmpoweredHealing].spent * 0.04))
+				spModifier = spModifier * (1 + talentData[EmpoweredHealing].spent * 0.04)
 			-- Binding Heal
 			elseif( spellName == BindingHeal ) then
 				healModifier = healModifier + talentData[DivineProvidence].current
-				spellPower = spellPower * ((spellData[spellName].coeff * 1.88) * (1 + talentData[EmpoweredHealing].spent * 0.04))
+				spModifier = spModifier * (1 + talentData[EmpoweredHealing].spent * 0.04)
 			-- Penance
 			elseif( spellName == Penance ) then
 				spellPower = spellPower * (spellData[spellName].coeff * 1.88)
@@ -1415,7 +1408,7 @@ if( playerClass == "DRUID" ) then
 				end
 				
 				local castTime = rank > 3 and 3 or rank == 3 and 2.5 or rank == 2 and 2 or 1.5
-				spellPower = spellPower * (((castTime / 3.5) * 1.88) + talentData[TidalWaves].current)
+				spModifier = spModifier * (((castTime / 3.5) * 1.88) + talentData[TidalWaves].current)
 							
 			-- Lesser Healing Wave
 			elseif( spellName == LesserHealingWave ) then
@@ -1426,7 +1419,7 @@ if( playerClass == "DRUID" ) then
 				healModifier = healModifier + talentData[Purification].current
 				
 				spellPower = spellPower + (playerCurrentRelic and lhwTotems[playerCurrentRelic] or 0)
-				spellPower = spellPower * ((spellData[spellName].coeff * 1.88) + talentData[TidalWaves].spent * 0.02)
+				spModifier = spModifier * ((spellData[spellName].coeff * 1.88) + talentData[TidalWaves].spent * 0.02)
 			end
 
 			------------------------------------------------------------------------------------------------------------------------------------

@@ -809,7 +809,7 @@ if( playerClass == "DRUID" ) then
 		spellData[GreaterHeal] = {
 			-- coeff = 0.425, 
 			levels = {1, 4, 10, 16, 22, 28, 34, 40, 46, 52, 58, 60, 63, 68, 73, 78}, 
-			increase = {71, 83, 112, 153, 185, 208, 207, 204, 197, 184, 165, 162, 142, 111, 92, 30},
+			-- increase = {71, 83, 112, 153, 185, 208, 207, 204, 197, 184, 165, 162, 142, 111, 92, 30},
 			coeff = 0.444,
 			maxlevels = { 3, 9, 15, 21, 27, 33, 39, 45, 51, 57, 63, 65, 67, 72, 77, 82},
 			levelincrease = { 0.9, 1.1, 1.6, 2.4, 3.2, 4, 4.5, 5.1, 5.8, 6.6, 7.5, 8.1, 8.4, 9.3, 13.2, 15.4},
@@ -820,7 +820,7 @@ if( playerClass == "DRUID" ) then
 		spellData[PrayerofHealing] = {
 			-- coeff = 0.1399, 
 			levels = {30, 40, 50, 60, 60, 68, 76}, 
-			increase = {65, 64, 60, 48, 50, 33, 18},
+			-- increase = {65, 64, 60, 48, 50, 33, 18},
 			coeff = 0.1364,
 			maxlevels = { 39, 49, 59, 69, 69, 75, 82, 0},
 			levelincrease = { 1.3, 1.6, 2, 2.4, 2.5, 2.8, 4.7, 0},
@@ -831,7 +831,7 @@ if( playerClass == "DRUID" ) then
 		spellData[FlashHeal] = {
 			-- coeff = 0.215, 
 			levels = {20, 26, 32, 38, 44, 52, 58, 61, 67, 73, 79}, 
-			increase = {114, 118, 120, 117, 118, 111, 100, 89, 67, 56, 9},
+			-- increase = {114, 118, 120, 117, 118, 111, 100, 89, 67, 56, 9},
 			coeff = 0.24,
 			maxlevels = { 25, 31, 37, 43, 49, 55, 61, 65, 71, 78, 84},
 			levelincrease = { 1.9, 2.2, 2.5, 2.8, 3.3, 3.7, 4.2, 4.7, 5.2, 8, 9.7},
@@ -846,7 +846,7 @@ if( playerClass == "DRUID" ) then
 				maxlevels = { 71, 76, 82},
 				levelincrease = { 4.2, 3, 3.6},
 				averages = { avg(748, 870), avg(1618, 2081), avg(1951, 2508)}, 
-				increase = {30, 24, 7}
+				-- increase = {30, 24, 7}
 			}
 		-- Penance
 		local Penance = GetSpellInfo(53007)

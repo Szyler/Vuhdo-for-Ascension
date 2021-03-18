@@ -1,7 +1,6 @@
-since Version 2.22 (to 3.01):
+Vuhdo for Ascension version 3.01 - By Szyler
 
 Bugfixes:
--- Fixed the Heal/Lesser Heal merge into Greater Heal  
 
 Improvements:
 -- Added SP scaling to Rejuvination
@@ -9,6 +8,8 @@ Improvements:
 Changes:
 -- Moved all spells into Druid
 -- Moved all buffs into Druid
+-- Fixed SP scaling of Ascension
+-- Fixed the Heal/Lesser Heal merge into Greater Heal  
 
 Features:
 

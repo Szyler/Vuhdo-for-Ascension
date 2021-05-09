@@ -391,8 +391,7 @@ local tUnit;
 local tInfo;
 local tVariants, tMaxVariant;
 function VUHDO_setupSmartCast(aButton)
-	if (InCombatLockdown() or UnitIsDeadOrGhost("player")
-		or (VUHDO_PLAYER_CLASS == "PRIEST" and GetShapeshiftForm() ~= 0 and not VUHDO_isShadowForm())) then
+	if (InCombatLockdown() or UnitIsDeadOrGhost("player")) then		--or (VUHDO_PLAYER_CLASS == "PRIEST" and GetShapeshiftForm() ~= 0 and not VUHDO_isShadowForm())
 		return false;
 	end
 

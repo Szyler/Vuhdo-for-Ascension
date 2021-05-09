@@ -4,7 +4,7 @@ VUHDO_ACTIVE_HOTS_OTHERS = { };
 VUHDO_PLAYER_HOTS = { };
 
 local VUHDO_SPELL_TARGET_SELF = 1;            -- Heal target is player
-local VUHDO_SPELL_TARGET_TARGET = 2;					-- Heal target is selected target
+local VUHDO_SPELL_TARGET_TARGET = 2;		  -- Heal target is selected target
 local VUHDO_SPELL_TARGET_GROUP_OWN = 3;       -- Heal target is players group
 local VUHDO_SPELL_TARGET_GROUP_TARGET = 4;    -- Heal target is selected target's group
 local VUHDO_SPELL_TARGET_SELF_TARGET = 5;     -- Heal target is player and selected target
@@ -254,12 +254,12 @@ local VUHDO_SPELLS = VUHDO_SPELLS;
 
 -- Spells from talents only, not in spellbook
 local function VUHDO_addTalentSpells()
-	if (VUHDO_PLAYER_CLASS == "SHAMAN") then
+	-- if (VUHDO_PLAYER_CLASS == "SHAMAN") then
 		VUHDO_SPELLS[VUHDO_SPELL_ID_ANCESTRAL_HEALING]["present"] = true;
 		VUHDO_SPELLS[VUHDO_SPELL_ID_ANCESTRAL_HEALING]["icon"] = "Interface\\Icons\\Spell_Nature_UndyingStrength";
-	end
+	-- end
 
-	if (VUHDO_PLAYER_CLASS == "PRIEST") then
+	-- if (VUHDO_PLAYER_CLASS == "PRIEST") then
 		VUHDO_SPELLS[VUHDO_SPELL_ID_GRACE]["present"] = true;
 		VUHDO_SPELLS[VUHDO_SPELL_ID_GRACE]["icon"] = "Interface\\Icons\\Spell_Holy_Hopeandgrace";
 
@@ -274,7 +274,7 @@ local function VUHDO_addTalentSpells()
 
 		VUHDO_SPELLS[VUHDO_SPELL_ID_BLESSED_HEALING]["present"] = true;
 		_, _, VUHDO_SPELLS[VUHDO_SPELL_ID_BLESSED_HEALING]["icon"] = GetSpellInfo(70772);
-	end
+	-- end
 
   -- Val'anyr, Hammer of Ancient Kings
   VUHDO_SPELLS[VUHDO_SPELL_ID_POAK]["present"] = true;

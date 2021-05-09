@@ -587,13 +587,19 @@ function VUHDO_slashCmd(aCommand)
 	local tParsedTexts = VUHDO_textParse(aCommand);
 	local tCommandWord = strlower(tParsedTexts[1]);
 
-	if (strfind(tCommandWord, "opt")) then
+	if (strfind(tCommandWord, "opt"	or aCommand == "")) then
 		if (VuhDoNewOptionsTabbedFrame ~= nil) then
 			if (InCombatLockdown() and not VuhDoNewOptionsTabbedFrame:IsShown()) then
 				VUHDO_Msg("Leave combat first!", 1, 0.4, 0.4);
 			else
 				VUHDO_toggleMenu(VuhDoNewOptionsTabbedFrame);
 			end
+		else
+			VUHDO_Msg(VUHDO_I18N_OPTIONS_NOT_LOADED, 1, 0.4, 0.4);
+		end
+	if (strfind(tCommandWord, "combat")) then
+		if (VuhDoNewOptionsTabbedFrame ~= nil) then
+			VUHDO_toggleMenu(VuhDoNewOptionsTabbedFrame);
 		else
 			VUHDO_Msg(VUHDO_I18N_OPTIONS_NOT_LOADED, 1, 0.4, 0.4);
 		end
@@ -727,8 +733,7 @@ function VUHDO_slashCmd(aCommand)
 --		end
 --		VUHDO_seeProfiler();
 	elseif (aCommand == "?"
-		or strfind(tCommandWord, "help")
-		or aCommand == "") then
+		or strfind(tCommandWord, "help")) then
 		local tLines = VUHDO_splitString(VUHDO_I18N_COMMAND_LIST, "�");
 		local tCurLine;
 		for _, tCurLine in ipairs(tLines) do

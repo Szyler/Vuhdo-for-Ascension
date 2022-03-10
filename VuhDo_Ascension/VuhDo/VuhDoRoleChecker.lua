@@ -201,7 +201,7 @@ function VUHDO_inspectLockRole()
 		elseif(tPoints3 > tPoints2) then
 			VUHDO_INSPECTED_ROLES[tInfo["name"]] = 63; -- VUHDO_ID_RANGED_HEAL
 		else
-			-- "Natürliche Reaktion" geskillt => Wahrsch. Tank?
+			-- "Natï¿½rliche Reaktion" geskillt => Wahrsch. Tank?
 			_, _, _, _, tRank, _, _, _ = GetTalentInfo(2, 16, tIsInspect, false, tActiveTree);
 			if (tRank > 0) then
 				VUHDO_INSPECTED_ROLES[tInfo.name] = 60; -- VUHDO_ID_MELEE_TANK
@@ -221,7 +221,7 @@ function VUHDO_inspectLockRole()
 		end
 
 	elseif (VUHDO_ID_SHAMANS == tClassId) then
-	  -- 1 = Elementar, 2 = Verstärker, 3 = Wiederherstellung
+	  -- 1 = Elementar, 2 = Verstï¿½rker, 3 = Wiederherstellung
 		if (tPoints1 > tPoints2 and tPoints1 > tPoints3) then
 			VUHDO_INSPECTED_ROLES[tInfo["name"]] = 62; -- VUHDO_ID_RANGED_DAMAGE
 		elseif (tPoints2 > tPoints3) then
@@ -279,18 +279,18 @@ function VUHDO_determineRole(aUnit)
 		return nil;
 	end
 
-	tClassId = tInfo["classId"];
+	-- tClassId = tInfo["classId"];
 
-  -- Role determined by non-hybrid class?
-	if (21 == tClassId) then -- VUHDO_ID_ROGUES
-		return 61; -- VUHDO_ID_MELEE_DAMAGE
-	elseif (22 == tClassId) then -- VUHDO_ID_HUNTERS
-		return 62; -- VUHDO_ID_RANGED_DAMAGE
-	elseif (24 == tClassId) then -- VUHDO_ID_MAGES
-		return 62; -- VUHDO_ID_RANGED_DAMAGE
-	elseif (25 == tClassId) then -- VUHDO_ID_WARLOCKS
-		return 62; -- VUHDO_ID_RANGED_DAMAGE
-	end
+--   -- Role determined by non-hybrid class?
+-- 	if (21 == tClassId) then -- VUHDO_ID_ROGUES
+-- 		return 61; -- VUHDO_ID_MELEE_DAMAGE
+-- 	elseif (22 == tClassId) then -- VUHDO_ID_HUNTERS
+-- 		return 62; -- VUHDO_ID_RANGED_DAMAGE
+-- 	elseif (24 == tClassId) then -- VUHDO_ID_MAGES
+-- 		return 62; -- VUHDO_ID_RANGED_DAMAGE
+-- 	elseif (25 == tClassId) then -- VUHDO_ID_WARLOCKS
+-- 		return 62; -- VUHDO_ID_RANGED_DAMAGE
+-- 	end
 
 	tName = tInfo["name"];
 	-- Manual role override oder dungeon finder role?
@@ -302,98 +302,122 @@ function VUHDO_determineRole(aUnit)
  	if (VUHDO_isUnitInModel(aUnit, 41)) then -- VUHDO_ID_MAINTANKS
 		return 60; -- VUHDO_ID_MELEE_TANK
  	end
-	-- Talent tree inspected?
-	if (VUHDO_INSPECTED_ROLES[tName] ~= nil) then
-		return VUHDO_INSPECTED_ROLES[tName];
-	end
+	-- -- Talent tree inspected?
+	-- if (VUHDO_INSPECTED_ROLES[tName] ~= nil) then
+	-- 	return VUHDO_INSPECTED_ROLES[tName];
+	-- end
   -- Estimated role fixed?
+  	local _, tDefense = UnitDefense(aUnit);
+	local _, _, tBuffExist_RF = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_RIGHTEOUS_FURY);
+	local _, _, tBuffExist_AotM = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_ASPECT_OF_THE_MONKEY);
+	local _, _, tBuffExist_BF = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_BEAR_FORM);
+	local _, _, tBuffExist_DBF = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_DIRE_BEAR_FORM);
+	local _, _, tBuffExist_ToL = UnitBuff(aUnit, VUHDO_SPELL_ID_TREE_OF_LIFE);
+	local _, _, tBuffExist_SF = UnitBuff(aUnit, VUHDO_SPELL_ID_SHADOWFORM);
+	local _, _, tBuffExist_MKF = UnitBuff(aUnit, VUHDO_SPELL_ID_MOONKIN_FORM);
+	local _, _, tBuffExist_AotH = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_ASPECT_OF_THE_HAWK);
+	local _, _, tBuffExist_CC = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_CRIMSON_CHAMPION);
+
 	if (VUHDO_FIX_ROLES[tName] ~= nil) then
 		return VUHDO_FIX_ROLES[tName];
+	elseif (tBuffExist_RF or tBuffExist_AotM or tBuffExist_BF or tBuffExist_DBF or tBuffExist_CC or tDefense>20) then
+		VUHDO_FIX_ROLES[tName] = 60; -- VUHDO_ID_MELEE_TANK
+		return 60; -- VUHDO_ID_MELEE_TANK
+	elseif (tBuffExist_ToL) then
+		VUHDO_FIX_ROLES[tName] = 63; -- VUHDO_ID_RANGED_HEAL
+		return 63;
+	elseif (tBuffExist_SF or tBuffExist_MKF or tBuffExist_AotH) then
+		VUHDO_FIX_ROLES[tName] = 62; -- VUHDO_ID_RANGED_DAMAGE
+		return 62;
+	else
+		VUHDO_FIX_ROLES[tName] = 61; -- VUHDO_ID_MELEE_DAMAGE
+		return 61;
 	end
 
-	if (29 == tClassId) then -- VUHDO_ID_DEATH_KNIGHT
-		_, _, tBuffExist = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_FROST_PRESENCE);
-		if (tBuffExist) then
-			VUHDO_FIX_ROLES[tName] = 60; -- VUHDO_ID_MELEE_TANK
-			return 60; -- VUHDO_ID_MELEE_TANK
-		else
-			VUHDO_FIX_ROLES[tName] = 61; -- VUHDO_ID_MELEE_DAMAGE
-			return 61; -- VUHDO_ID_MELEE_DAMAGE
-		end
 
-	elseif (28 == tClassId) then -- VUHDO_ID_PRIESTS
-		_, _, tBuffExist = UnitBuff(aUnit, VUHDO_SPELL_ID_SHADOWFORM);
-		if (tBuffExist) then
-			VUHDO_FIX_ROLES[tName] = 62; -- VUHDO_ID_RANGED_DAMAGE
-			return 62; -- VUHDO_ID_RANGED_DAMAGE
-		else
-			return 63; -- VUHDO_ID_RANGED_HEAL
-		end
+	-- if (29 == tClassId) then -- VUHDO_ID_DEATH_KNIGHT
+	-- 	_, _, tBuffExist = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_FROST_PRESENCE);
+	-- 	if (tBuffExist) then
+	-- 		VUHDO_FIX_ROLES[tName] = 60; -- VUHDO_ID_MELEE_TANK
+	-- 		return 60; -- VUHDO_ID_MELEE_TANK
+	-- 	else
+	-- 		VUHDO_FIX_ROLES[tName] = 61; -- VUHDO_ID_MELEE_DAMAGE
+	-- 		return 61; -- VUHDO_ID_MELEE_DAMAGE
+	-- 	end
 
-	elseif (20 == tClassId) then -- VUHDO_ID_WARRIORS
-		_, tDefense = UnitDefense(aUnit);
-		tDefense = tDefense / UnitLevel(aUnit);
+	-- elseif (28 == tClassId) then -- VUHDO_ID_PRIESTS
+	-- 	_, _, tBuffExist = UnitBuff(aUnit, VUHDO_SPELL_ID_SHADOWFORM);
+	-- 	if (tBuffExist) then
+	-- 		VUHDO_FIX_ROLES[tName] = 62; -- VUHDO_ID_RANGED_DAMAGE
+	-- 		return 62; -- VUHDO_ID_RANGED_DAMAGE
+	-- 	else
+	-- 		return 63; -- VUHDO_ID_RANGED_HEAL
+	-- 	end
 
-		if (tDefense > 2 or VUHDO_isUnitInModel(aUnit, VUHDO_ID_MAINTANKS)) then
-			return 60; -- VUHDO_ID_MELEE_TANK
-		else
-			return 61; -- VUHDO_ID_MELEE_DAMAGE
-		end
+	-- elseif (20 == tClassId) then -- VUHDO_ID_WARRIORS
+	-- 	_, tDefense = UnitDefense(aUnit);
+	-- 	tDefense = tDefense / UnitLevel(aUnit);
 
-	elseif (27 == tClassId) then -- VUHDO_ID_DRUIDS
-		tPowerType = UnitPowerType(aUnit);
-		if (VUHDO_UNIT_POWER_MANA == tPowerType) then
-			_, _, tBuffExist = UnitBuff(aUnit, VUHDO_SPELL_ID_MOONKIN_FORM);
-			if (tBuffExist) then
-				VUHDO_FIX_ROLES[tName] = 62; -- VUHDO_ID_RANGED_DAMAGE
-				return 62; -- VUHDO_ID_RANGED_DAMAGE
-			else
-				_, _, tBuffExist = UnitBuff(aUnit, VUHDO_SPELL_ID_TREE_OF_LIFE);
-				if (tBuffExist) then
-					VUHDO_FIX_ROLES[tName] = 63; -- VUHDO_ID_RANGED_HEAL
-				end
+	-- 	if (tDefense > 2 or VUHDO_isUnitInModel(aUnit, VUHDO_ID_MAINTANKS)) then
+	-- 		return 60; -- VUHDO_ID_MELEE_TANK
+	-- 	else
+	-- 		return 61; -- VUHDO_ID_MELEE_DAMAGE
+	-- 	end
 
-				return 63; -- VUHDO_ID_RANGED_HEAL
-			end
-		elseif (VUHDO_UNIT_POWER_RAGE == tPowerType) then
-			VUHDO_FIX_ROLES[tName] = 60; -- VUHDO_ID_MELEE_TANK
-			return 60; -- VUHDO_ID_MELEE_TANK
-		elseif (VUHDO_UNIT_POWER_ENERGY == tPowerType) then
-			VUHDO_FIX_ROLES[tName] = 61; -- VUHDO_ID_MELEE_DAMAGE
-			return 61; -- VUHDO_ID_MELEE_DAMAGE
-		end
+	-- elseif (27 == tClassId) then -- VUHDO_ID_DRUIDS
+	-- 	tPowerType = UnitPowerType(aUnit);
+	-- 	if (VUHDO_UNIT_POWER_MANA == tPowerType) then
+	-- 		_, _, tBuffExist = UnitBuff(aUnit, VUHDO_SPELL_ID_MOONKIN_FORM);
+	-- 		if (tBuffExist) then
+	-- 			VUHDO_FIX_ROLES[tName] = 62; -- VUHDO_ID_RANGED_DAMAGE
+	-- 			return 62; -- VUHDO_ID_RANGED_DAMAGE
+	-- 		else
+	-- 			_, _, tBuffExist = UnitBuff(aUnit, VUHDO_SPELL_ID_TREE_OF_LIFE);
+	-- 			if (tBuffExist) then
+	-- 				VUHDO_FIX_ROLES[tName] = 63; -- VUHDO_ID_RANGED_HEAL
+	-- 			end
 
-	elseif (23 == tClassId) then -- VUHDO_ID_PALADINS
-		_, tDefense = UnitDefense(aUnit);
-		tDefense = tDefense / UnitLevel(aUnit);
+	-- 			return 63; -- VUHDO_ID_RANGED_HEAL
+	-- 		end
+	-- 	elseif (VUHDO_UNIT_POWER_RAGE == tPowerType) then
+	-- 		VUHDO_FIX_ROLES[tName] = 60; -- VUHDO_ID_MELEE_TANK
+	-- 		return 60; -- VUHDO_ID_MELEE_TANK
+	-- 	elseif (VUHDO_UNIT_POWER_ENERGY == tPowerType) then
+	-- 		VUHDO_FIX_ROLES[tName] = 61; -- VUHDO_ID_MELEE_DAMAGE
+	-- 		return 61; -- VUHDO_ID_MELEE_DAMAGE
+	-- 	end
 
-		if (tDefense > 2) then
-			return 60; -- VUHDO_ID_MELEE_TANK
-		else
-			tIntellect = UnitStat(aUnit, 4);
-			tStrength = UnitStat(aUnit, 1);
+	-- elseif (23 == tClassId) then -- VUHDO_ID_PALADINS
+	-- 	_, tDefense = UnitDefense(aUnit);
+	-- 	tDefense = tDefense / UnitLevel(aUnit);
 
-			if (tIntellect > tStrength) then
-				return 63; -- VUHDO_ID_RANGED_HEAL
-			else
-				return 61; -- VUHDO_ID_MELEE_DAMAGE
-			end
-		end
+	-- 	if (tDefense > 2) then
+	-- 		return 60; -- VUHDO_ID_MELEE_TANK
+	-- 	else
+	-- 		tIntellect = UnitStat(aUnit, 4);
+	-- 		tStrength = UnitStat(aUnit, 1);
 
-	elseif (26 == tClassId) then -- VUHDO_ID_SHAMANS
-		tIntellect = UnitStat(aUnit, 4);
-		tAgility = UnitStat(aUnit, 2);
+	-- 		if (tIntellect > tStrength) then
+	-- 			return 63; -- VUHDO_ID_RANGED_HEAL
+	-- 		else
+	-- 			return 61; -- VUHDO_ID_MELEE_DAMAGE
+	-- 		end
+	-- 	end
 
-		if (tAgility > tIntellect) then
-			return 61; -- VUHDO_ID_MELEE_DAMAGE
-		else
-			if (VUHDO_DF_TOOL_ROLES[tName] == 61) then -- VUHDO_ID_MELEE_DAMAGE
-				return 62; -- VUHDO_ID_RANGED_DAMAGE
-			else
-				return 63; -- Can't tell, assume its a healer -- VUHDO_ID_RANGED_HEAL
-			end
-		end
-	end
+	-- elseif (26 == tClassId) then -- VUHDO_ID_SHAMANS
+	-- 	tIntellect = UnitStat(aUnit, 4);
+	-- 	tAgility = UnitStat(aUnit, 2);
+
+	-- 	if (tAgility > tIntellect) then
+	-- 		return 61; -- VUHDO_ID_MELEE_DAMAGE
+	-- 	else
+	-- 		if (VUHDO_DF_TOOL_ROLES[tName] == 61) then -- VUHDO_ID_MELEE_DAMAGE
+	-- 			return 62; -- VUHDO_ID_RANGED_DAMAGE
+	-- 		else
+	-- 			return 63; -- Can't tell, assume its a healer -- VUHDO_ID_RANGED_HEAL
+	-- 		end
+	-- 	end
+	-- end
 
 	return nil;
 end

@@ -226,7 +226,7 @@ VUHDO_I18N_TT_053 = "Select general heal visualization. Prefere \"neutral\" unle
 VUHDO_I18N_TT_054 = "Sets maximum number of players with lowest life shown at once. Irrelevant if mode is set to \"neutral\"";
 VUHDO_I18N_TT_055 = "Set a max. hitpoint percentage above which players are considered healthy, which means, they will faded out a bit (configurable).";
 
-VUHDO_I18N_TT_056 = "Check to ignore non harmful debuffs (due tue their nature).";
+VUHDO_I18N_TT_056 = "Check to ignore non harmful debuffs (due to their nature).";
 VUHDO_I18N_TT_057 = "Check to ignore debuffs only slowing movement.";
 VUHDO_I18N_TT_058 = "Check to ignore debuffs with very low duration.";
 VUHDO_I18N_TT_059 = "Check to ignore debuffs irrelevant by class (eg. mana burn on rogues).";

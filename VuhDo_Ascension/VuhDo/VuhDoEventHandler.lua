@@ -732,14 +732,27 @@ function VUHDO_slashCmd(aCommand)
 --			VUHDO_refreshUI();
 --		end
 --		VUHDO_seeProfiler();
-	elseif (aCommand == "?"	or strfind(tCommandWord, "help")) then
+	elseif (aCommand == "?"
+		or strfind(tCommandWord, "help")
+		or aCommand == "") then
 		local tLines = VUHDO_splitString(VUHDO_I18N_COMMAND_LIST, "�");
 		local tCurLine;
 		for _, tCurLine in ipairs(tLines) do
 			VUHDO_MsgC(tCurLine);
 		end
 	else
-		VUHDO_Msg(VUHDO_I18N_BAD_COMMAND, 1, 0.4, 0.4);
+		if (VuhDoNewOptionsTabbedFrame ~= nil) then
+			if (InCombatLockdown() and not VuhDoNewOptionsTabbedFrame:IsShown()) then
+				VUHDO_Msg("Leave combat first!", 1, 0.4, 0.4);
+			else
+				VUHDO_toggleMenu(VuhDoNewOptionsTabbedFrame);
+			end
+		else
+			VUHDO_Msg(VUHDO_I18N_OPTIONS_NOT_LOADED, 1, 0.4, 0.4);
+		end
+		if tCommandWord then
+			VUHDO_Msg(VUHDO_I18N_BAD_COMMAND, 1, 0.4, 0.4);
+		end
 	end
 end
 

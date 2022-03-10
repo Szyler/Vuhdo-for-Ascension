@@ -4,7 +4,7 @@ VUHDO_ACTIVE_HOTS_OTHERS = { };
 VUHDO_PLAYER_HOTS = { };
 
 local VUHDO_SPELL_TARGET_SELF = 1;            -- Heal target is player
-local VUHDO_SPELL_TARGET_TARGET = 2;		  -- Heal target is selected target
+local VUHDO_SPELL_TARGET_TARGET = 2;					-- Heal target is selected target
 local VUHDO_SPELL_TARGET_GROUP_OWN = 3;       -- Heal target is players group
 local VUHDO_SPELL_TARGET_GROUP_TARGET = 4;    -- Heal target is selected target's group
 local VUHDO_SPELL_TARGET_SELF_TARGET = 5;     -- Heal target is player and selected target

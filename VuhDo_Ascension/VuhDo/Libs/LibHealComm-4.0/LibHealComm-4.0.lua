@@ -1473,7 +1473,7 @@ if( playerClass == "DRUID" ) then
 				healModifier = healModifier + talentData[Purification].current
 				
 				spellPower = spellPower + (playerCurrentRelic and lhwTotems[playerCurrentRelic] or 0)
-				spModifier = spModifier * ((spellData[spellName].coeff * 1.88) + talentData[TidalWaves].spent * 0.02)
+				spModifier = spModifier * ((spellData[spellName].coeff * 1.88) + talentData[TidalWaves].current * 0.02)
 			end
 
 			------------------------------------------------------------------------------------------------------------------------------------

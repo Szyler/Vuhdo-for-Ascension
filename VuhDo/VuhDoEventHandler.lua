@@ -584,10 +584,11 @@ end
 
 --
 function VUHDO_slashCmd(aCommand)
+	local noString = aCommand
 	local tParsedTexts = VUHDO_textParse(aCommand);
 	local tCommandWord = strlower(tParsedTexts[1]);
-
-	if (strfind(tCommandWord, "opt"	or aCommand == "" or aCommand == nil)) then
+	-- print(string.format("\"%s\" was used as parameter, while \"%s\" was used as noString", aCommand, noString))
+	if (strfind(tCommandWord, "opt") or noString == "" or noString == nil) then
 		if (VuhDoNewOptionsTabbedFrame ~= nil) then
 			if (InCombatLockdown() and not VuhDoNewOptionsTabbedFrame:IsShown()) then
 				VUHDO_Msg("Leave combat first!", 1, 0.4, 0.4);
@@ -741,15 +742,15 @@ function VUHDO_slashCmd(aCommand)
 			VUHDO_MsgC(tCurLine);
 		end
 	else
-		if (VuhDoNewOptionsTabbedFrame ~= nil) then
-			if (InCombatLockdown() and not VuhDoNewOptionsTabbedFrame:IsShown()) then
-				VUHDO_Msg("Leave combat first!", 1, 0.4, 0.4);
-			else
-				VUHDO_toggleMenu(VuhDoNewOptionsTabbedFrame);
-			end
-		else
-			VUHDO_Msg(VUHDO_I18N_OPTIONS_NOT_LOADED, 1, 0.4, 0.4);
-		end
+		-- if (VuhDoNewOptionsTabbedFrame ~= nil) then
+		-- 	if (InCombatLockdown() and not VuhDoNewOptionsTabbedFrame:IsShown()) then
+		-- 		VUHDO_Msg("Leave combat first!", 1, 0.4, 0.4);
+		-- 	else
+		-- 		VUHDO_toggleMenu(VuhDoNewOptionsTabbedFrame);
+		-- 	end
+		-- else
+		-- 	VUHDO_Msg(VUHDO_I18N_OPTIONS_NOT_LOADED, 1, 0.4, 0.4);
+		-- end
 		if tCommandWord then
 			VUHDO_Msg(VUHDO_I18N_BAD_COMMAND, 1, 0.4, 0.4);
 		end

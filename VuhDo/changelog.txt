@@ -1,3 +1,24 @@
+Vuhdo for Ascension version 3.1 - By Szyler
+
+Bugfixes:
+-- Fixed lua error on Lesser Healing Wave
+-- Removed Druids as a condition for role icons
+-- Fixed some spelling of old UI text
+
+Improvements:
+-- Added role icons in dungeon finder
+-- Added buff check for tanks to assign role icon
+-- Added option to open VuhDo while in combat with "/Vuhdo combat"
+
+Changes:
+-- Vuhdo can now open with "/vd" directly instead of having to use "/vd opt"
+
+
+Features:
+
+
+--------------------------------------------------------------
+
 Vuhdo for Ascension version 3.01 - By Szyler
 
 Bugfixes:

@@ -11,11 +11,10 @@ Improvements:
 -- Added option to open VuhDo while in combat with "/Vuhdo combat"
 
 Changes:
--- Vuhdo can now open with "/vd" directly instead of having to use "/vd opt"
-
-
-Features:
-
+-- Removed the option to "ignore other class debuffs" toggle, which was defaulted to "ON"
+   -- This caused players who did not disable the toggle to never see debuffs other than curses (as we are druids)
+-- Vuhdo can now open with "/vd" or "/vuhdo" directly instead of having to use "/vd opt"
+-- Typing "/vd" followed by a non-command word will no longer open the panel
 
 --------------------------------------------------------------
 

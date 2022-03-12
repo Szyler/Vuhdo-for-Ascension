@@ -85,7 +85,7 @@
             </Layers>
           </Frame>
 
-          <CheckButton name="$parentClassCheckButton" text="VUHDO_I18N_BY_CLASS" inherits="VuhDoCheckButtonTemplate">
+          <!-- <CheckButton name="$parentClassCheckButton" text="VUHDO_I18N_BY_CLASS" inherits="VuhDoCheckButtonTemplate">
             <Anchors>
               <Anchor point="TOPLEFT">
                 <Offset>
@@ -115,7 +115,7 @@
 			      		VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_060);
 			      	</OnLoad>
       			</Scripts>
-          </CheckButton>
+          </CheckButton> -->
 
           <Frame name="$parentTitleLabel" inherits="VuhDoLabelFrameTemplate">
             <Size>

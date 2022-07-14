@@ -70,6 +70,7 @@ local twipe = table.wipe;
 local pairs = pairs;
 local _ = _;
 
+local sShowAllDebuffs;
 local sIsUseDebuffIcon;
 local sIsMiBuColorsInFight;
 local sStdDebuffSound;
@@ -82,6 +83,7 @@ function VUHDO_debuffsInitBurst()
 
 	VUHDO_shouldScanUnit = VUHDO_GLOBAL["VUHDO_shouldScanUnit"];
 
+	sShowAllDebuffs = VUHDO_CONFIG["DETECT_DEBUFFS_SHOW_ALL"];
 	sIsUseDebuffIcon = VUHDO_PANEL_SETUP["BAR_COLORS"]["useDebuffIcon"];
 	sIsMiBuColorsInFight = VUHDO_BUFF_SETTINGS["CONFIG"]["BAR_COLORS_IN_FIGHT"];
 	sStdDebuffSound = VUHDO_CONFIG["SOUND_DEBUFF"];
@@ -321,30 +323,32 @@ function VUHDO_determineDebuff(aUnit, aClassName)
 				tSoundDebuff = tName;
 			end
 
-	  	tDebuff = VUHDO_DEBUFF_TYPES[tType];
+	  		tDebuff = VUHDO_DEBUFF_TYPES[tType];
 			tAbility = VUHDO_PLAYER_ABILITIES[tDebuff];
 
-      if ((tAbility ~= nil) and tChosen ~= 6) then --VUHDO_DEBUFF_TYPE_CUSTOM
-  			if (sIsUseDebuffIcon and not VUHDO_DEBUFF_BLACKLIST[tName]) then
-  				tIconsSet[tName] = { tIcon, tExpiry, tStacks, false };
-  				tIsStandardDebuff = true;
-  			end
+			-- VUHDO_I18N_TT_060 = "Check this to have only debuffs shown which are removable by yourself. All debuffs will be shown otherwise.";
+			-- -> "Check this to have all debuffs shown, even ones not removable by yourself. Unchecked will still show ones you can remove.";
+			if ((sShowAllDebuffs or tAbility ~= nil) and tChosen ~= 6) then --VUHDO_DEBUFF_TYPE_CUSTOM
+				if (sIsUseDebuffIcon and not VUHDO_DEBUFF_BLACKLIST[tName]) then
+					tIconsSet[tName] = { tIcon, tExpiry, tStacks, false };
+					tIsStandardDebuff = true;
+				end
 
-  			if (tDebuff ~= nil) then
-  				tRemaining = floor(tExpiry - GetTime());
-  				tSchool = tAllSchools[tDebuff];
-  				if ((tSchool[2] or 0) < tRemaining) then
-  					tSchool[1], tSchool[2], tSchool[3], tSchool[4] = tIcon, tRemaining, tStacks, tDuration;
-  				end
+				if (tDebuff ~= nil) then
+					tRemaining = floor(tExpiry - GetTime());
+					tSchool = tAllSchools[tDebuff];
+					if ((tSchool[2] or 0) < tRemaining) then
+						tSchool[1], tSchool[2], tSchool[3], tSchool[4] = tIcon, tRemaining, tStacks, tDuration;
+					end
 
-  				if (VUHDO_isDebuffRelevant(tName, aClassName)) then
-  					if (tAbility ~= nil or tChosen == 0) then --VUHDO_DEBUFF_TYPE_NONE
-  						tChosen = tDebuff;
-  						tChosenInfo[1], tChosenInfo[2], tChosenInfo[3], tChosenInfo[4] = tIcon, tRemaining, tStacks, tDuration;
-  					end
-  				end
-  			end
-  		end
+					if (VUHDO_isDebuffRelevant(tName, aClassName)) then
+						if (tAbility ~= nil or tChosen == 0) then --VUHDO_DEBUFF_TYPE_NONE
+							tChosen = tDebuff;
+							tChosenInfo[1], tChosenInfo[2], tChosenInfo[3], tChosenInfo[4] = tIcon, tRemaining, tStacks, tDuration;
+						end
+					end
+				end
+			end
 		end
 
 		for tCnt = 1, 255 do

@@ -99,9 +99,9 @@
 			      		VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_059);
 			      	</OnLoad>
       			</Scripts>
-          </CheckButton>
+          </CheckButton> -->
 
-          <CheckButton name="$parentRemovableCheckButton" text="VUHDO_I18N_REMOVABLE_ONLY" inherits="VuhDoCheckButtonTemplate">
+          <CheckButton name="$parentRemovableCheckButton" text="VUHDO_I18N_SHOW_ALL" inherits="VuhDoCheckButtonTemplate">
             <Anchors>
               <Anchor point="TOPLEFT">
                 <Offset>
@@ -111,11 +111,11 @@
             </Anchors>
 			      <Scripts>
 			      	<OnLoad>
-			      		VUHDO_lnfSetModel(self, "VUHDO_CONFIG.DETECT_DEBUFFS_REMOVABLE_ONLY");
+			      		VUHDO_lnfSetModel(self, "VUHDO_CONFIG.DETECT_DEBUFFS_SHOW_ALL");
 			      		VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_060);
 			      	</OnLoad>
       			</Scripts>
-          </CheckButton> -->
+          </CheckButton>
 
           <Frame name="$parentTitleLabel" inherits="VuhDoLabelFrameTemplate">
             <Size>

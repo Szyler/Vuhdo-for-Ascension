@@ -1,3 +1,18 @@
+Vuhdo for Ascension version 3.1.2 - By Szyler
+
+Bugfixes:
+-- Added back an option to swap between "All debuffs" and "Only debuffs i can remove".
+   Default is "Show all debuffs" but if you have a config from before, you have to manually enable this option.
+
+--------------------------------------------------------------
+
+Vuhdo for Ascension version 3.1.1 - By Szyler
+
+Bugfixes:
+-- Fixed the option to "ignore other class debuffs" toggle, which was defaulted to "ON"
+
+--------------------------------------------------------------
+
 Vuhdo for Ascension version 3.1 - By Szyler
 
 Bugfixes:

@@ -7,7 +7,7 @@ VUHDO_DEFAULT_BOUQUETS = {
 
 		[VUHDO_I18N_DEF_BOUQUET_TANK_COOLDOWNS] = {
 			{
-				["name"] = GetSpellInfo(12975), -- "Last Stand",
+				["name"] = GetSpellInfo(47585), -- "Dispersion",
 				["mine"] = true,
 				["others"] = true,
 				["icon"] = 1,
@@ -38,6 +38,96 @@ VUHDO_DEFAULT_BOUQUETS = {
 			},
 			{
 				["name"] = GetSpellInfo(871), -- "Shield Wall",
+				["mine"] = true,
+				["others"] = true,
+				["icon"] = 1,
+				["color"] = {
+					["R"] = 1, ["G"] = 1, ["B"] = 1, ["O"] = 1,
+					["TR"] = 1, ["TG"] = 1, ["TB"] = 1, ["TO"] = 1,
+					["useText"] = true, ["useBackground"] = true, ["useOpacity"] = true,
+					["isManuallySet"] = true,
+				},
+				["custom"] = {
+					[1] = 1,
+
+					["radio"] = 1,
+
+					["bright"] = 1.0,
+
+					["grad_med"] = {
+						["R"] = 0.6, ["G"] = 0.6, ["B"] = 0.6, ["O"] = 1,
+						["TR"] = 0.6, ["TG"] = 0.6, ["TB"] = 0.6, ["TO"] = 1,
+						["useText"] = true, ["useBackground"] = true, ["useOpacity"] = true,
+					},
+					["grad_low"] = {
+						["R"] = 0.3, ["G"] = 0.3, ["B"] = 0.3, ["O"] = 1,
+						["TR"] = 0.3, ["TG"] = 0.3, ["TB"] = 0.3, ["TO"] = 1,
+						["useText"] = true, ["useBackground"] = true, ["useOpacity"] = true,
+					},
+				},
+			},
+			{
+				["name"] = GetSpellInfo(498), -- "Divine Protection",
+				["mine"] = true,
+				["others"] = true,
+				["icon"] = 1,
+				["color"] = {
+					["R"] = 1, ["G"] = 1, ["B"] = 1, ["O"] = 1,
+					["TR"] = 1, ["TG"] = 1, ["TB"] = 1, ["TO"] = 1,
+					["useText"] = true, ["useBackground"] = true, ["useOpacity"] = true,
+					["isManuallySet"] = true,
+				},
+				["custom"] = {
+					[1] = 1,
+
+					["radio"] = 1,
+
+					["bright"] = 1.0,
+
+					["grad_med"] = {
+						["R"] = 0.6, ["G"] = 0.6, ["B"] = 0.6, ["O"] = 1,
+						["TR"] = 0.6, ["TG"] = 0.6, ["TB"] = 0.6, ["TO"] = 1,
+						["useText"] = true, ["useBackground"] = true, ["useOpacity"] = true,
+					},
+					["grad_low"] = {
+						["R"] = 0.3, ["G"] = 0.3, ["B"] = 0.3, ["O"] = 1,
+						["TR"] = 0.3, ["TG"] = 0.3, ["TB"] = 0.3, ["TO"] = 1,
+						["useText"] = true, ["useBackground"] = true, ["useOpacity"] = true,
+					},
+				},
+			},
+			{
+				["name"] = GetSpellInfo(5277), -- "Evasion",
+				["mine"] = true,
+				["others"] = true,
+				["icon"] = 1,
+				["color"] = {
+					["R"] = 1, ["G"] = 1, ["B"] = 1, ["O"] = 1,
+					["TR"] = 1, ["TG"] = 1, ["TB"] = 1, ["TO"] = 1,
+					["useText"] = true, ["useBackground"] = true, ["useOpacity"] = true,
+					["isManuallySet"] = true,
+				},
+				["custom"] = {
+					[1] = 1,
+
+					["radio"] = 1,
+
+					["bright"] = 1.0,
+
+					["grad_med"] = {
+						["R"] = 0.6, ["G"] = 0.6, ["B"] = 0.6, ["O"] = 1,
+						["TR"] = 0.6, ["TG"] = 0.6, ["TB"] = 0.6, ["TO"] = 1,
+						["useText"] = true, ["useBackground"] = true, ["useOpacity"] = true,
+					},
+					["grad_low"] = {
+						["R"] = 0.3, ["G"] = 0.3, ["B"] = 0.3, ["O"] = 1,
+						["TR"] = 0.3, ["TG"] = 0.3, ["TB"] = 0.3, ["TO"] = 1,
+						["useText"] = true, ["useBackground"] = true, ["useOpacity"] = true,
+					},
+				},
+			},
+			{
+				["name"] = GetSpellInfo(12975), -- "Last Stand",
 				["mine"] = true,
 				["others"] = true,
 				["icon"] = 1,

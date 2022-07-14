@@ -27,7 +27,7 @@ local VUHDO_DEBUFF_TYPES = {
 
 
 VUHDO_DEBUFF_BLACKLIST = {
-	[GetSpellInfo(69127)] = true, -- Chill of the Throne (st„ndiger debuff)
+	[GetSpellInfo(69127)] = true, -- Chill of the Throne (stï¿½ndiger debuff)
 	[GetSpellInfo(57724)] = true, -- Sated
 	[GetSpellInfo(71328)] = true  -- Dungeon Cooldown
 }
@@ -35,7 +35,7 @@ VUHDO_DEBUFF_BLACKLIST = {
 
 
 local VUHDO_CUSTOM_BUFF_BLACKLIST = {
-	[GetSpellInfo(67847)] = true -- Expose Weakness ist ein Boss-Debuff und gleichzeitig ein Jäger-Buff
+	[GetSpellInfo(67847)] = true -- Expose Weakness ist ein Boss-Debuff und gleichzeitig ein Jï¿½ger-Buff
 }
 
 
@@ -70,7 +70,7 @@ local twipe = table.wipe;
 local pairs = pairs;
 local _ = _;
 
-local sIsRemoveableOnly;
+local sHideRemoveable;
 local sIsUseDebuffIcon;
 local sIsMiBuColorsInFight;
 local sStdDebuffSound;
@@ -83,7 +83,7 @@ function VUHDO_debuffsInitBurst()
 
 	VUHDO_shouldScanUnit = VUHDO_GLOBAL["VUHDO_shouldScanUnit"];
 
-	sIsRemoveableOnly = VUHDO_CONFIG["DETECT_DEBUFFS_REMOVABLE_ONLY"];
+	sHideRemoveable = VUHDO_CONFIG["DETECT_DEBUFFS_REMOVABLE_ONLY"];
 	sIsUseDebuffIcon = VUHDO_PANEL_SETUP["BAR_COLORS"]["useDebuffIcon"];
 	sIsMiBuColorsInFight = VUHDO_BUFF_SETTINGS["CONFIG"]["BAR_COLORS_IN_FIGHT"];
 	sStdDebuffSound = VUHDO_CONFIG["SOUND_DEBUFF"];
@@ -326,7 +326,7 @@ function VUHDO_determineDebuff(aUnit, aClassName)
 	  	tDebuff = VUHDO_DEBUFF_TYPES[tType];
 			tAbility = VUHDO_PLAYER_ABILITIES[tDebuff];
 
-      if ((not sIsRemoveableOnly or tAbility ~= nil) and tChosen ~= 6) then --VUHDO_DEBUFF_TYPE_CUSTOM
+      if ((not sHideRemoveable or tAbility ~= nil) and tChosen ~= 6) then --VUHDO_DEBUFF_TYPE_CUSTOM
   			if (sIsUseDebuffIcon and not VUHDO_DEBUFF_BLACKLIST[tName]) then
   				tIconsSet[tName] = { tIcon, tExpiry, tStacks, false };
   				tIsStandardDebuff = true;

@@ -766,7 +766,7 @@ if( playerClass == "DRUID" ) then
 		-- Touched by the Light (Add?)
 		local TouchedbytheLight = GetSpellInfo(53592)
 		talentData[TouchedbytheLight] = {mod = 0.10, current = 0}
-		-- 100% of your heal on someone within range of your beacon heals the beacon target too
+		-- 40% of your heal on someone within range of your beacon heals the beacon target too
 		local BeaconofLight = GetSpellInfo(53563)
 		-- 100% chance to crit
 		local DivineFavor = GetSpellInfo(20216)

@@ -1063,9 +1063,11 @@ if( playerClass == "DRUID" ) then
 				-- Pala HealTargets
 				------------------------------------------------------------------------------------------------------------------------------------
 			elseif( activeBeaconGUID and activeBeaconGUID ~= guid and guidToUnit[activeBeaconGUID] and UnitIsVisible(guidToUnit[activeBeaconGUID]) ) then
-				return string.format("%s,%s", compressGUID[guid], compressGUID[activeBeaconGUID]), healAmount * 0.40
-
-
+				if type(healAmount) == "table" then
+					return string.format("%s,%s", compressGUID[guid], compressGUID[activeBeaconGUID]), healAmount[1] * 0.40
+				else 
+					return string.format("%s,%s", compressGUID[guid], compressGUID[activeBeaconGUID]), healAmount * 0.40
+				end
 				------------------------------------------------------------------------------------------------------------------------------------
 				-- Priest HealTargets
 				------------------------------------------------------------------------------------------------------------------------------------

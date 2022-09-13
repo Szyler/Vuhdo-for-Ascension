@@ -31,7 +31,7 @@ VUHDO_INIT_DEBUFF_ABILITIES = {
 		[VUHDO_DEBUFF_TYPE_CURSE] = VUHDO_SPELL_ID_REMOVE_CURSE,
     [VUHDO_DEBUFF_TYPE_CURSE] = VUHDO_SPELL_ID_DISPEL_CURSE,
     [VUHDO_DEBUFF_TYPE_CURSE] = VUHDO_SPELL_ID_CLEANSE_SPIRIT,
-	}
+	},
 	-- ["PALADIN"] = {
 
 	-- },
@@ -45,6 +45,27 @@ VUHDO_INIT_DEBUFF_ABILITIES = {
 	-- },
 	-- ["DEATHKNIGHT"] = {
 	-- },
+  ["PROPHET"] = { },
+  ["FLESHWARDEN"] = { },
+  ["RANGER"] = { },
+  ["PYROMANCER"] = { },
+  ["WITCHHUNTER"] = { },
+  ["STARCALLER"] = { },
+  ["SPIRITMAGE"] = { },
+  ["CULTIST"] = { },
+  ["TINKER"] = { },
+  ["SUNCLERIC"] = { },
+  ["NECROMANCER"] = { },
+  ["WILDWALKER"] = { },
+  ["CHRONOMANCER"] = { },
+  ["STORMBRINGER"] = { },
+  ["SONOFARUGAL"] = { },
+  ["REAPER"] = { },
+  ["GUARDIAN"] = { },
+  ["MONK"] = { },
+  ["BARBARIAN"] = { },
+  ["WITCHDOCTOR"] = { },
+  ["DEMONHUNTER"] = { }
 };
 
 
@@ -81,6 +102,27 @@ VUHDO_INIT_IGNORE_DEBUFFS_BY_CLASS = {
   -- },
   ["DRUID"] = {
   },
+  ["PROPHET"] = { },
+  ["FLESHWARDEN"] = { },
+  ["RANGER"] = { },
+  ["PYROMANCER"] = { },
+  ["WITCHHUNTER"] = { },
+  ["STARCALLER"] = { },
+  ["SPIRITMAGE"] = { },
+  ["CULTIST"] = { },
+  ["TINKER"] = { },
+  ["SUNCLERIC"] = { },
+  ["NECROMANCER"] = { },
+  ["WILDWALKER"] = { },
+  ["CHRONOMANCER"] = { },
+  ["STORMBRINGER"] = { },
+  ["SONOFARUGAL"] = { },
+  ["REAPER"] = { },
+  ["GUARDIAN"] = { },
+  ["MONK"] = { },
+  ["BARBARIAN"] = { },
+  ["WITCHDOCTOR"] = { },
+  ["DEMONHUNTER"] = { }
   -- ["PALADIN"] = {
   --   [VUHDO_SPELL_ID_DEBUFF_UNSTABLE_AFFL] = true,
   --   [VUHDO_SPELL_ID_DEBUFF_UNSTABLE_AFFL] = true,

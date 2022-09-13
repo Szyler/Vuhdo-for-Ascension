@@ -128,6 +128,27 @@ local VUHDO_DEFAULT_RANGE_SPELLS = {
 	["DRUID"] = VUHDO_SPELL_ID_HEALING_TOUCH,
 	["PRIEST"] = VUHDO_SPELL_ID_LESSER_HEAL,
 	["DEATHKNIGHT"] = nil,
+	["PROPHET"] = nil,
+    ["FLESHWARDEN"] = nil,
+    ["RANGER"] = nil,
+    ["PYROMANCER"] = nil,
+    ["WITCHHUNTER"] = nil,
+    ["STARCALLER"] = nil,
+    ["SPIRITMAGE"] = nil,
+    ["CULTIST"] = nil,
+    ["TINKER"] = nil,
+    ["SUNCLERIC"] = nil,
+    ["NECROMANCER"] = nil,
+    ["WILDWALKER"] = nil,
+    ["CHRONOMANCER"] = nil,
+    ["STORMBRINGER"] = nil,
+    ["SONOFARUGAL"] = nil,
+    ["REAPER"] = nil,
+    ["GUARDIAN"] = nil,
+    ["MONK"] = nil,
+    ["BARBARIAN"] = nil,
+    ["WITCHDOCTOR"] = nil,
+    ["DEMONHUNTER"] = nil
 }
 
 

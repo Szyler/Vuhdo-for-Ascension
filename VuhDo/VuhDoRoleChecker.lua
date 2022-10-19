@@ -170,7 +170,7 @@ function VUHDO_inspectLockRole()
 	tIsInspect = "player" ~= VUHDO_NEXT_INSPECT_UNIT;
 
 	tActiveTree = GetActiveTalentGroup(tIsInspect);
-	_, tIcon1, tPoints1, _ = GetTalentTabInfo(1, tIsInspect, false, tActiveTree);
+	_, tIcon1, tPoints1, _ = GetTalentTabInfo(1, tIsInspect, false, tActiveTree); -- TODO: Add Ascension talents here
 	_, tIcon2, tPoints2, _ = GetTalentTabInfo(2, tIsInspect, false, tActiveTree);
 	_, tIcon3, tPoints3, _ = GetTalentTabInfo(3, tIsInspect, false, tActiveTree);
 

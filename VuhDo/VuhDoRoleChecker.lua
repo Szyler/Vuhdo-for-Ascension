@@ -317,10 +317,11 @@ function VUHDO_determineRole(aUnit)
 	local _, _, tBuffExist_MKF = UnitBuff(aUnit, VUHDO_SPELL_ID_MOONKIN_FORM);
 	local _, _, tBuffExist_AotH = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_ASPECT_OF_THE_HAWK);
 	local _, _, tBuffExist_CC = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_CRIMSON_CHAMPION);
+	local _, _, tBuffExist_MFB = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_MANAFORGED_BARRIER);
 
 	if (VUHDO_FIX_ROLES[tName] ~= nil) then
 		return VUHDO_FIX_ROLES[tName];
-	elseif (tBuffExist_RF or tBuffExist_AotM or tBuffExist_BF or tBuffExist_DBF or tBuffExist_CC or tDefense>20) then
+	elseif (tBuffExist_RF or tBuffExist_AotM or tBuffExist_BF or tBuffExist_DBF or tBuffExist_CC or tDefense>20 or tBuffExist_MFB) then
 		VUHDO_FIX_ROLES[tName] = 60; -- VUHDO_ID_MELEE_TANK
 		return 60; -- VUHDO_ID_MELEE_TANK
 	elseif (tBuffExist_ToL) then

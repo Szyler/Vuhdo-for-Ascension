@@ -427,6 +427,7 @@ VUHDO_I18N_TT_235 = "Select a color for Druids";
 VUHDO_I18N_TT_236 = "Select a color for Priests";
 VUHDO_I18N_TT_237 = "Select a color for Mages";
 VUHDO_I18N_TT_238 = "Select a color for Death Knights";
+VUHDO_I18N_TT_498 = "Select a color for Hero";
 VUHDO_I18N_TT_239 = "Select a color for Pets";
 VUHDO_I18N_TT_240 = "Check to display number of appliances of the HoT. When Squares is selected instead of icons, there will be four little triangles to indicate.";
 VUHDO_I18N_TT_241 = "Check to display number of HoT appliances by text color to the left.";

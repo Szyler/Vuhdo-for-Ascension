@@ -12,6 +12,7 @@ local VUHDO_CLASS_MAPPINGS = {
 	["8"] = "WARLOCK",
 	["9"] = "SHAMAN",
 	["10"] = "DEATHKNIGHT",
+	["11"] = "HERO",
 };
 
 
@@ -27,6 +28,7 @@ local VUHDO_CLASS_MAPPINGS_REV = {
 	["WARLOCK"] = "8",
 	["SHAMAN"] = "9",
 	["DEATHKNIGHT"] = "10",
+	["HERO"] = "11",
 };
 
 

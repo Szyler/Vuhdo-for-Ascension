@@ -37,6 +37,7 @@ VUHDO_BUFF_GROUPS = {
 	["DRUID"] = {};
 	["PRIEST"] = {};
 	["DEATHKNIGHT"] = {};
+	["HERO"] = {};
 };
 local VUHDO_BUFF_GROUPS = VUHDO_BUFF_GROUPS;
 
@@ -456,7 +457,7 @@ local tIsPet;
 function VUHDO_updateHealth(aUnit, aMode)
 	tIsPet = VUHDO_RAID[aUnit]["isPet"];
 
-	if (not tIsPet or VUHDO_INTERNAL_TOGGLES[26]) then -- VUHDO_UPDATE_PETS  -- EnthÑlt nur Pets als eigene Balken, vehicles werden Åber owner dargestellt s.unten
+	if (not tIsPet or VUHDO_INTERNAL_TOGGLES[26]) then -- VUHDO_UPDATE_PETS  -- EnthÔøΩlt nur Pets als eigene Balken, vehicles werden ÔøΩber owner dargestellt s.unten
 		VUHDO_setHealth(aUnit, aMode);
 		VUHDO_updateHealthBarsFor(aUnit, aMode);
 	end
@@ -1048,12 +1049,12 @@ function VUHDO_refreshRaidMembers()
 			tMaxMembers = 0;
 		end
 
-		twipe(VUHDO_RAID_NAMES); -- f¸r VUHDO_SUSPICIOUS_RAID_ROSTER
+		twipe(VUHDO_RAID_NAMES); -- fÔøΩr VUHDO_SUSPICIOUS_RAID_ROSTER
 
-    if (not InCombatLockdown()) then -- Im combat lockdown heben wir uns verwaiste unit-ids auf um nachr¸ckende Spieler darstellen zu kˆnnen
+    if (not InCombatLockdown()) then -- Im combat lockdown heben wir uns verwaiste unit-ids auf um nachrÔøΩckende Spieler darstellen zu kÔøΩnnen
   		for tPlayer, _ in pairs(VUHDO_RAID) do
   			if (not UnitExists(tPlayer)
-  			  or tPlayer == VUHDO_PLAYER_RAID_ID -- bei raid roster wechsel kann unsere raid id vorher wem anders gehîrt haben
+  			  or tPlayer == VUHDO_PLAYER_RAID_ID -- bei raid roster wechsel kann unsere raid id vorher wem anders gehÔøΩrt haben
   				or (not strfind(tPlayer, tUnit, 1, true) and not strfind(tPlayer, tPetUnit, 1, true))) then -- Falls Gruppe<->Raid
   				VUHDO_RAID[tPlayer] = nil;
   			end

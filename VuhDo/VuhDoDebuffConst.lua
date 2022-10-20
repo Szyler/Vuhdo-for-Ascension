@@ -19,7 +19,9 @@ VUHDO_INIT_DEBUFF_ABILITIES = {
 	-- },
 	-- ["MAGE"] = {
   -- },
-	["DRUID"] = {
+	-- ["DRUID"] = {
+	-- },
+	["HERO"] = {
     [VUHDO_DEBUFF_TYPE_POISON] = VUHDO_SPELL_ID_ABOLISH_POISON,
 		[VUHDO_DEBUFF_TYPE_POISON] = VUHDO_SPELL_ID_PURIFY,
     [VUHDO_DEBUFF_TYPE_POISON] = VUHDO_SPELL_ID_CURE_TOXINS,
@@ -79,7 +81,9 @@ VUHDO_INIT_IGNORE_DEBUFFS_BY_CLASS = {
   --   [VUHDO_SPELL_ID_DEBUFF_CRIPPLE] = true,
   --   [VUHDO_SPELL_ID_DEBUFF_UNSTABLE_AFFL] = true,
   -- },
-  ["DRUID"] = {
+  -- ["DRUID"] = {
+  -- },
+  ["HERO"] = {
   },
   -- ["PALADIN"] = {
   --   [VUHDO_SPELL_ID_DEBUFF_UNSTABLE_AFFL] = true,

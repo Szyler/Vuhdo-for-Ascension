@@ -94,6 +94,7 @@ local VUHDO_ICONS_BY_CLASS_ID = {
 	[VUHDO_ID_DRUIDS] = "Interface\\AddOns\\VuhDo\\Images\\classicons\\druid",
 	[VUHDO_ID_PRIESTS] = "Interface\\AddOns\\VuhDo\\Images\\classicons\\priest",
 	[VUHDO_ID_DEATH_KNIGHT] = "Interface\\AddOns\\VuhDo\\Images\\classicons\\deathknight",
+	[VUHDO_ID_HERO] = "Interface\\AddOns\\VuhDo\\Images\\classicons\\druid",
 };
 
 

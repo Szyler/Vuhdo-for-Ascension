@@ -66,6 +66,8 @@ local function VUHDO_placePlayerIcon(aButton, anIcon, anIndex)
 	anIcon:ClearAllPoints();
 	if (anIndex == 2) then
 		anIcon:SetPoint("CENTER", aButton:GetName(), "TOPRIGHT", -5, -10);
+	elseif (anIndex == 99) then
+		anIcon:SetPoint("CENTER", aButton:GetName(), "TOP", 0, 0);
 	else
 		if (anIndex > 2) then
 			anIndex = anIndex - 1;

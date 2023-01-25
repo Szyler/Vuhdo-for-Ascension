@@ -35,6 +35,7 @@ VUHDO_BUFF_GROUPS = {
 	["WARLOCK"] = {};
 	["SHAMAN"] = {};
 	["DRUID"] = {};
+	["HERO"] = {};
 	["PRIEST"] = {};
 	["DEATHKNIGHT"] = {};
 	["PROPHET"] = { },

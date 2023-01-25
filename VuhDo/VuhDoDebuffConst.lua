@@ -34,19 +34,6 @@ VUHDO_INIT_DEBUFF_ABILITIES = {
     [VUHDO_DEBUFF_TYPE_CURSE] = VUHDO_SPELL_ID_DISPEL_CURSE,
     [VUHDO_DEBUFF_TYPE_CURSE] = VUHDO_SPELL_ID_CLEANSE_SPIRIT,
 	},
-	-- ["PALADIN"] = {
-
-	-- },
-	-- ["PRIEST"] = {
-
-	-- },
-	-- ["SHAMAN"] = {
-
-	-- },
-	-- ["WARLOCK"] = {
-	-- },
-	-- ["DEATHKNIGHT"] = {
-	-- },
   ["PROPHET"] = { },
   ["FLESHWARDEN"] = { },
   ["RANGER"] = { },
@@ -68,6 +55,19 @@ VUHDO_INIT_DEBUFF_ABILITIES = {
   ["BARBARIAN"] = { },
   ["WITCHDOCTOR"] = { },
   ["DEMONHUNTER"] = { }
+	-- ["PALADIN"] = {
+
+	-- },
+	-- ["PRIEST"] = {
+
+	-- },
+	-- ["SHAMAN"] = {
+
+	-- },
+	-- ["WARLOCK"] = {
+	-- },
+	-- ["DEATHKNIGHT"] = {
+	-- },
 };
 
 
@@ -104,8 +104,7 @@ VUHDO_INIT_IGNORE_DEBUFFS_BY_CLASS = {
   -- },
   -- ["DRUID"] = {
   -- },
-  ["HERO"] = {
-  },
+  ["HERO"] = { },
   ["PROPHET"] = { },
   ["FLESHWARDEN"] = { },
   ["RANGER"] = { },

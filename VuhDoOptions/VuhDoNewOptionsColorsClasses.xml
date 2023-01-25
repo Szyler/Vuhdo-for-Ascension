@@ -221,6 +221,23 @@
       			</Scripts>
           </Frame>
 
+          <Frame name="$parentHeroTexture" inherits="VuhDoColorSwatchTexture">
+            <Anchors>
+              <Anchor point="TOPLEFT">
+                <Offset>
+                  <AbsDimension x="219" y="-192" />
+                </Offset>
+              </Anchor>
+            </Anchors>
+			      <Scripts>
+			      	<OnLoad>
+			      		VUHDO_lnfSetModel(self, "VUHDO_USER_CLASS_COLORS.##30");
+			      		VUHDO_lnfInitColorSwatch(self, VUHDO_I18N_HERO, VUHDO_I18N_HERO);
+					    	VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_498);
+			      	</OnLoad>
+      			</Scripts>
+          </Frame>
+
           <Frame name="$parentPetsTexture" inherits="VuhDoColorSwatchTexture">
             <Anchors>
               <Anchor point="TOPLEFT">

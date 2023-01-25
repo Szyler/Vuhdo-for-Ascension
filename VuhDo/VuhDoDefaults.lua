@@ -1650,38 +1650,41 @@ local VUHDO_DEFAULT_BUFF_CONFIG = {
 
 VUHDO_DEFAULT_USER_CLASS_COLORS = {
 	[VUHDO_ID_DRUIDS] =       { ["R"]  = 1,    ["G"]  = 0.49, ["B"]  = 0.04, ["O"] = 1, ["useBackground"] = true, ["useOpacity"] = true,
-															["TR"] = 1,    ["TG"] = 0.6,  ["TB"] = 0.04, ["TO"] = 1, ["useText"] = true },
-
+															["TR"] = 1,    ["TG"] = 0.6,  ["TB"] = 0.04, ["TO"] = 1, ["useText"] = true  },
+															
 	[VUHDO_ID_HUNTERS] =      { ["R"]  = 0.67, ["G"]  = 0.83, ["B"]  = 0.45, ["O"] = 1, ["useBackground"] = true, ["useOpacity"] = true,
-															["TR"] = 0.77, ["TG"] = 0.93, ["TB"] = 0.55, ["TO"] = 1, ["useText"] = true 	},
-
+															["TR"] = 0.77, ["TG"] = 0.93, ["TB"] = 0.55, ["TO"] = 1, ["useText"] = true  },
+															
 	[VUHDO_ID_MAGES] =        { ["R"]  = 0.41, ["G"]  = 0.8,  ["B"]  = 0.94, ["O"] = 1, ["useBackground"] = true, ["useOpacity"] = true,
 															["TR"] = 0.51, ["TG"] = 0.9,  ["TB"] = 1,    ["TO"] = 1, ["useText"] = true  },
-
+															
 	[VUHDO_ID_PALADINS] =     { ["R"]  = 0.96, ["G"]  = 0.55, ["B"]  = 0.73, ["O"] = 1, ["useBackground"] = true, ["useOpacity"] = true,
 															["TR"] = 1   , ["TG"] = 0.65, ["TB"] = 0.83, ["TO"] = 1, ["useText"] = true  },
-
+															
 	[VUHDO_ID_PRIESTS] =      { ["R"]  = 0.9,  ["G"]  = 0.9,  ["B"]  = 0.9,  ["O"] = 1, ["useBackground"] = true, ["useOpacity"] = true,
 															["TR"] = 1,    ["TG"] = 1,    ["TB"] = 1,    ["TO"] = 1, ["useText"] = true  },
-
+															
 	[VUHDO_ID_ROGUES] =       { ["R"]  = 1,    ["G"]  = 0.96, ["B"]  = 0.41, ["O"] = 1, ["useBackground"] = true, ["useOpacity"] = true,
 															["TR"] = 1,    ["TG"] = 1,    ["TB"] = 0.51, ["TO"] = 1, ["useText"] = true  },
-
+															
 	[VUHDO_ID_SHAMANS] =      { ["R"]  = 0.14, ["G"]  = 0.35, ["B"]  = 1,    ["O"] = 1, ["useBackground"] = true, ["useOpacity"] = true,
 															["TR"] = 0.24, ["TG"] = 0.45, ["TB"] = 1,    ["TO"] = 1, ["useText"] = true  },
-
+															
 	[VUHDO_ID_WARLOCKS] =     { ["R"]  = 0.58, ["G"]  = 0.51, ["B"]  = 0.79, ["O"] = 1, ["useBackground"] = true, ["useOpacity"] = true,
 															["TR"] = 0.68, ["TG"] = 0.61, ["TB"] = 0.89, ["TO"] = 1, ["useText"] = true  },
-
+															
 	[VUHDO_ID_WARRIORS] =     { ["R"]  = 0.78, ["G"]  = 0.61, ["B"]  = 0.43, ["O"] = 1, ["useBackground"] = true, ["useOpacity"] = true,
 															["TR"] = 0.88, ["TG"] = 0.71, ["TB"] = 0.53, ["TO"] = 1, ["useText"] = true  },
-
+															
 	[VUHDO_ID_DEATH_KNIGHT] = { ["R"]  = 0.77, ["G"]  = 0.12, ["B"]  = 0.23, ["O"] = 1, ["useBackground"] = true, ["useOpacity"] = true,
 															["TR"] = 0.87, ["TG"] = 0.22, ["TB"] = 0.33, ["TO"] = 1, ["useText"] = true  },
 
+	[VUHDO_ID_HERO] =         { ["R"]  = 1,    ["G"]  = 0.49, ["B"]  = 0.04, ["O"] = 1, ["useBackground"] = true, ["useOpacity"] = true,
+															["TR"] = 0.60, ["TG"] = 0.60, ["TB"] = 0.60, ["TO"] = 1, ["useText"] = true  },
+															
 	[VUHDO_ID_PETS] =         { ["R"]  = 0.4,  ["G"]  = 0.6,  ["B"]  = 0.4,    ["O"] = 1, ["useBackground"] = true, ["useOpacity"] = true,
 															["TR"] = 0.5,    ["TG"] = 0.9,    ["TB"] = 0.5,    ["TO"] = 1, ["useText"] = true  },
-
+															
 	["petClassColor"] = false,
 }
 

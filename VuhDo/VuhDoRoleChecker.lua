@@ -170,7 +170,7 @@ function VUHDO_inspectLockRole()
 	tIsInspect = "player" ~= VUHDO_NEXT_INSPECT_UNIT;
 
 	tActiveTree = GetActiveTalentGroup(tIsInspect);
-	_, tIcon1, tPoints1, _ = GetTalentTabInfo(1, tIsInspect, false, tActiveTree);
+	_, tIcon1, tPoints1, _ = GetTalentTabInfo(1, tIsInspect, false, tActiveTree); -- TODO: Add Ascension talents here
 	_, tIcon2, tPoints2, _ = GetTalentTabInfo(2, tIsInspect, false, tActiveTree);
 	_, tIcon3, tPoints3, _ = GetTalentTabInfo(3, tIsInspect, false, tActiveTree);
 
@@ -219,9 +219,9 @@ function VUHDO_inspectLockRole()
 		else
 			VUHDO_INSPECTED_ROLES[tInfo["name"]] = 61; -- VUHDO_ID_MELEE_DAMAGE
 		end
-
+		
 	elseif (VUHDO_ID_SHAMANS == tClassId) then
-	  -- 1 = Elementar, 2 = Verst�rker, 3 = Wiederherstellung
+		-- 1 = Elementar, 2 = Verst�rker, 3 = Wiederherstellung
 		if (tPoints1 > tPoints2 and tPoints1 > tPoints3) then
 			VUHDO_INSPECTED_ROLES[tInfo["name"]] = 62; -- VUHDO_ID_RANGED_DAMAGE
 		elseif (tPoints2 > tPoints3) then
@@ -229,8 +229,18 @@ function VUHDO_inspectLockRole()
 		else
 			VUHDO_INSPECTED_ROLES[tInfo["name"]] = 63; -- VUHDO_ID_RANGED_HEAL
 		end
-	end
 
+	elseif (VUHDO_ID_HERO == tClassId) then
+		-- 1 = Heilig, 2 = Schutz, 3 = Vergeltung
+		if (tPoints1 > tPoints2 and tPoints1 > tPoints3) then
+			VUHDO_INSPECTED_ROLES[tInfo["name"]] = 63; -- VUHDO_ID_RANGED_HEAL
+		elseif (tPoints2 > tPoints3) then
+			VUHDO_INSPECTED_ROLES[tInfo["name"]] = 60; -- VUHDO_ID_MELEE_TANK
+		else
+			VUHDO_INSPECTED_ROLES[tInfo["name"]] = 61; -- VUHDO_ID_MELEE_DAMAGE
+		end
+	end
+	
 	ClearInspectPlayer();
 	VUHDO_NEXT_INSPECT_UNIT = nil;
 --	if (sIsRolesConfigured) then
@@ -317,10 +327,11 @@ function VUHDO_determineRole(aUnit)
 	local _, _, tBuffExist_MKF = UnitBuff(aUnit, VUHDO_SPELL_ID_MOONKIN_FORM);
 	local _, _, tBuffExist_AotH = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_ASPECT_OF_THE_HAWK);
 	local _, _, tBuffExist_CC = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_CRIMSON_CHAMPION);
+	local _, _, tBuffExist_MFB = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_MANAFORGED_BARRIER);
 
-	if (VUHDO_FIX_ROLES[tName] ~= nil) then
+	if (VUHDO_FIX_ROLES[tName] ~= nil) then -- TODO: Add Ascension talent check here
 		return VUHDO_FIX_ROLES[tName];
-	elseif (tBuffExist_RF or tBuffExist_AotM or tBuffExist_BF or tBuffExist_DBF or tBuffExist_CC or tDefense>20) then
+	elseif (tBuffExist_RF or tBuffExist_AotM or tBuffExist_BF or tBuffExist_DBF or tBuffExist_CC or tDefense>20 or tBuffExist_MFB) then
 		VUHDO_FIX_ROLES[tName] = 60; -- VUHDO_ID_MELEE_TANK
 		return 60; -- VUHDO_ID_MELEE_TANK
 	elseif (tBuffExist_ToL) then

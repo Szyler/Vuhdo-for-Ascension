@@ -134,6 +134,10 @@ VUHDO_SPELL_ID_BUFFC_TRUESHOT_AURA = "30" .. GetSpellInfo(19506);
 -- Buffs
 --------
 
+-- Ascension
+VUHDO_SPELL_ID_BUFF_MANAFORGED_BARRIER = GetSpellInfo(701463);
+
+
 
 -- Priest
 VUHDO_SPELL_ID_BUFF_PRAYER_OF_FORTITUDE = GetSpellInfo(21562);

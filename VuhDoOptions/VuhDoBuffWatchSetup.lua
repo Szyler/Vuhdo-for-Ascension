@@ -80,7 +80,8 @@ local function VUHDO_buffSetupOkayOnClick()
       				["SHAMAN"] = VUHDO_comboGetSelectedBuff(VUHDO_GLOBAL[tGenericPanel:GetName() .. "ShamansCombo"]),
       				["DRUID"] = VUHDO_comboGetSelectedBuff(VUHDO_GLOBAL[tGenericPanel:GetName() .. "DruidsCombo"]),
       				["PRIEST"] = VUHDO_comboGetSelectedBuff(VUHDO_GLOBAL[tGenericPanel:GetName() .. "PriestsCombo"]),
-      				["DEATHKNIGHT"] = VUHDO_comboGetSelectedBuff(VUHDO_GLOBAL[tGenericPanel:GetName() .. "DeathKnightsCombo"])
+      				["DEATHKNIGHT"] = VUHDO_comboGetSelectedBuff(VUHDO_GLOBAL[tGenericPanel:GetName() .. "DeathKnightsCombo"]),
+      				["HERO"] = VUHDO_comboGetSelectedBuff(VUHDO_GLOBAL[tGenericPanel:GetName() .. "HeroCombo"])
       			};
       	elseif (VUHDO_BUFF_TARGET_UNIQUE == tBuffTarget) then
   				local tEditBox = VUHDO_GLOBAL[tGenericPanel:GetName() .. "PlayerNameEditBox"];
@@ -331,6 +332,7 @@ local function VUHDO_setupGenericBuffPanel(aBuffVariant, aGenericPanel, someCate
 		VUHDO_addBuffsToCombo(VUHDO_GLOBAL[aGenericPanel:GetName() .. "MagesCombo"], tClassBuffs, tClassSettings["MAGE"], true);
 		VUHDO_addBuffsToCombo(VUHDO_GLOBAL[aGenericPanel:GetName() .. "HuntersCombo"], tClassBuffs, tClassSettings["HUNTER"], true);
 		VUHDO_addBuffsToCombo(VUHDO_GLOBAL[aGenericPanel:GetName() .. "RoguesCombo"], tClassBuffs, tClassSettings["ROGUE"], true);
+		VUHDO_addBuffsToCombo(VUHDO_GLOBAL[aGenericPanel:GetName() .. "HeroCombo"], tClassBuffs, tClassSettings["HERO"], true);
 
 	elseif (VUHDO_BUFF_TARGET_UNIQUE == tBuffTarget) then
 		if (tSettings["name"] == nil) then

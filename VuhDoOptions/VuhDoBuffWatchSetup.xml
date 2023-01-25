@@ -565,6 +565,24 @@
         <Anchors>
           <Anchor point="TOPLEFT">
             <Offset>
+              <AbsDimension x="72" y="0" />
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Scripts>
+        	<OnLoad>
+        		self:SetAttribute("custom_function", VUHDO_buffWatchSetupDedicatedChanged);
+        	</OnLoad>
+        </Scripts>
+      </Button>
+      
+      <Button name="$parentHeroCombo" inherits="VuhDoNoModelComboBoxTemplate" id="1">
+        <Size>
+          <AbsDimension x="166" y="32" />
+        </Size>
+        <Anchors>
+          <Anchor point="TOPLEFT">
+            <Offset>
               <AbsDimension x="72" y="-250" />
             </Offset>
           </Anchor>
@@ -575,6 +593,7 @@
         	</OnLoad>
         </Scripts>
       </Button>
+      
     </Frames>
   </Frame>
 

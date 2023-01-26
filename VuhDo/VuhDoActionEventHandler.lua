@@ -157,7 +157,7 @@ local function VUHDO_showPlayerIcons(aButton)
 	-- 	VUHDO_placePlayerIcon(aButton, tIcon, 3);
 	-- end
 
-	local tRole = (VUHDO_RAID[aButton['raidid']] or {})["role"];
+	local tRole = VUHDO_determineRole(aButton['raidid'])
 	if (tRole ~= nil) then
 		tIcon = VUHDO_getBarIcon(aButton, 5);
 		tIcon:SetTexture("Interface\\LFGFrame\\UI-LFG-ICON-ROLES");
@@ -179,6 +179,7 @@ end
 
 --
 function VUHDO_hideAllPlayerIcons()
+	-- print("DEBUG","SHOULD HIDE RDF ROLES")
 	local tPanelNum;
 	local tAllButtons;
 	local tPanel;

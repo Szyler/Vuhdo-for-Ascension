@@ -404,6 +404,14 @@ function VUHDO_OnEvent(anInstance, anEvent, anArg1, anArg2, anArg3, anArg4, _, a
 
 	VUHDO_EVENT_COUNT = VUHDO_EVENT_COUNT + 1;
 
+
+	if (VUHDO_VARIABLES_LOADED) then
+		for tPanelNum = 1, 10 do -- VUHDO_MAX_PANELS
+			tPanel = VUHDO_getActionPanel(tPanelNum)
+			VUHDO_showAllPlayerIcons(tPanel);
+		end
+	end
+
 	if ("COMBAT_LOG_EVENT_UNFILTERED" == anEvent) then
 		if (VUHDO_VARIABLES_LOADED) then
 			VUHDO_parseCombatLogEvent(anArg2, anArg6, anArg9, anArg10, anArg12);

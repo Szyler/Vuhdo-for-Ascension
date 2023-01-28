@@ -200,7 +200,6 @@
 	      self:SetScript("PreClick", VuhDoActionPreClick);
 			  self:SetScript("PostClick", VuhDoActionPostClick);
 			</OnLoad>
-      <OnUpdate>VUHDO_showAllPlayerIcons(self:GetParent())</OnUpdate>
     </Scripts>
     <Frames>
 
@@ -397,6 +396,11 @@
 										-- Swiftmend indicator
                     <Texture name="$parentIc51" hidden="true" file="Interface\AddOns\VuhDo\Images\icon_red">
                     </Texture>
+
+                    -- RDF Role Icon
+                    <Texture name="$parentIc52" hidden="true" file="Interface\LFGFrame\UI-LFG-ICON-ROLES">
+                    </Texture>
+
                   </Layer>
         				</Layers>
               </StatusBar>

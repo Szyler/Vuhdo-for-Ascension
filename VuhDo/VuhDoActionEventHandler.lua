@@ -76,9 +76,6 @@ local function VUHDO_placePlayerIcon(aButton, anIcon, anIndex)
 		local tRow = anIndex - tCol * 2;
 		anIcon:SetPoint("TOPLEFT", aButton:GetName(), "TOPLEFT", tCol * 14, -tRow * 14);
 	end
-
-	-- anIcon:SetWidth(16);
-	-- anIcon:SetHeight(16);
 	anIcon:SetAlpha(1);
 	anIcon:SetVertexColor(1, 1, 1);
 	anIcon:Show();
@@ -159,8 +156,7 @@ local function VUHDO_showPlayerIcons(aButton)
 
 	local tRole = VUHDO_determineRole(aButton['raidid'])
 	if (tRole ~= nil) then
-		tIcon = VUHDO_getBarIcon(aButton, 5);
-		tIcon:SetTexture("Interface\\LFGFrame\\UI-LFG-ICON-ROLES");
+		tIcon = VUHDO_getBarRDFRoleIcon(aButton);
 		if (VUHDO_ID_MELEE_TANK == tRole) then
 			tIcon:SetTexCoord(GetTexCoordsForRole("TANK"));
 		elseif (VUHDO_ID_RANGED_HEAL == tRole) then
@@ -171,7 +167,8 @@ local function VUHDO_showPlayerIcons(aButton)
 		tIcon:SetWidth(25);
 		tIcon:SetHeight(25);
 		VUHDO_placePlayerIcon(aButton, tIcon, 99);
-
+	else
+		--print("DEBUG","NO ROLE")
 	end
 end
 

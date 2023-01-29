@@ -296,7 +296,7 @@ VUHDO_CLASS_NAMES_ORDERED = {
 
 
 
---Action button assignent constant values
+-- Action button assignent constant values
 VUHDO_SPELL_KEY_ASSIST = "assist";
 VUHDO_SPELL_KEY_FOCUS = "focus";
 VUHDO_SPELL_KEY_TARGET = "target";
@@ -306,7 +306,7 @@ VUHDO_SPELL_KEY_DROPDOWN = "dropdown";
 
 
 
---Types of updating unit status by event
+-- Types of updating unit status by event
 VUHDO_UPDATE_ALL = 1;
 VUHDO_UPDATE_HEALTH = 2;
 VUHDO_UPDATE_HEALTH_MAX = 3;
@@ -318,7 +318,7 @@ VUHDO_UPDATE_TARGET = 8;
 VUHDO_UPDATE_INC = 9;
 VUHDO_UPDATE_ALIVE = 10;
 VUHDO_UPDATE_EMERGENCY = 11;
---nur f� r bouquets
+-- nur f�r bouquets
 VUHDO_UPDATE_MANA = 13;
 VUHDO_UPDATE_THREAT_PERC = 14;
 VUHDO_UPDATE_MOUSEOVER = 15;
@@ -336,7 +336,7 @@ VUHDO_UPDATE_PETS = 26;
 VUHDO_UPDATE_PLAYER_TARGET = 27;
 VUHDO_UPDATE_ROLE = 28;
 
---Unit power types( == Blizzard defined types)
+-- Unit power types (== Blizzard defined types)
 VUHDO_UNIT_POWER_MANA = 0;
 VUHDO_UNIT_POWER_RAGE = 1;
 VUHDO_UNIT_POWER_FOCUS = 2;

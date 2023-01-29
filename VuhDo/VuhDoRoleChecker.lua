@@ -278,8 +278,8 @@ local COA_ROLE_BY_SPEC = {}
 
 -- PRIMALIST
 COA_ROLE_BY_SPEC["GEOMANCY"] = VUHDO_ID_MELEE_TANK
-COA_ROLE_BY_SPEC["LIFE"] = VUHDO_ID_RANGED_HEAL
 COA_ROLE_BY_SPEC["PRIMAL"] = VUHDO_ID_MELEE_DAMAGE
+COA_ROLE_BY_SPEC["LIFE"] = VUHDO_ID_RANGED_HEAL
 
 -- SON OF ARUGAL
 COA_ROLE_BY_SPEC["PACKLEADER"] = VUHDO_ID_MELEE_TANK
@@ -291,15 +291,23 @@ COA_ROLE_BY_SPEC["ASTRALWARFARE"] = VUHDO_ID_MELEE_TANK
 COA_ROLE_BY_SPEC["TIDES"] = VUHDO_ID_RANGED_HEAL
 COA_ROLE_BY_SPEC["MOONBOW"] = VUHDO_ID_MELEE_DAMAGE
 
+-- TINKER
+COA_ROLE_BY_SPEC["MECHANICS"] = VUHDO_ID_MELEE_TANK
+COA_ROLE_BY_SPEC["INVENTION"] = VUHDO_ID_RANGED_HEAL
+COA_ROLE_BY_SPEC["FIREARMS"] = VUHDO_ID_MELEE_DAMAGE
+
 -- TODO
 
 local function VUHDO_determineSelfRoleByCoAspec(anInfo)
-	local activeSpec = SpellKitAdvanced.Data.ActiveSpec
-	if C_Player:IsCustomClass() and COA_ROLE_BY_SPEC[activeSpec]  then
-		VUHDO_DF_TOOL_ROLES[anInfo["name"]] = COA_ROLE_BY_SPEC[activeSpec]
-		return COA_ROLE_BY_SPEC[activeSpec]
-	end
-		return nil;
+	local activeSpec
+	if C_Player:IsCustomClass() and SpellKitAdvanced.BuildSelectMenu.currentSpec then
+		 activeSpec = CA_GetIDInfo(SpellKitAdvanced.BuildSelectMenu.currentSpec).Tab
+		 if COA_ROLE_BY_SPEC[activeSpec] then
+			VUHDO_DF_TOOL_ROLES[anInfo["name"]] = COA_ROLE_BY_SPEC[activeSpec]
+			return COA_ROLE_BY_SPEC[activeSpec]	
+		end
+	end 
+	return nil;
 end
 --
 local tName;

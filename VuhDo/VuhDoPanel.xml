@@ -389,18 +389,15 @@
               			-- Ready check
                     <Texture name="$parentIc20" hidden="true">
                     </Texture>
-
 										-- Raid Icon
                     <Texture name="$parentIc50" hidden="true" file="interface\targetingframe\ui-raidtargetingicons">
                     </Texture>
 										-- Swiftmend indicator
                     <Texture name="$parentIc51" hidden="true" file="Interface\AddOns\VuhDo\Images\icon_red">
                     </Texture>
-
                     -- RDF Role Icon
-                    <Texture name="$parentIc52" hidden="true" file="Interface\LFGFrame\UI-LFG-ICON-ROLES">
+                    <Texture name="$parentIc52" hidden="true" level= "OVERLAY" file="Interface\LFGFrame\UI-LFG-ICON-ROLES">
                     </Texture>
-
                   </Layer>
         				</Layers>
               </StatusBar>
@@ -1006,9 +1003,8 @@
         </Layer>
       </Layers>
 	    <Scripts>
-        <OnLoad>self:GetParent():RegisterForDrag("LeftButton");</OnLoad>
-        <OnDragStart>VUHDO_startMoving(self:GetParent());</OnDragStart>
-        <OnDragStop>sVUHDO_stopMoving(self:GetParent());</OnDragStop>
+  	    <OnMouseDown>VUHDO_startMoving(self:GetParent())</OnMouseDown>
+    	  <OnMouseUp>VUHDO_stopMoving(self:GetParent())</OnMouseUp>
     	</Scripts>
     </Frame>
 
@@ -1080,15 +1076,12 @@
       <Button name="$parentHd15" inherits="VuhDoButtonTemplateHeader"/>
     </Frames>
     <Scripts>
-        <OnLoad>self:RegisterForDrag("LeftButton");</OnLoad>
-        <OnDragStart>VUHDO_startMoving(self);</OnDragStart>
-        <OnDragStop>VUHDO_stopMoving(self);</OnDragStop>
-      <!-- <OnMouseDown>
+      <OnMouseDown>
         VuhDoActionOnMouseDown(self,arg1);
       </OnMouseDown>
       <OnMouseUp>
         VuhDoActionOnMouseUp(self,arg1);
-      </OnMouseUp> -->
+      </OnMouseUp>
    </Scripts>
   </Frame>
 

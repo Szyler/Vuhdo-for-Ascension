@@ -403,16 +403,14 @@ end
 
 ---
 function VuhDoActionOnMouseDown(aPanel, aMouseButton)
-	-- VUHDO_startMoving(aPanel);
-	-- print("mouse up")
+	VUHDO_startMoving(aPanel);
 end
 
 
 
 ---
 function VuhDoActionOnMouseUp(aPanel, aMouseButton)
-	-- VUHDO_stopMoving(aPanel);
-	-- print("mouse down")
+	VUHDO_stopMoving(aPanel);
 end
 
 
@@ -452,7 +450,7 @@ function VUHDO_stopMoving(aPanel)
 	aPanel["isMoving"] = false;
 	VUHDO_savePanelCoords(aPanel);
 	VUHDO_saveCurrentProfilePanelPosition(VUHDO_getPanelNum(aPanel));
-  	VUHDO_hideAllPlayerIcons();
+  --VUHDO_hideAllPlayerIcons();
 end
 
 

@@ -254,25 +254,74 @@ end
 
 function VUHDO_updateRDFIcons()
 	local role1,role2,role3 = UnitGroupRolesAssigned('player')
+	tMouseOverUnit = VUHDO_getCurrentMouseOver();
+	if tMouseOverUnit then 
+		CA_debug("Mouseover: "..tMouseOverUnit)
+	end
 	for aPanel = 1, 10 do
 		local tAllButtons = { VUHDO_getActionPanel(aPanel):GetChildren() };
 		for _, tButton in pairs(tAllButtons) do
 			if (strfind(tButton:GetName(), "HlU", 1, true) and tButton:IsShown()) then
+				CA_debug("------- "..tButton:GetName().." START ------")
+				-- NOT ENABLED
 				if not  (VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["RDFIcon"]["show"]) then 
+					CA_debug("HIDING ICON : DISABLED")
+					-- HIDE
 					VUHDO_hide_RDF_Icon(tButton); 
 					return 
 				end
-				if  (VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["RDFIcon"]["alwaysShow"] or role1 or role2 or role3 ) then
-				-- SHOW
-					VUHDO_show_RDF_Icon(tButton);
+				CA_debug("RDF ICON ENABLED")
+				-- IF ENABLED AND NO GROUP NEEDED:
+				if  (not VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["RDFIcon"]["groupOnly"] ) then
+					CA_debug("NO GROUP NEEDED")
+					if VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["RDFIcon"]["mouseOnly"] then 
+						CA_debug("MOUSEOVER NEEDED")
+						if  tMouseOverUnit then 
+							-- SHOW
+							CA_debug("SHOWING ICON")
+							VUHDO_show_RDF_Icon(tButton);
+							return 
+						else
+							-- NO MOUSEOVER
+							CA_debug("HIDING ICON : NO MOUSEOVER")
+							VUHDO_hide_RDF_Icon(tButton);
+							return
+						end
+					else
+						CA_debug("NO MOUSEOVER NEEDED")
+						CA_debug("SHOWING ICON")
+						VUHDO_show_RDF_Icon(tButton);
+						return
+					end
+				-- IF ENABLED AND GROUP NEEDED
 				else
-					if (VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["RDFIcon"]["alwaysShow"]) then
-						return 
-					else 
-						-- HIDE	
+					CA_debug("GROUP NEEDED")
+					if  role1 or role2 or role3 then 
+						if VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["RDFIcon"]["mouseOnly"] then 
+							CA_debug("MOUSEOVER NEEDED")
+							if  tMouseOverUnit then 
+								-- SHOW
+								CA_debug("SHOWING ICON")
+								VUHDO_show_RDF_Icon(tButton);
+								return
+							else
+								-- NO MOUSEOVER
+								CA_debug("HIDING ICON : NO MOUSEOVER")
+								VUHDO_hide_RDF_Icon(tButton);
+								return
+							end
+						else
+							CA_debug("NO MOUSEOVER NEEDED")
+							CA_debug("SHOWING ICON")
+							VUHDO_show_RDF_Icon(tButton);												
+						end
+					else					-- HIDE
+						CA_debug("HIDING ICON : NO GROUP")
 						VUHDO_hide_RDF_Icon(tButton);
+						return
 					end
 				end
+				CA_debug("------- "..tButton:GetName().." END ------")
 			end
 		end
 	end
@@ -346,7 +395,6 @@ function VuhDoActionOnEnter(aButton)
 		VuhDoGcdStatusBar:SetValue(0);
 		VuhDoGcdStatusBar:Show();
 	end
-
 	if (VUHDO_INTERNAL_TOGGLES[18]) then -- VUHDO_UPDATE_MOUSEOVER_CLUSTER
 		if (VUHDO_CURRENT_MOUSEOVER ~= nil) then
 	    VUHDO_highlightClusterFor(VUHDO_CURRENT_MOUSEOVER);
@@ -366,6 +414,7 @@ function VuhDoActionOnEnter(aButton)
 			end
 		end
 	end
+	VUHDO_updateRDFIcons()
 end
 
 
@@ -403,6 +452,7 @@ function VuhDoActionOnLeave(aButton)
 			end
 		end
 	end
+	VUHDO_updateRDFIcons()
 end
 
 

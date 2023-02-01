@@ -307,6 +307,90 @@
         </Frames>
       </Frame>
 
+      <Frame name="$parentRDFIconPanel" inherits="VuhDoPanelTemplate">
+        <Size>
+          <AbsDimension x="240" y="100" />
+        </Size>
+        <Anchors>
+          <Anchor point="TOPLEFT">
+            <Offset>
+              <AbsDimension x="280" y="-20" />
+            </Offset>
+          </Anchor>
+        </Anchors>
+        <Frames>
+
+          <Frame name="$parentTitleLabel" inherits="VuhDoLabelFrameTemplate">
+            <Size>
+              <AbsDimension x="185" y="18" />
+            </Size>
+            <Anchors>
+              <Anchor point="TOPLEFT">
+                <Offset>
+                  <AbsDimension x="13" y="-7" />
+                </Offset>
+              </Anchor>
+            </Anchors>
+            <Layers>
+              <Layer>
+                <FontString name="$parentLabel" text="Role Icon" inherits="VuDoDefaultTitleFontTemplate">
+                </FontString>
+              </Layer>
+            </Layers>
+          </Frame>
+
+        <CheckButton name="$parentEnableRDFIconsButton" text="VUHDO_I18N_ENABLE" inherits="VuhDoCheckButtonTemplate">
+            <Anchors>
+              <Anchor point="TOPLEFT">
+                <Offset>
+                  <AbsDimension x="20" y="-30" />
+                </Offset>
+              </Anchor>
+            </Anchors>
+			      <Scripts>
+			      	<OnLoad>
+			      		VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.RDFIcon.show");
+					      <!-- VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_309); -->
+			      	</OnLoad>
+      			</Scripts>
+        </CheckButton>
+
+		<CheckButton name="$parentgroupOnlyRDFIconsButton" text="Group" inherits="VuhDoCheckButtonTemplate">
+            <Anchors>
+              <Anchor point="TOPLEFT">
+                <Offset>
+                  <AbsDimension x="125" y="-30" />
+                </Offset>
+              </Anchor>
+            </Anchors>
+			      <Scripts>
+			      	<OnLoad>
+			      		VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.RDFIcon.groupOnly");
+					      <!-- VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_309); -->
+			      	</OnLoad>
+      			</Scripts>
+        </CheckButton>
+
+		<CheckButton name="$parentMouseOnlyRDFIconsButton" text="Mouseover" inherits="VuhDoCheckButtonTemplate">
+            <Anchors>
+              <Anchor point="TOPLEFT">
+                <Offset>
+                  <AbsDimension x="125" y="-60" />
+                </Offset>
+              </Anchor>
+            </Anchors>
+			      <Scripts>
+			      	<OnLoad>
+			      		VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.RDFIcon.mouseOnly");
+					      <!-- VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_309); -->
+			      	</OnLoad>
+      			</Scripts>
+        </CheckButton>
+
+        </Frames>
+      </Frame>
+
+
       <Frame name="$parentOverhealTextPanel" inherits="VuhDoPanelTemplate">
         <Size>
           <AbsDimension x="240" y="240" />

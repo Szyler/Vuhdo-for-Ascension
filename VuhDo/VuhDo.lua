@@ -533,6 +533,7 @@ end
 
 -- Add to groups 1-8
 local function VUHDO_addUnitToGroup(aUnit, aGroupNum)
+	if not (aUnit and aGroupNum) then return end -- WEIRD ERROR WITH PETS ??
 	if ("player" == aUnit and VUHDO_CONFIG["OMIT_SELF"]) then
 		return;
 	end

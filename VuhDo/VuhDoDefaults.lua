@@ -1502,7 +1502,8 @@ local VUHDO_DEFAULT_PER_PANEL_SETUP = {
 		["point"] = "LEFT",
 		["xAdjust"] = 0,
 		["yAdjust"] = 0,
-		["alwaysShow"] = false,
+		["mouseOnly"] = false,
+		["groupOnly"] = false,
 	},
 }
 

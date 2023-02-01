@@ -496,8 +496,6 @@ function VUHDO_OnEvent(anInstance, anEvent, anArg1, anArg2, anArg3, anArg4, _, a
 			if (VUHDO_TIMERS["RELOAD_ROSTER"] < 0.2) then
 				VUHDO_TIMERS["RELOAD_ROSTER"] = 0.3;
 			end
-		else
-			
 		end
 	elseif ("PLAYER_FOCUS_CHANGED" == anEvent) then
 		VUHDO_quickRaidReload();

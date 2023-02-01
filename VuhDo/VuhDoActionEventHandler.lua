@@ -108,7 +108,7 @@ local function VUHDO_hide_RDF_Icon(aButton)
 	end
 end
 --
-local function VUHDO_showPlayerIcons(aButton)
+-- local function VUHDO_showPlayerIcons(aButton)
 	-- local tUnit = VUHDO_resolveButtonUnit(aButton);
 	-- local tIsLeader = false;
 	-- local tIsAssist = false;
@@ -194,7 +194,7 @@ local function VUHDO_showPlayerIcons(aButton)
 	-- else
 	-- 	--print("DEBUG","NO ROLE")
 	-- end
-end
+-- end
 
 
 
@@ -224,34 +224,33 @@ function VUHDO_hideAllPlayerIcons()
 	-- VUHDO_reloadUI();
 end
 
+-- function VUHDO_showRDFIcons(aPanel)
+-- 	local tAllButtons = { aPanel:GetChildren() };
+-- 	for _, tButton in pairs(tAllButtons) do
+-- 		if (strfind(tButton:GetName(), "HlU", 1, true) and tButton:IsShown()) then
 
-function VUHDO_showRDFIcons(aPanel)
-	local tAllButtons = { aPanel:GetChildren() };
-	for _, tButton in pairs(tAllButtons) do
-		if (strfind(tButton:GetName(), "HlU", 1, true) and tButton:IsShown()) then
 
-
-			if (VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["RDFIcon"]["show"]) then
-				VUHDO_show_RDF_Icon(tButton);
-			end
+-- 			if (VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["RDFIcon"]["show"]) then
+-- 				VUHDO_show_RDF_Icon(tButton);
+-- 			end
 			
-		end
-	end
-	VUHDO_reloadUI();
-end
+-- 		end
+-- 	end
+-- 	VUHDO_reloadUI();
+-- end
 
-function VUHDO_hideRDFIcons(aPanel)
-	CA_debug("Hiding RDF Icon")
-	local tAllButtons = { aPanel:GetChildren() };
-	for _, tButton in pairs(tAllButtons) do
-		if (strfind(tButton:GetName(), "HlU", 1, true) and tButton:IsShown()) then
-			VUHDO_hide_RDF_Icon(tButton);
-		end
-	end
-	VUHDO_reloadUI();
-end
+-- function VUHDO_hideRDFIcons(aPanel)
+-- 	CA_debug("Hiding RDF Icon")
+-- 	local tAllButtons = { aPanel:GetChildren() };
+-- 	for _, tButton in pairs(tAllButtons) do
+-- 		if (strfind(tButton:GetName(), "HlU", 1, true) and tButton:IsShown()) then
+-- 			VUHDO_hide_RDF_Icon(tButton);
+-- 		end
+-- 	end
+-- 	VUHDO_reloadUI();
+-- end
 
-
+-- VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE["VdAc1HIU1"]]["RDFIcon"]["show"]
 function VUHDO_updateRDFIcons()
 	local role1,role2,role3 = UnitGroupRolesAssigned('player')
 	tMouseOverUnit = VUHDO_getCurrentMouseOver();
@@ -268,63 +267,64 @@ function VUHDO_updateRDFIcons()
 					CA_debug("HIDING ICON : DISABLED")
 					-- HIDE
 					VUHDO_hide_RDF_Icon(tButton); 
-					return 
-				end
-				CA_debug("RDF ICON ENABLED")
-				-- IF ENABLED AND NO GROUP NEEDED:
-				if  (not VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["RDFIcon"]["groupOnly"] ) then
-					CA_debug("NO GROUP NEEDED")
-					if VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["RDFIcon"]["mouseOnly"] then 
-						CA_debug("MOUSEOVER NEEDED")
-						if  tMouseOverUnit then 
-							-- SHOW
-							CA_debug("SHOWING ICON")
-							VUHDO_show_RDF_Icon(tButton);
-							return 
-						else
-							-- NO MOUSEOVER
-							CA_debug("HIDING ICON : NO MOUSEOVER")
-							VUHDO_hide_RDF_Icon(tButton);
-							return
-						end
-					else
-						CA_debug("NO MOUSEOVER NEEDED")
-						CA_debug("SHOWING ICON")
-						VUHDO_show_RDF_Icon(tButton);
-						return
-					end
-				-- IF ENABLED AND GROUP NEEDED
+					 
 				else
-					CA_debug("GROUP NEEDED")
-					if  role1 or role2 or role3 then 
-						if VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["RDFIcon"]["mouseOnly"] then 
+					CA_debug("RDF ICON ENABLED")
+					-- IF ENABLED AND NO GROUP NEEDED:
+					if  (not  VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["RDFIcon"]["groupOnly"]) then
+						CA_debug("NO GROUP NEEDED")
+						if (VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["RDFIcon"]["mouseOnly"])  then 
 							CA_debug("MOUSEOVER NEEDED")
 							if  tMouseOverUnit then 
 								-- SHOW
 								CA_debug("SHOWING ICON")
 								VUHDO_show_RDF_Icon(tButton);
-								return
+								
 							else
 								-- NO MOUSEOVER
 								CA_debug("HIDING ICON : NO MOUSEOVER")
 								VUHDO_hide_RDF_Icon(tButton);
-								return
+								
 							end
 						else
 							CA_debug("NO MOUSEOVER NEEDED")
 							CA_debug("SHOWING ICON")
-							VUHDO_show_RDF_Icon(tButton);												
+							VUHDO_show_RDF_Icon(tButton);
+							
 						end
-					else					-- HIDE
-						CA_debug("HIDING ICON : NO GROUP")
-						VUHDO_hide_RDF_Icon(tButton);
-						return
+					-- IF ENABLED AND GROUP NEEDED
+					else
+						CA_debug("GROUP NEEDED")
+						if  role1 or role2 or role3 then 
+							if VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["RDFIcon"]["mouseOnly"] then 
+								CA_debug("MOUSEOVER NEEDED")
+								if  tMouseOverUnit then 
+									-- SHOW
+									CA_debug("SHOWING ICON")
+									VUHDO_show_RDF_Icon(tButton);
+									
+								else
+									-- NO MOUSEOVER
+									CA_debug("HIDING ICON : NO MOUSEOVER")
+									VUHDO_hide_RDF_Icon(tButton);
+									
+								end
+							else
+							
+							end
+						else					-- HIDE
+							CA_debug("HIDING ICON : NO GROUP")
+							VUHDO_hide_RDF_Icon(tButton);
+						end
+
 					end
 				end
 				CA_debug("------- "..tButton:GetName().." END ------")
 			end
+
 		end
 	end
+	VUHDO_reloadUI();
 end
 
 
@@ -414,7 +414,9 @@ function VuhDoActionOnEnter(aButton)
 			end
 		end
 	end
-	VUHDO_updateRDFIcons()
+	if VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[aButton]]["RDFIcon"]["mouseOnly"] then 
+		VUHDO_updateRDFIcons()
+	end
 end
 
 
@@ -452,7 +454,9 @@ function VuhDoActionOnLeave(aButton)
 			end
 		end
 	end
-	VUHDO_updateRDFIcons()
+	if VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[aButton]]["RDFIcon"]["mouseOnly"] then 
+		VUHDO_updateRDFIcons()
+	end
 end
 
 

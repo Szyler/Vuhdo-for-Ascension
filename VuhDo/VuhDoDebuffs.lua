@@ -257,8 +257,9 @@ local tSchool, tAllSchools;
 local tEmptyCustomDebuf = { };
 local tAbility;
 local tDebuff;
+local tIsFear;
 local tChosen;
-local tName, tIcon, tStacks, tType, tDuration, tExpiry;
+local tName, tRank, tIcon, tStacks, tType, tDuration, tExpiry,tUnitCaster,tIsStealable,tShouldConsolidate,tSpellId;
 function VUHDO_determineDebuff(aUnit, aClassName)
 	tInfo = VUHDO_RAID[aUnit];
 	if (tInfo == nil) then
@@ -303,7 +304,7 @@ function VUHDO_determineDebuff(aUnit, aClassName)
 		tIsStandardDebuff = false;
 
 		for tCnt = 1, 255 do
-			tName, _, tIcon, tStacks, tType, tDuration, tExpiry = UnitDebuff(aUnit, tCnt, false);
+			tName, tRank, tIcon, tStacks, tType, tDuration, tExpiry,tUnitCaster,tIsStealable,tShouldConsolidate,tSpellId = UnitDebuff(aUnit, tCnt, false);
 
 			if (tIcon == nil) then
 				break;
@@ -325,6 +326,12 @@ function VUHDO_determineDebuff(aUnit, aClassName)
 
 	  		tDebuff = VUHDO_DEBUFF_TYPES[tType];
 			tAbility = VUHDO_PLAYER_ABILITIES[tDebuff];
+			if CROWD_CONTROL_DATA[tSpellId] then 
+				tIsFear = CROWD_CONTROL_DATA[tSpellId][2] == "CROWD_CONTROL_MECHANIC_FLEEING"
+				if tIsFear and VUHDO_PLAYER_CLASS == VUHDO_ID_SUNCLERIC then 
+					tAbility = VUHDO_SPELL_ID_BLIGHTBREAKER
+				end
+			end
 
 			-- VUHDO_I18N_TT_060 = "Check this to have only debuffs shown which are removable by yourself. All debuffs will be shown otherwise.";
 			-- -> "Check this to have all debuffs shown, even ones not removable by yourself. Unchecked will still show ones you can remove.";

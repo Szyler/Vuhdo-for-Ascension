@@ -1496,6 +1496,14 @@ local VUHDO_DEFAULT_PER_PANEL_SETUP = {
 		["xAdjust"] = 0,
 		["yAdjust"] = 0,
 	},
+	["RDFIcon"] = {
+		["show"] = true,
+		["scale"] = 1,
+		["point"] = "LEFT",
+		["xAdjust"] = 0,
+		["yAdjust"] = 0,
+		["alwaysShow"] = false,
+	},
 }
 
 

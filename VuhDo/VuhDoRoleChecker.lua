@@ -2,7 +2,7 @@
 VUHDO_MANUAL_ROLES = { };
 local VUHDO_FIX_ROLES = { };
 local VUHDO_INSPECTED_ROLES = { };
-local VUHDO_DF_TOOL_ROLES = { };
+VUHDO_DF_TOOL_ROLES = { };
 local VUHDO_INSPECT_TIMEOUT = 5;
 
 local tPoints1, tPoints2, tPoints3, tRank;
@@ -258,57 +258,25 @@ local function VUHDO_determineDfToolRole(anInfo)
   tIsTank, tIsHeal, tIsDps = UnitGroupRolesAssigned(anInfo["unit"]);
 
   if (tIsTank) then
-  	VUHDO_DF_TOOL_ROLES[anInfo["name"]] = 60; -- VUHDO_ID_MELEE_TANK
-  	return 60; -- VUHDO_ID_MELEE_TANK
+  	VUHDO_DF_TOOL_ROLES[anInfo["name"]] = VUHDO_ID_MELEE_TANK;
+	  CA_debug("Determined ("..anInfo["unit"]..") "..anInfo["name"].."'s Role by RDF: TANK")
+  	return VUHDO_ID_MELEE_TANK;
   elseif (tIsHeal) then
-  	VUHDO_DF_TOOL_ROLES[anInfo["name"]] = 63; -- VUHDO_ID_RANGED_HEAL
-  	return 63; -- VUHDO_ID_RANGED_HEAL
+  	VUHDO_DF_TOOL_ROLES[anInfo["name"]] = VUHDO_ID_RANGED_HEAL;
+	  CA_debug("Determined ("..anInfo["unit"]..") "..anInfo["name"].."'s Role by RDF : HEAL")
+  	return VUHDO_ID_RANGED_HEAL;
   elseif (tIsDps) then
-  	VUHDO_DF_TOOL_ROLES[anInfo["name"]] = 61; -- VUHDO_ID_MELEE_DAMAGE
-  	-- Do return "nil", cause we don't know if melee or ranged dps, mark as indicator
+	CA_debug("Determined ("..anInfo["unit"]..") "..anInfo["name"].."'s Role by RDF : DPS")
+  	VUHDO_DF_TOOL_ROLES[anInfo["name"]] = VUHDO_ID_MELEE_DAMAGE;
+	return VUHDO_ID_MELEE_DAMAGE;
   end
-
+  CA_debug(anInfo["name"].."'s Role by RDF is Unknown")
   return nil;
 end
 
 
 
---- COA W.I.P. ---
-local COA_ROLE_BY_SPEC = {}
 
--- PRIMALIST
-COA_ROLE_BY_SPEC["GEOMANCY"] = VUHDO_ID_MELEE_TANK
-COA_ROLE_BY_SPEC["PRIMAL"] = VUHDO_ID_MELEE_DAMAGE
-COA_ROLE_BY_SPEC["LIFE"] = VUHDO_ID_RANGED_HEAL
-
--- SON OF ARUGAL
-COA_ROLE_BY_SPEC["PACKLEADER"] = VUHDO_ID_MELEE_TANK
-COA_ROLE_BY_SPEC["BLOOD"] = VUHDO_ID_RANGED_HEAL
-COA_ROLE_BY_SPEC["FEROCITY"] = VUHDO_ID_MELEE_DAMAGE
-
--- STARCALLER
-COA_ROLE_BY_SPEC["ASTRALWARFARE"] = VUHDO_ID_MELEE_TANK
-COA_ROLE_BY_SPEC["TIDES"] = VUHDO_ID_RANGED_HEAL
-COA_ROLE_BY_SPEC["MOONBOW"] = VUHDO_ID_MELEE_DAMAGE
-
--- TINKER
-COA_ROLE_BY_SPEC["MECHANICS"] = VUHDO_ID_MELEE_TANK
-COA_ROLE_BY_SPEC["INVENTION"] = VUHDO_ID_RANGED_HEAL
-COA_ROLE_BY_SPEC["FIREARMS"] = VUHDO_ID_MELEE_DAMAGE
-
--- TODO
-
-local function VUHDO_determineSelfRoleByCoAspec(anInfo)
-	local activeSpec
-	if C_Player:IsCustomClass() and SpellKitAdvanced.BuildSelectMenu.currentSpec then
-		 activeSpec = CA_GetIDInfo(SpellKitAdvanced.BuildSelectMenu.currentSpec).Tab
-		 if COA_ROLE_BY_SPEC[activeSpec] then
-			VUHDO_DF_TOOL_ROLES[anInfo["name"]] = COA_ROLE_BY_SPEC[activeSpec]
-			return COA_ROLE_BY_SPEC[activeSpec]	
-		end
-	end 
-	return nil;
-end
 --
 local tName;
 local tInfo;
@@ -341,7 +309,7 @@ function VUHDO_determineRole(aUnit)
 	tName = tInfo["name"];
 	-- Manual role override oder dungeon finder role?
 	if aUnit == VUHDO_PLAYER_RAID_ID then 
-		tFixRole = VUHDO_MANUAL_ROLES[tName] or VUHDO_determineDfToolRole(tInfo) or VUHDO_determineSelfRoleByCoAspec(tInfo)
+		tFixRole = VUHDO_MANUAL_ROLES[tName] or VUHDO_determineDfToolRole(tInfo) or CoA_Determine_Role(tInfo)
 	else
 	 	tFixRole = VUHDO_MANUAL_ROLES[tName] or VUHDO_determineDfToolRole(tInfo)
 	end
@@ -381,94 +349,9 @@ function VUHDO_determineRole(aUnit)
 		VUHDO_FIX_ROLES[tName] = 62; -- VUHDO_ID_RANGED_DAMAGE
 		return 62;
 	else
+		CA_debug("Could not automatically determine "..tInfo["name"].."'s role, Guessing DPS")
 		VUHDO_FIX_ROLES[tName] = 61; -- VUHDO_ID_MELEE_DAMAGE
 		return 61;
 	end
-
-
-	-- if (29 == tClassId) then -- VUHDO_ID_DEATH_KNIGHT
-	-- 	_, _, tBuffExist = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_FROST_PRESENCE);
-	-- 	if (tBuffExist) then
-	-- 		VUHDO_FIX_ROLES[tName] = 60; -- VUHDO_ID_MELEE_TANK
-	-- 		return 60; -- VUHDO_ID_MELEE_TANK
-	-- 	else
-	-- 		VUHDO_FIX_ROLES[tName] = 61; -- VUHDO_ID_MELEE_DAMAGE
-	-- 		return 61; -- VUHDO_ID_MELEE_DAMAGE
-	-- 	end
-
-	-- elseif (28 == tClassId) then -- VUHDO_ID_PRIESTS
-	-- 	_, _, tBuffExist = UnitBuff(aUnit, VUHDO_SPELL_ID_SHADOWFORM);
-	-- 	if (tBuffExist) then
-	-- 		VUHDO_FIX_ROLES[tName] = 62; -- VUHDO_ID_RANGED_DAMAGE
-	-- 		return 62; -- VUHDO_ID_RANGED_DAMAGE
-	-- 	else
-	-- 		return 63; -- VUHDO_ID_RANGED_HEAL
-	-- 	end
-
-	-- elseif (20 == tClassId) then -- VUHDO_ID_WARRIORS
-	-- 	_, tDefense = UnitDefense(aUnit);
-	-- 	tDefense = tDefense / UnitLevel(aUnit);
-
-	-- 	if (tDefense > 2 or VUHDO_isUnitInModel(aUnit, VUHDO_ID_MAINTANKS)) then
-	-- 		return 60; -- VUHDO_ID_MELEE_TANK
-	-- 	else
-	-- 		return 61; -- VUHDO_ID_MELEE_DAMAGE
-	-- 	end
-
-	-- elseif (27 == tClassId) then -- VUHDO_ID_DRUIDS
-	-- 	tPowerType = UnitPowerType(aUnit);
-	-- 	if (VUHDO_UNIT_POWER_MANA == tPowerType) then
-	-- 		_, _, tBuffExist = UnitBuff(aUnit, VUHDO_SPELL_ID_MOONKIN_FORM);
-	-- 		if (tBuffExist) then
-	-- 			VUHDO_FIX_ROLES[tName] = 62; -- VUHDO_ID_RANGED_DAMAGE
-	-- 			return 62; -- VUHDO_ID_RANGED_DAMAGE
-	-- 		else
-	-- 			_, _, tBuffExist = UnitBuff(aUnit, VUHDO_SPELL_ID_TREE_OF_LIFE);
-	-- 			if (tBuffExist) then
-	-- 				VUHDO_FIX_ROLES[tName] = 63; -- VUHDO_ID_RANGED_HEAL
-	-- 			end
-
-	-- 			return 63; -- VUHDO_ID_RANGED_HEAL
-	-- 		end
-	-- 	elseif (VUHDO_UNIT_POWER_RAGE == tPowerType) then
-	-- 		VUHDO_FIX_ROLES[tName] = 60; -- VUHDO_ID_MELEE_TANK
-	-- 		return 60; -- VUHDO_ID_MELEE_TANK
-	-- 	elseif (VUHDO_UNIT_POWER_ENERGY == tPowerType) then
-	-- 		VUHDO_FIX_ROLES[tName] = 61; -- VUHDO_ID_MELEE_DAMAGE
-	-- 		return 61; -- VUHDO_ID_MELEE_DAMAGE
-	-- 	end
-
-	-- elseif (23 == tClassId) then -- VUHDO_ID_PALADINS
-	-- 	_, tDefense = UnitDefense(aUnit);
-	-- 	tDefense = tDefense / UnitLevel(aUnit);
-
-	-- 	if (tDefense > 2) then
-	-- 		return 60; -- VUHDO_ID_MELEE_TANK
-	-- 	else
-	-- 		tIntellect = UnitStat(aUnit, 4);
-	-- 		tStrength = UnitStat(aUnit, 1);
-
-	-- 		if (tIntellect > tStrength) then
-	-- 			return 63; -- VUHDO_ID_RANGED_HEAL
-	-- 		else
-	-- 			return 61; -- VUHDO_ID_MELEE_DAMAGE
-	-- 		end
-	-- 	end
-
-	-- elseif (26 == tClassId) then -- VUHDO_ID_SHAMANS
-	-- 	tIntellect = UnitStat(aUnit, 4);
-	-- 	tAgility = UnitStat(aUnit, 2);
-
-	-- 	if (tAgility > tIntellect) then
-	-- 		return 61; -- VUHDO_ID_MELEE_DAMAGE
-	-- 	else
-	-- 		if (VUHDO_DF_TOOL_ROLES[tName] == 61) then -- VUHDO_ID_MELEE_DAMAGE
-	-- 			return 62; -- VUHDO_ID_RANGED_DAMAGE
-	-- 		else
-	-- 			return 63; -- Can't tell, assume its a healer -- VUHDO_ID_RANGED_HEAL
-	-- 		end
-	-- 	end
-	-- end
-
 	return nil;
 end

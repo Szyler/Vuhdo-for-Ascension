@@ -32,6 +32,7 @@ local VUHDO_getUnitButtons;
 local VUHDO_CONFIG;
 local VUHDO_INTERNAL_TOGGLES;
 local VUHDO_RAID;
+
 function VUHDO_actionEventHandlerInitBurst()
 	VUHDO_updateBouquetsForEvent = VUHDO_GLOBAL["VUHDO_updateBouquetsForEvent"];
 	VUHDO_highlightClusterFor = VUHDO_GLOBAL["VUHDO_highlightClusterFor"];
@@ -82,7 +83,30 @@ local function VUHDO_placePlayerIcon(aButton, anIcon, anIndex)
 end
 
 
+local function VUHDO_show_RDF_Icon(aButton)
+	local tRole = VUHDO_determineRole(aButton['raidid'])
+	if (tRole ~= nil) then
+		tIcon = VUHDO_getBarRDFRoleIcon(aButton);
+		if (VUHDO_ID_MELEE_TANK == tRole) then
+			tIcon:SetTexCoord(GetTexCoordsForRole("TANK"));
+		elseif (VUHDO_ID_RANGED_HEAL == tRole) then
+			tIcon:SetTexCoord(GetTexCoordsForRole("HEALER"));
+		else
+			tIcon:SetTexCoord(GetTexCoordsForRole("DAMAGER"));
+		end
+		tIcon:SetWidth(25);
+		tIcon:SetHeight(25);
+		VUHDO_placePlayerIcon(aButton, tIcon, 99);
+	else
 
+	end
+end
+local function VUHDO_hide_RDF_Icon(aButton)
+	if (aButton['raidid'] ~= nil) then
+		tIcon = VUHDO_getBarRDFRoleIcon(aButton);
+		tIcon:Hide()
+	end
+end
 --
 local function VUHDO_showPlayerIcons(aButton)
 	-- local tUnit = VUHDO_resolveButtonUnit(aButton);
@@ -154,22 +178,22 @@ local function VUHDO_showPlayerIcons(aButton)
 	-- 	VUHDO_placePlayerIcon(aButton, tIcon, 3);
 	-- end
 
-	local tRole = VUHDO_determineRole(aButton['raidid'])
-	if (tRole ~= nil) then
-		tIcon = VUHDO_getBarRDFRoleIcon(aButton);
-		if (VUHDO_ID_MELEE_TANK == tRole) then
-			tIcon:SetTexCoord(GetTexCoordsForRole("TANK"));
-		elseif (VUHDO_ID_RANGED_HEAL == tRole) then
-			tIcon:SetTexCoord(GetTexCoordsForRole("HEALER"));
-		else
-			tIcon:SetTexCoord(GetTexCoordsForRole("DAMAGER"));
-		end
-		tIcon:SetWidth(25);
-		tIcon:SetHeight(25);
-		VUHDO_placePlayerIcon(aButton, tIcon, 99);
-	else
-		--print("DEBUG","NO ROLE")
-	end
+	-- local tRole = VUHDO_determineRole(aButton['raidid'])
+	-- if (tRole ~= nil) then
+	-- 	tIcon = VUHDO_getBarRDFRoleIcon(aButton);
+	-- 	if (VUHDO_ID_MELEE_TANK == tRole) then
+	-- 		tIcon:SetTexCoord(GetTexCoordsForRole("TANK"));
+	-- 	elseif (VUHDO_ID_RANGED_HEAL == tRole) then
+	-- 		tIcon:SetTexCoord(GetTexCoordsForRole("HEALER"));
+	-- 	else
+	-- 		tIcon:SetTexCoord(GetTexCoordsForRole("DAMAGER"));
+	-- 	end
+	-- 	tIcon:SetWidth(25);
+	-- 	tIcon:SetHeight(25);
+	-- 	VUHDO_placePlayerIcon(aButton, tIcon, 99);
+	-- else
+	-- 	--print("DEBUG","NO ROLE")
+	-- end
 end
 
 
@@ -177,29 +201,101 @@ end
 --
 function VUHDO_hideAllPlayerIcons()
 	-- print("DEBUG","SHOULD HIDE RDF ROLES")
-	local tPanelNum;
-	local tAllButtons;
-	local tPanel;
-	local tButton;
+	-- local tPanelNum;
+	-- local tAllButtons;
+	-- local tPanel;
+	-- local tButton;
 
-	for tPanelNum = 1, 10 do -- VUHDO_MAX_PANELS
-		tPanel = VUHDO_getActionPanel(tPanelNum);
-		local tAllButtons = { tPanel:GetChildren() };
-		VUHDO_initLocalVars(tPanelNum);
+	-- for tPanelNum = 1, 10 do -- VUHDO_MAX_PANELS
+	-- 	tPanel = VUHDO_getActionPanel(tPanelNum);
+	-- 	local tAllButtons = { tPanel:GetChildren() };
+	-- 	VUHDO_initLocalVars(tPanelNum);
 
-		for _, tButton in pairs(tAllButtons) do
-			if (strfind(tButton:GetName(), "HlU", 1, true) and tButton:IsShown()) then
-				VUHDO_initButtonStatics(tButton, tPanelNum);
-				VUHDO_initAllHotIcons();
+	-- 	for _, tButton in pairs(tAllButtons) do
+	-- 		if (strfind(tButton:GetName(), "HlU", 1, true) and tButton:IsShown()) then
+	-- 			VUHDO_initButtonStatics(tButton, tPanelNum);
+	-- 			VUHDO_initAllHotIcons();
+	-- 		end
+	-- 	end
+	-- end
+
+	-- VUHDO_removeAllHots();
+	-- VUHDO_suspendHoTs(false);
+	-- VUHDO_reloadUI();
+end
+
+
+function VUHDO_showRDFIcons(aPanel)
+	local tAllButtons = { aPanel:GetChildren() };
+	for _, tButton in pairs(tAllButtons) do
+		if (strfind(tButton:GetName(), "HlU", 1, true) and tButton:IsShown()) then
+
+
+			if (VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["RDFIcon"]["show"]) then
+				VUHDO_show_RDF_Icon(tButton);
 			end
+			
 		end
 	end
-
-	VUHDO_removeAllHots();
-	VUHDO_suspendHoTs(false);
 	VUHDO_reloadUI();
 end
 
+function VUHDO_hideRDFIcons(aPanel)
+	CA_debug("Hiding RDF Icon")
+	local tAllButtons = { aPanel:GetChildren() };
+	for _, tButton in pairs(tAllButtons) do
+		if (strfind(tButton:GetName(), "HlU", 1, true) and tButton:IsShown()) then
+			VUHDO_hide_RDF_Icon(tButton);
+		end
+	end
+	VUHDO_reloadUI();
+end
+
+
+function VUHDO_updateRDFIcons()
+	local role1,role2,role3 = UnitGroupRolesAssigned('player')
+	for aPanel = 1, 10 do
+		local tAllButtons = { VUHDO_getActionPanel(aPanel):GetChildren() };
+		for _, tButton in pairs(tAllButtons) do
+			if (strfind(tButton:GetName(), "HlU", 1, true) and tButton:IsShown()) then
+				if not  (VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["RDFIcon"]["show"]) then 
+					VUHDO_hide_RDF_Icon(tButton); 
+					return 
+				end
+				if  (VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["RDFIcon"]["alwaysShow"] or role1 or role2 or role3 ) then
+				-- SHOW
+					VUHDO_show_RDF_Icon(tButton);
+				else
+					if (VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["RDFIcon"]["alwaysShow"]) then
+						return 
+					else 
+						-- HIDE	
+						VUHDO_hide_RDF_Icon(tButton);
+					end
+				end
+			end
+		end
+	end
+end
+
+
+		-- if (VUHDO_ALWAYS_SHOW_RDF_ICONS or ( a or b or c )) then 
+		-- 	CA_debug("Should only show when in RDF, or VUHDO_ALWAYS_SHOW_RDF_ICONS")
+
+		-- 	anythingToHide = true
+		-- else
+		-- 	if  anythingToHide then 
+		-- 		CA_debug("Should only show when not in RDF, or not VUHDO_ALWAYS_SHOW_RDF_ICONS")
+
+		-- 		for tPanelNum = 1, 10 do -- VUHDO_MAX_PANELS
+		-- 			tPanel = VUHDO_getActionPanel(tPanelNum)
+		-- 			VUHDO_hideRDFIcons(tPanel);
+		-- 		end
+		-- 		anythingToHide = false
+		-- 	end 
+
+
+		-- end
 
 
 --
@@ -208,15 +304,15 @@ function VUHDO_showAllPlayerIcons(aPanel)
 	-- VUHDO_suspendHoTs(true);
 	-- VUHDO_removeAllHots();
 
-	local tAllButtons = { aPanel:GetChildren() };
-	local tButton;
+	-- local tAllButtons = { aPanel:GetChildren() };
+	-- local tButton;
 
-	for _, tButton in pairs(tAllButtons) do
-		if (strfind(tButton:GetName(), "HlU", 1, true) and tButton:IsShown()) then
-			-- print("DEBUG","FOUND FRAME",tButton:GetName())
-			VUHDO_showPlayerIcons(tButton);
-		end
-	end
+	-- for _, tButton in pairs(tAllButtons) do
+	-- 	if (strfind(tButton:GetName(), "HlU", 1, true) and tButton:IsShown()) then
+	-- 		-- print("DEBUG","FOUND FRAME",tButton:GetName())
+	-- 		VUHDO_showPlayerIcons(tButton);
+	-- 	end
+	-- end
 end
 
 

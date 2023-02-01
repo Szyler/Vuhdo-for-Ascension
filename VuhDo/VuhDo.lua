@@ -163,8 +163,16 @@ end
 ----------------------------------------------------
 
 local VUHDO_UNIT_AFK_DC = { };
-
-
+VUHDO_DEBUG = false
+function VUHDO_toggleDebug()
+	if VUHDO_DEBUG then 
+		CA_debug("debug mode is now OFF")
+		VUHDO_DEBUG = false
+	else
+		VUHDO_DEBUG = true
+		CA_debug("debug mode is now ON")
+	end	
+end
 --
 local tUnit, tInfo, tName;
 local function VUHDO_updateAllRaidNames()

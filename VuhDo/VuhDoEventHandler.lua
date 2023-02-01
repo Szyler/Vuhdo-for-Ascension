@@ -392,27 +392,16 @@ end
 --
 local tUnit;
 local tEmptyRaid = { };
+
 function VUHDO_OnEvent(anInstance, anEvent, anArg1, anArg2, anArg3, anArg4, _, anArg6, _, _, anArg9, anArg10, _, anArg12)
 
---	if (VUHDO_EVENT_TIMES["all"] == nil) then
---		VUHDO_EVENT_TIMES["all"] = 0;
---	end
---	if (VUHDO_EVENT_TIMES[anEvent] == nil) then
---		VUHDO_EVENT_TIMES[anEvent] = { 0, 0, 0, 0, 0, 0 };
---	end
---	local tDuration = GetTime();
 
 	VUHDO_EVENT_COUNT = VUHDO_EVENT_COUNT + 1;
 
 
 	if (VUHDO_VARIABLES_LOADED) then
-	-- print("DEBUG","SHOULD SHOW RDF ROLES")
-	-- VUHDO_suspendHoTs(true);
-	-- VUHDO_removeAllHots();
-		for tPanelNum = 1, 10 do -- VUHDO_MAX_PANELS
-			tPanel = VUHDO_getActionPanel(tPanelNum)
-			VUHDO_showAllPlayerIcons(tPanel);
-		end
+
+
 	end
 
 
@@ -427,6 +416,7 @@ function VUHDO_OnEvent(anInstance, anEvent, anArg1, anArg2, anArg3, anArg4, _, a
 		if ((VUHDO_RAID or tEmptyRaid)[anArg1] ~= nil) then
 			VUHDO_updateHealth(anArg1, 4); -- VUHDO_UPDATE_DEBUFF
 		end
+		VUHDO_updateRDFIcons()
 	elseif ("UNIT_HEALTH" == anEvent) then
 		if ((VUHDO_RAID or tEmptyRaid)[anArg1] ~= nil) then
 			VUHDO_updateHealth(anArg1, 2); -- VUHDO_UPDATE_HEALTH
@@ -506,6 +496,8 @@ function VUHDO_OnEvent(anInstance, anEvent, anArg1, anArg2, anArg3, anArg4, _, a
 			if (VUHDO_TIMERS["RELOAD_ROSTER"] < 0.2) then
 				VUHDO_TIMERS["RELOAD_ROSTER"] = 0.3;
 			end
+		else
+			
 		end
 	elseif ("PLAYER_FOCUS_CHANGED" == anEvent) then
 		VUHDO_quickRaidReload();
@@ -756,6 +748,8 @@ function VUHDO_slashCmd(aCommand)
 		for _, tCurLine in ipairs(tLines) do
 			VUHDO_MsgC(tCurLine);
 		end
+	elseif aCommand == "debug" then
+		VUHDO_toggleDebug()
 	else
 		-- if (VuhDoNewOptionsTabbedFrame ~= nil) then
 		-- 	if (InCombatLockdown() and not VuhDoNewOptionsTabbedFrame:IsShown()) then

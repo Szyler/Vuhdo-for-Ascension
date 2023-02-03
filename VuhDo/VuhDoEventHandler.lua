@@ -401,7 +401,7 @@ function VUHDO_OnEvent(anInstance, anEvent, anArg1, anArg2, anArg3, anArg4, _, a
 
 	if (VUHDO_VARIABLES_LOADED) then
 
-
+		
 	end
 
 
@@ -416,7 +416,7 @@ function VUHDO_OnEvent(anInstance, anEvent, anArg1, anArg2, anArg3, anArg4, _, a
 		if ((VUHDO_RAID or tEmptyRaid)[anArg1] ~= nil) then
 			VUHDO_updateHealth(anArg1, 4); -- VUHDO_UPDATE_DEBUFF
 		end
-		VUHDO_updateRDFIcons()
+		
 	elseif ("UNIT_HEALTH" == anEvent) then
 		if ((VUHDO_RAID or tEmptyRaid)[anArg1] ~= nil) then
 			VUHDO_updateHealth(anArg1, 2); -- VUHDO_UPDATE_HEALTH
@@ -1392,7 +1392,7 @@ function VUHDO_OnUpdate(anInstance, aTimeDelta)
 			VUHDO_TIMERS["REFRESH_TARGETS"] = 0.51;
 		end
 	end
-
+	-- VUHDO_updateRDF_ICONS_Throttled()
 	-----------------------------------------------------------------------------------------
 
 	if (VUHDO_CONFIG_SHOW_RAID) then
@@ -1450,5 +1450,5 @@ function VUHDO_OnUpdate(anInstance, aTimeDelta)
 			end
 		end
 	end
-
+	
 end

@@ -33,6 +33,47 @@ local VUHDO_CONFIG;
 local VUHDO_INTERNAL_TOGGLES;
 local VUHDO_RAID;
 
+
+
+
+local throttle_seconds = 1
+local RDF_ICON_AutoHideDelay = 3
+local RDF_ICONUpdate_Timer_IsRunning = false
+local mouseover_OnLeave_Timer_IsRunning = false
+local RDF_ICONAutoHideDelay_Timer_IsRunning = false
+-- local RDF_ICONUpdate_Timer;
+
+
+-- local RDF_ICONUpdate_Lock = false
+local mouseover_OnEnter_Lock = false
+
+
+-- local mouseover_OnEnter_LockTimer
+-- local mouseover_OnLeave_UnlockTimer
+
+local function RDF_ICONUpdateTimer_Start()
+	if RDF_ICONUpdate_Timer_IsRunning then return end
+	RDF_ICONUpdate_Timer_IsRunning = true
+	Timer.NewTimer(throttle_seconds,function() RDF_ICONUpdate_Timer_IsRunning = false end)
+end
+local function RDF_ICONAutoHideDelay_Timer_Start()
+	if RDF_ICONAutoHideDelay_Timer_IsRunning then return end
+	RDF_ICONAutoHideDelay_Timer_IsRunning = true
+	Timer.After(3,function() RDF_ICONAutoHideDelay_Timer_IsRunning = false end)
+end
+
+local function mouseover_OnLeave_Timer_Start()
+	if mouseover_OnLeave_Timer_IsRunning then return end
+	mouseover_OnLeave_Timer_IsRunning = true
+	Timer.NewTimer(1,function() mouseover_OnLeave_Timer_IsRunning = false end)
+	RDF_ICONAutoHideDelay_Timer_Start()
+end
+
+local function mouseover_OnEnter_Timer_Start()
+	mouseover_OnEnter_Lock = true
+	mouseover_OnEnter_LockTimer = Timer.NewTimer(1,function() mouseover_OnEnter_Lock = false end)
+end
+
 function VUHDO_actionEventHandlerInitBurst()
 	VUHDO_updateBouquetsForEvent = VUHDO_GLOBAL["VUHDO_updateBouquetsForEvent"];
 	VUHDO_highlightClusterFor = VUHDO_GLOBAL["VUHDO_highlightClusterFor"];
@@ -54,8 +95,6 @@ function VUHDO_actionEventHandlerInitBurst()
 end
 
 
-
---
 function VUHDO_getCurrentMouseOver()
 	return VUHDO_CURRENT_MOUSEOVER;
 end
@@ -63,7 +102,7 @@ end
 
 
 --
-local function VUHDO_placePlayerIcon(aButton, anIcon, anIndex)
+function VUHDO_placePlayerIcon(aButton, anIcon, anIndex)
 	anIcon:ClearAllPoints();
 	if (anIndex == 2) then
 		anIcon:SetPoint("CENTER", aButton:GetName(), "TOPRIGHT", -5, -10);
@@ -224,13 +263,13 @@ function VUHDO_hideAllPlayerIcons()
 	-- VUHDO_reloadUI();
 end
 
--- function VUHDO_showRDFIcons(aPanel)
+-- function VUHDO_showRDF_ICONS(aPanel)
 -- 	local tAllButtons = { aPanel:GetChildren() };
 -- 	for _, tButton in pairs(tAllButtons) do
 -- 		if (strfind(tButton:GetName(), "HlU", 1, true) and tButton:IsShown()) then
 
 
--- 			if (VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["RDFIcon"]["show"]) then
+-- 			if (VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["RDF_ICON"]["show"]) then
 -- 				VUHDO_show_RDF_Icon(tButton);
 -- 			end
 			
@@ -239,41 +278,57 @@ end
 -- 	VUHDO_reloadUI();
 -- end
 
--- function VUHDO_hideRDFIcons(aPanel)
+-- function VUHDO_hideRDF_ICONS(aPanel)
 -- 	CA_debug("Hiding RDF Icon")
 -- 	local tAllButtons = { aPanel:GetChildren() };
 -- 	for _, tButton in pairs(tAllButtons) do
 -- 		if (strfind(tButton:GetName(), "HlU", 1, true) and tButton:IsShown()) then
--- 			VUHDO_hide_RDF_Icon(tButton);
+-- 			if not mouseover_OnLeave_Timer_IsRunning then 
+-- VUHDO_hide_RDF_Icon(tButton);
+-- end	
 -- 		end
 -- 	end
 -- 	VUHDO_reloadUI();
 -- end
 
--- VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE["VdAc1HIU1"]]["RDFIcon"]["show"]
-function VUHDO_updateRDFIcons()
+-- VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE["VdAc1HIU1"]]["RDF_ICON"]["show"]
+function VUHDO_updateRDF_ICONS(throttled)
+	if not throttled then 
+		CA_debug("Ignoring Lock to refresh Immediately")
+	else 
+
+		if RDF_ICONUpdate_Timer_IsRunning and throttled then return end
+		RDF_ICONUpdateTimer_Start()
+	end
 	local role1,role2,role3 = UnitGroupRolesAssigned('player')
-	tMouseOverUnit = VUHDO_getCurrentMouseOver();
+	local tMouseOverUnit = VUHDO_getCurrentMouseOver();
+
 	if tMouseOverUnit then 
 		CA_debug("Mouseover: "..tMouseOverUnit)
+	else
+		
 	end
+
+
 	for aPanel = 1, 10 do
 		local tAllButtons = { VUHDO_getActionPanel(aPanel):GetChildren() };
 		for _, tButton in pairs(tAllButtons) do
-			if (strfind(tButton:GetName(), "HlU", 1, true) and tButton:IsShown()) then
+			
+			if tButton and tButton:GetName() and (strfind(tButton:GetName(), "HlU", 1, true) and tButton:IsShown()) then
 				CA_debug("------- "..tButton:GetName().." START ------")
 				-- NOT ENABLED
-				if not  (VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["RDFIcon"]["show"]) then 
+				if not  (VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["RDF_ICON"]["show"]) then 
 					CA_debug("HIDING ICON : DISABLED")
 					-- HIDE
-					VUHDO_hide_RDF_Icon(tButton); 
-					 
+					if not RDF_ICONAutoHideDelay_Timer_IsRunning then 
+						VUHDO_hide_RDF_Icon(tButton);
+					end	 
 				else
 					CA_debug("RDF ICON ENABLED")
 					-- IF ENABLED AND NO GROUP NEEDED:
-					if  (not  VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["RDFIcon"]["groupOnly"]) then
+					if  (not  VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["RDF_ICON"]["groupOnly"]) then
 						CA_debug("NO GROUP NEEDED")
-						if (VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["RDFIcon"]["mouseOnly"])  then 
+						if (VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["RDF_ICON"]["mouseOnly"])  then 
 							CA_debug("MOUSEOVER NEEDED")
 							if  tMouseOverUnit then 
 								-- SHOW
@@ -283,8 +338,9 @@ function VUHDO_updateRDFIcons()
 							else
 								-- NO MOUSEOVER
 								CA_debug("HIDING ICON : NO MOUSEOVER")
-								VUHDO_hide_RDF_Icon(tButton);
-								
+								if not RDF_ICONAutoHideDelay_Timer_IsRunning then 
+									VUHDO_hide_RDF_Icon(tButton);
+								end	
 							end
 						else
 							CA_debug("NO MOUSEOVER NEEDED")
@@ -296,7 +352,7 @@ function VUHDO_updateRDFIcons()
 					else
 						CA_debug("GROUP NEEDED")
 						if  role1 or role2 or role3 then 
-							if VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["RDFIcon"]["mouseOnly"] then 
+							if VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["RDF_ICON"]["mouseOnly"] then 
 								CA_debug("MOUSEOVER NEEDED")
 								if  tMouseOverUnit then 
 									-- SHOW
@@ -306,26 +362,35 @@ function VUHDO_updateRDFIcons()
 								else
 									-- NO MOUSEOVER
 									CA_debug("HIDING ICON : NO MOUSEOVER")
-									VUHDO_hide_RDF_Icon(tButton);
-									
+									if not RDF_ICONAutoHideDelay_Timer_IsRunning then 
+										VUHDO_hide_RDF_Icon(tButton);
+									end	
 								end
 							else
-							
 							end
 						else					-- HIDE
 							CA_debug("HIDING ICON : NO GROUP")
-							VUHDO_hide_RDF_Icon(tButton);
+							if not RDF_ICONAutoHideDelay_Timer_IsRunning then 
+								VUHDO_hide_RDF_Icon(tButton);
+							end	
 						end
-
 					end
 				end
 				CA_debug("------- "..tButton:GetName().." END ------")
 			end
-
 		end
 	end
 	VUHDO_reloadUI();
 end
+
+function VUHDO_updateRDF_ICONS_Throttled()
+	VUHDO_updateRDF_ICONS(true)
+end
+
+function VUHDO_updateRDF_ICONS_Unthrottled()
+	VUHDO_updateRDF_ICONS(false)
+end
+
 
 
 		-- if (VUHDO_ALWAYS_SHOW_RDF_ICONS or ( a or b or c )) then 
@@ -338,7 +403,7 @@ end
 
 		-- 		for tPanelNum = 1, 10 do -- VUHDO_MAX_PANELS
 		-- 			tPanel = VUHDO_getActionPanel(tPanelNum)
-		-- 			VUHDO_hideRDFIcons(tPanel);
+		-- 			VUHDO_hideRDF_ICONS(tPanel);
 		-- 		end
 		-- 		anythingToHide = false
 		-- 	end 
@@ -414,8 +479,11 @@ function VuhDoActionOnEnter(aButton)
 			end
 		end
 	end
-	if VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[aButton]]["RDFIcon"]["mouseOnly"] then 
-		VUHDO_updateRDFIcons()
+	if VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[aButton]]["RDF_ICON"]["mouseOnly"] then 
+		if mouseover_OnEnter_Lock then return  end
+		mouseover_OnEnter_Timer_Start()
+		VUHDO_updateRDF_ICONS_Unthrottled()
+		
 	end
 end
 
@@ -454,9 +522,14 @@ function VuhDoActionOnLeave(aButton)
 			end
 		end
 	end
-	if VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[aButton]]["RDFIcon"]["mouseOnly"] then 
-		VUHDO_updateRDFIcons()
+	if VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[aButton]]["RDF_ICON"]["mouseOnly"] then 
+		if  mouseover_OnLeave_Timer_IsRunning then return end
+		mouseover_OnLeave_Timer_Start()
+		Timer.After(2, VUHDO_updateRDF_ICONS_Unthrottled)
+	else
+		RDF_ICONUpdate_Lock = false
 	end
+
 end
 
 

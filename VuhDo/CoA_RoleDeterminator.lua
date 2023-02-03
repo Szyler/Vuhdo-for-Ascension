@@ -147,6 +147,19 @@ local function CoA_Determine_Role_By_Talents(anInfo)
             end
          end
       end
+
+      if class == VUHDO_ID_WILDWALKER then
+         if primarySpec == "GEOMANCY" then
+            --  BODY OF STONE + MOUNTAIN MOVER + EARTHEN AEGIS                          
+            if  IsSpellKnown(803975) and ( CoA_GetTalentList()[805643]["known"] or CoA_GetTalentList()[805634]["known"])  then 
+               VUHDO_DF_TOOL_ROLES[anInfo["name"]] = VUHDO_ID_MELEE_TANK
+               return VUHDO_ID_MELEE_TANK
+            else 
+               VUHDO_DF_TOOL_ROLES[anInfo["name"]] = VUHDO_ID_MELEE_DAMAGE
+               return VUHDO_ID_MELEE_DAMAGE
+            end
+         end
+      end
    
 
 

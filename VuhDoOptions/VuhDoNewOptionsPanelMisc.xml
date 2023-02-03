@@ -349,7 +349,7 @@
             </Anchors>
 			      <Scripts>
 			      	<OnLoad>
-			      		VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.RDFIcon.show");
+			      		VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.RDF_ICON.show");
 					      <!-- VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_309); -->
 			      	</OnLoad>
       			</Scripts>
@@ -365,7 +365,7 @@
             </Anchors>
 			      <Scripts>
 			      	<OnLoad>
-			      		VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.RDFIcon.groupOnly");
+			      		VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.RDF_ICON.groupOnly");
 					      <!-- VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_309); -->
 			      	</OnLoad>
       			</Scripts>
@@ -381,7 +381,7 @@
             </Anchors>
 			      <Scripts>
 			      	<OnLoad>
-			      		VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.RDFIcon.mouseOnly");
+			      		VUHDO_lnfSetModel(self, "VUHDO_PANEL_SETUP.#PNUM#.RDF_ICON.mouseOnly");
 					      <!-- VUHDO_lnfSetTooltip(self, VUHDO_I18N_TT_309); -->
 			      	</OnLoad>
       			</Scripts>

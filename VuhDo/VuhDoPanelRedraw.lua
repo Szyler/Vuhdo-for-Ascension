@@ -841,14 +841,16 @@ end
 --
 local tX, tY;
 local function VUHDO_initRDFIcon(aHealthBar, anIcon, aWidth)
-	tX = sRDFIconSetup["xAdjust"] * aWidth * 0.01;
-	tY = -sRDFIconSetup["yAdjust"] * sBarScaling["barHeight"] * 0.01;
+	if anIcon then 
+		tX = sRDFIconSetup["xAdjust"] * aWidth * 0.01;
+		tY = -sRDFIconSetup["yAdjust"] * sBarScaling["barHeight"] * 0.01;
 
-	anIcon:ClearAllPoints();
-	anIcon:SetPoint(sRDFIconSetup["point"], aHealthBar:GetName(), sRDFIconSetup["point"], tX, tY);
-	anIcon:SetWidth(sBarScaling["barHeight"]  * sRDFIconSetup["scale"] /  1.5);
-	anIcon:SetHeight(sBarScaling["barHeight"] * sRDFIconSetup["scale"] / 1.5);
-	anIcon:Hide();
+		anIcon:ClearAllPoints();
+		anIcon:SetPoint(sRDFIconSetup["point"], aHealthBar:GetName(), sRDFIconSetup["point"], tX, tY);
+		anIcon:SetWidth(sBarScaling["barHeight"]  * sRDFIconSetup["scale"] /  1.5);
+		anIcon:SetHeight(sBarScaling["barHeight"] * sRDFIconSetup["scale"] / 1.5);
+		anIcon:Hide();
+	end
 end
 
 local tX, tY;
@@ -908,7 +910,7 @@ local function VUHDO_initTargetBar()
 		VUHDO_initBackgroundBar(VUHDO_getHealthBar(sButton, 12));
 		VUHDO_initManaBar(tTgButton, VUHDO_getHealthBar(sButton, 13), sBarScaling["targetWidth"], true);
 		VUHDO_initRaidIcon(tTgHealthBar, VUHDO_getTargetBarRoleIcon(tTgButton, 50), sBarScaling["targetWidth"]);
-		VUHDO_initRDFIcon(tTgHealthBar, VUHDO_getTargetBarRoleIcon(tTgButton, 52), sBarScaling["targetWidth"]);
+		-- VUHDO_initRDFIcon(tTgHealthBar, VUHDO_getBarRDFRoleIcon(tTgButton, 52), sBarScaling["targetWidth"]);
 		VUHDO_initBarTexts(tTgButton, tTgHealthBar, sBarScaling["targetWidth"]);
 		VUHDO_initOverhealText(tTgHealthBar, sBarScaling["targetWidth"]);
 		tBackgroundBar = VUHDO_getHealthBar(tTgButton, 3);
@@ -962,7 +964,7 @@ local function VUHDO_initTotBar()
 		VUHDO_initBackgroundBar(VUHDO_getHealthBar(sButton, 15));
 		VUHDO_initManaBar(tTotButton, VUHDO_getHealthBar(sButton, 16), sBarScaling["totWidth"], true);
 		VUHDO_initRaidIcon(tTgHealthBar, VUHDO_getTargetBarRoleIcon(tTotButton, 50), sBarScaling["totWidth"]);
-		VUHDO_initRDFIcon(tTgHealthBar, VUHDO_getTargetBarRoleIcon(tTotButton, 52), sBarScaling["totWidth"]);
+		-- VUHDO_initRDFIcon(tTgHealthBar, VUHDO_getBarRDFRoleIcon(tTotButton, 52), sBarScaling["totWidth"]);
 		VUHDO_initBarTexts(tTgButton, tTgHealthBar, sBarScaling["totWidth"]);
 		VUHDO_initOverhealText(tTgHealthBar, sBarScaling["totWidth"]);
 
@@ -1115,7 +1117,7 @@ function VUHDO_initHealButton(aButton, aPanelNum)
 	VUHDO_initAllHotIcons();
 	VUHDO_initCustomDebuffs();
 	VUHDO_initRaidIcon(sHealthBar, VUHDO_getBarRoleIcon(sButton, 50), sBarScaling["barWidth"]);
-	VUHDO_initRDFIcon(sHealthBar, VUHDO_getBarRoleIcon(sButton, 52), sBarScaling["barWidth"]);
+	VUHDO_initRDFIcon(sHealthBar, VUHDO_getBarRDFRoleIcon(sButton, 52), sBarScaling["barWidth"]);
 	VUHDO_initSwiftmendIndicator();
 	VUHDO_initFlashBar();
 	VUHDO_initReadyCheckIcon(aButton);

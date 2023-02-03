@@ -120,6 +120,13 @@ function VUHDO_placePlayerIcon(aButton, anIcon, anIndex)
 	anIcon:SetVertexColor(1, 1, 1);
 	anIcon:Show();
 end
+function VUHDO_placeRDF_ICON(aButton,anIcon)
+	anIcon:ClearAllPoints();
+	anIcon:SetPoint("CENTER", aButton:GetName(), "TOP", 0, 0);
+	anIcon:SetAlpha(1);
+	anIcon:SetVertexColor(1, 1, 1);
+	anIcon:Show();
+end
 
 
 local function VUHDO_show_RDF_Icon(aButton)
@@ -310,76 +317,82 @@ function VUHDO_updateRDF_ICONS(throttled)
 	end
 
 
-	for aPanel = 1, 10 do
-		local tAllButtons = { VUHDO_getActionPanel(aPanel):GetChildren() };
-		for _, tButton in pairs(tAllButtons) do
-			
-			if tButton and tButton:GetName() and (strfind(tButton:GetName(), "HlU", 1, true) and tButton:IsShown()) then
-				CA_debug("------- "..tButton:GetName().." START ------")
-				-- NOT ENABLED
-				if not  (VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["RDF_ICON"]["show"]) then 
-					CA_debug("HIDING ICON : DISABLED")
-					-- HIDE
-					if not RDF_ICONAutoHideDelay_Timer_IsRunning then 
-						VUHDO_hide_RDF_Icon(tButton);
-					end	 
-				else
-					CA_debug("RDF ICON ENABLED")
-					-- IF ENABLED AND NO GROUP NEEDED:
-					if  (not  VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["RDF_ICON"]["groupOnly"]) then
-						CA_debug("NO GROUP NEEDED")
-						if (VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["RDF_ICON"]["mouseOnly"])  then 
-							CA_debug("MOUSEOVER NEEDED")
-							if  tMouseOverUnit then 
-								-- SHOW
-								CA_debug("SHOWING ICON")
-								VUHDO_show_RDF_Icon(tButton);
-								
-							else
-								-- NO MOUSEOVER
-								CA_debug("HIDING ICON : NO MOUSEOVER")
-								if not RDF_ICONAutoHideDelay_Timer_IsRunning then 
-									VUHDO_hide_RDF_Icon(tButton);
-								end	
-							end
+	-- for aPanel = 1, 10 do
+		local tAllButtons = { VUHDO_getActionPanel(1):GetChildren() };
+		for _, aButton in pairs(tAllButtons) do
+			local tUnit = aButton['raidid']
+			if aButton and aButton:GetName() and strfind(aButton:GetName(), "VdAc1", 1, true) and VUHDO_BUTTON_CACHE[aButton] then
+				if VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[aButton]]["RDF_ICON"]["show"] then 
+				tIcon = VUHDO_getBarRDFRoleIcon(aButton);
+				
+				if (tIcon ~= nil and tUnit ~= nil ) then
+					local tRole = VUHDO_determineRole(aButton['raidid'])
+					if (tRole ~= nil) then
+						if (VUHDO_ID_MELEE_TANK == tRole) then
+							tIcon:SetTexCoord(GetTexCoordsForRole("TANK"));
+						elseif (VUHDO_ID_RANGED_HEAL == tRole) then
+							tIcon:SetTexCoord(GetTexCoordsForRole("HEALER"));
 						else
-							CA_debug("NO MOUSEOVER NEEDED")
-							CA_debug("SHOWING ICON")
-							VUHDO_show_RDF_Icon(tButton);
-							
+							tIcon:SetTexCoord(GetTexCoordsForRole("DAMAGER"));
 						end
-					-- IF ENABLED AND GROUP NEEDED
-					else
-						CA_debug("GROUP NEEDED")
-						if  role1 or role2 or role3 then 
-							if VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]]["RDF_ICON"]["mouseOnly"] then 
+						tIcon:SetWidth(25);
+						tIcon:SetHeight(25);
+						VUHDO_placeRDF_ICON(aButton, tIcon);
+		
+		
+						if  (not  VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[aButton]]["RDF_ICON"]["groupOnly"]) then
+							CA_debug("NO GROUP NEEDED")
+							if (VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[aButton]]["RDF_ICON"]["mouseOnly"])  then 
 								CA_debug("MOUSEOVER NEEDED")
 								if  tMouseOverUnit then 
 									-- SHOW
 									CA_debug("SHOWING ICON")
-									VUHDO_show_RDF_Icon(tButton);
+									tIcon:Show()
 									
 								else
 									-- NO MOUSEOVER
 									CA_debug("HIDING ICON : NO MOUSEOVER")
-									if not RDF_ICONAutoHideDelay_Timer_IsRunning then 
-										VUHDO_hide_RDF_Icon(tButton);
-									end	
+										tIcon:Hide()
 								end
 							else
+								CA_debug("NO MOUSEOVER NEEDED")
+								CA_debug("SHOWING ICON")
+								tIcon:Show()
+								
 							end
-						else					-- HIDE
-							CA_debug("HIDING ICON : NO GROUP")
-							if not RDF_ICONAutoHideDelay_Timer_IsRunning then 
-								VUHDO_hide_RDF_Icon(tButton);
-							end	
+						-- IF ENABLED AND GROUP NEEDED
+						else
+							CA_debug("GROUP NEEDED")
+							if  role1 or role2 or role3 then 
+								if VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[aButton]]["RDF_ICON"]["mouseOnly"] then 
+									CA_debug("MOUSEOVER NEEDED")
+									if  tMouseOverUnit then 
+										-- SHOW
+										CA_debug("SHOWING ICON")
+										tIcon:Show()
+										
+									else
+										-- NO MOUSEOVER
+										CA_debug("HIDING ICON : NO MOUSEOVER")
+										tIcon:Hide()
+									end
+								else
+								end
+							else					-- HIDE
+								CA_debug("HIDING ICON : NO GROUP")
+									tIcon:Hide()
+							end
 						end
+					else
+						tIcon:Hide()
 					end
 				end
-				CA_debug("------- "..tButton:GetName().." END ------")
+			end
+			else
+				
 			end
 		end
-	end
+	-- end
 	VUHDO_reloadUI();
 end
 

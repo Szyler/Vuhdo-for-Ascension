@@ -206,7 +206,7 @@ local tPanel;
 local function VUHDO_refreshPanel(aPanelNum)
   if (VUHDO_hasPanelButtons(aPanelNum)) then
 		tPanel = VUHDO_getActionPanel(aPanelNum);
-	  tPanel:Show();
+	  	tPanel:Show();
 
 		VUHDO_refreshInitPanel(tPanel, aPanelNum);
 		VUHDO_refreshPositionTableHeaders(tPanel, aPanelNum);

@@ -683,83 +683,69 @@ function VUHDO_customizeHealButton(aButton)
 		end
 	end
 	-- RDF icon
-	tIcon = VUHDO_getBarRDFRoleIcon(aButton);
-	if (VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[aButton]]["RDF_ICON"]["show"] and tUnit ~= nil) then
-		local tRole = VUHDO_determineRole(aButton['raidid'])
-		if (tRole ~= nil) then
-			if (VUHDO_ID_MELEE_TANK == tRole) then
-				tIcon:SetTexCoord(GetTexCoordsForRole("TANK"));
-			elseif (VUHDO_ID_RANGED_HEAL == tRole) then
-				tIcon:SetTexCoord(GetTexCoordsForRole("HEALER"));
-			else
-				tIcon:SetTexCoord(GetTexCoordsForRole("DAMAGER"));
-			end
-			tIcon:SetWidth(25);
-			tIcon:SetHeight(25);
-			VUHDO_placePlayerIcon(aButton, tIcon, 99);
-		else
-
-		end
-	end
-
-	if (tIcon ~= nil) then
-	CA_debug("------- "..aButton:GetName().." START ------")
-	-- NOT ENABLED
-	if not  (VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[aButton]]["RDF_ICON"]["show"]) then 
-		CA_debug("HIDING ICON : DISABLED")
-		-- HIDE
-		tIcon:Hide()
-	else
-		CA_debug("RDF ICON ENABLED")
-		-- IF ENABLED AND NO GROUP NEEDED:
-		if  (not  VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[aButton]]["RDF_ICON"]["groupOnly"]) then
-			CA_debug("NO GROUP NEEDED")
-			if (VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[aButton]]["RDF_ICON"]["mouseOnly"])  then 
-				CA_debug("MOUSEOVER NEEDED")
-				if  tMouseOverUnit then 
-					-- SHOW
-					CA_debug("SHOWING ICON")
-					tIcon:Show()
-					
+	if strfind(aButton:GetName(), "VdAc1", 1, true) and VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[aButton]]["RDF_ICON"]["show"] then
+		tIcon = VUHDO_getBarRDFRoleIcon(aButton);
+		
+		if (tIcon ~= nil and tUnit ~= nil )  then
+			local tRole = VUHDO_determineRole(aButton['raidid'])
+			if (tRole ~= nil) then
+				if (VUHDO_ID_MELEE_TANK == tRole) then
+					tIcon:SetTexCoord(GetTexCoordsForRole("TANK"));
+				elseif (VUHDO_ID_RANGED_HEAL == tRole) then
+					tIcon:SetTexCoord(GetTexCoordsForRole("HEALER"));
 				else
-					-- NO MOUSEOVER
-					CA_debug("HIDING ICON : NO MOUSEOVER")
-						tIcon:Hide()
+					tIcon:SetTexCoord(GetTexCoordsForRole("DAMAGER"));
 				end
-			else
-				CA_debug("NO MOUSEOVER NEEDED")
-				CA_debug("SHOWING ICON")
-				tIcon:Show()
-				
-			end
-		-- IF ENABLED AND GROUP NEEDED
-		else
-			CA_debug("GROUP NEEDED")
-			if  role1 or role2 or role3 then 
-				if VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[aButton]]["RDF_ICON"]["mouseOnly"] then 
-					CA_debug("MOUSEOVER NEEDED")
-					if  tMouseOverUnit then 
-						-- SHOW
+				tIcon:SetWidth(25);
+				tIcon:SetHeight(25);
+				VUHDO_placeRDF_ICON(aButton, tIcon);
+
+
+				if  (not  VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[aButton]]["RDF_ICON"]["groupOnly"]) then
+					CA_debug("NO GROUP NEEDED")
+					if (VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[aButton]]["RDF_ICON"]["mouseOnly"])  then 
+						CA_debug("MOUSEOVER NEEDED")
+						if  tMouseOverUnit then 
+							-- SHOW
+							CA_debug("SHOWING ICON")
+							tIcon:Show()
+						else
+							-- NO MOUSEOVER
+							CA_debug("HIDING ICON : NO MOUSEOVER")
+								tIcon:Hide()
+						end
+					else
+						CA_debug("NO MOUSEOVER NEEDED")
 						CA_debug("SHOWING ICON")
 						tIcon:Show()
-						
-					else
-						-- NO MOUSEOVER
-						CA_debug("HIDING ICON : NO MOUSEOVER")
-
-							tIcon:Hide()
-
 					end
+				-- IF ENABLED AND GROUP NEEDED
 				else
+					CA_debug("GROUP NEEDED")
+					if  role1 or role2 or role3 then 
+						if VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[aButton]]["RDF_ICON"]["mouseOnly"] then 
+							CA_debug("MOUSEOVER NEEDED")
+							if  tMouseOverUnit then 
+								-- SHOW
+								CA_debug("SHOWING ICON")
+								tIcon:Show()
+							else
+								-- NO MOUSEOVER
+								CA_debug("HIDING ICON : NO MOUSEOVER")
+								tIcon:Hide()
+							end
+						else
+						end
+					else					-- HIDE
+						CA_debug("HIDING ICON : NO GROUP")
+							tIcon:Hide()
+					end
 				end
-			else					-- HIDE
-				CA_debug("HIDING ICON : NO GROUP")
-					tIcon:Hide()
+			else
+				tIcon:Hide()
 			end
 		end
 	end
-	CA_debug("------- "..aButton:GetName().." END ------")
-end
 end
 local VUHDO_customizeHealButton = VUHDO_customizeHealButton;
 

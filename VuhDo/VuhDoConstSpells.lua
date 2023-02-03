@@ -74,6 +74,7 @@ VUHDO_SPELL_ID_TREE_OF_LIFE = GetSpellInfo(33891);-- Aura of the player having i
 VUHDO_SPELL_ID_WILD_GROWTH = GetSpellInfo(48438);
 VUHDO_SPELL_ID_IMPROVED_SHADOWFORM = GetSpellInfo(47569);
 VUHDO_SPELL_ID_CYCLONE = GetSpellInfo(33786);
+VUHDO_SPELL_ID_BUFF_SPIRIT = GetSpellInfo(954690);
 
 ------------------
 -- Buff categories

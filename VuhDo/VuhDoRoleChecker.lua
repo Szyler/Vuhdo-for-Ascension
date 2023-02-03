@@ -317,24 +317,31 @@ function VUHDO_determineRole(aUnit)
 	-- 	return VUHDO_INSPECTED_ROLES[tName];
 	-- end
   -- Estimated role fixed?
+
+	-- Tanks
   	local _, tDefense = UnitDefense(aUnit);
 	local _, _, tBuffExist_RF = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_RIGHTEOUS_FURY);
 	local _, _, tBuffExist_AotM = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_ASPECT_OF_THE_MONKEY);
 	local _, _, tBuffExist_BF = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_BEAR_FORM);
 	local _, _, tBuffExist_DBF = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_DIRE_BEAR_FORM);
-	local _, _, tBuffExist_ToL = UnitBuff(aUnit, VUHDO_SPELL_ID_TREE_OF_LIFE);
+	local _, _, tBuffExist_MFB = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_MANAFORGED_BARRIER);
+
+	-- DPS
 	local _, _, tBuffExist_SF = UnitBuff(aUnit, VUHDO_SPELL_ID_SHADOWFORM);
 	local _, _, tBuffExist_MKF = UnitBuff(aUnit, VUHDO_SPELL_ID_MOONKIN_FORM);
 	local _, _, tBuffExist_AotH = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_ASPECT_OF_THE_HAWK);
 	local _, _, tBuffExist_CC = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_CRIMSON_CHAMPION);
-	local _, _, tBuffExist_MFB = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_MANAFORGED_BARRIER);
+	
+	-- Healers
+	local _, _, tBuffExist_ToL = UnitBuff(aUnit, VUHDO_SPELL_ID_TREE_OF_LIFE);
+	local _, _, tBuffExist_Spir = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_SPIRIT);
 
 	if (VUHDO_FIX_ROLES[tName] ~= nil) then -- TODO: Add Ascension talent check here
 		return VUHDO_FIX_ROLES[tName];
 	elseif (tBuffExist_RF or tBuffExist_AotM or tBuffExist_BF or tBuffExist_DBF or tBuffExist_CC or tDefense>20 or tBuffExist_MFB) then
 		VUHDO_FIX_ROLES[tName] = 60; -- VUHDO_ID_MELEE_TANK
 		return 60; -- VUHDO_ID_MELEE_TANK
-	elseif (tBuffExist_ToL) then
+	elseif (tBuffExist_ToL or tBuffExist_Spir) then
 		VUHDO_FIX_ROLES[tName] = 63; -- VUHDO_ID_RANGED_HEAL
 		return 63;
 	elseif (tBuffExist_SF or tBuffExist_MKF or tBuffExist_AotH) then

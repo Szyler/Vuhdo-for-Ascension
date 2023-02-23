@@ -683,6 +683,8 @@ function VUHDO_customizeHealButton(aButton)
 		end
 	end
 	-- RDF icon
+
+
 	if strfind(aButton:GetName(), "VdAc1", 1, true) and VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[aButton]]["RDF_ICON"]["show"] then
 		tIcon = VUHDO_getBarRDFRoleIcon(aButton);
 		
@@ -698,7 +700,8 @@ function VUHDO_customizeHealButton(aButton)
 				end
 				tIcon:SetWidth(25);
 				tIcon:SetHeight(25);
-				VUHDO_placeRDF_ICON(aButton, tIcon);
+				tIcon:Show()
+				-- VUHDO_placeRDF_ICON(aButton, tIcon);
 
 
 				if  (not  VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[aButton]]["RDF_ICON"]["groupOnly"]) then
@@ -709,6 +712,7 @@ function VUHDO_customizeHealButton(aButton)
 							-- SHOW
 							CA_debug("SHOWING ICON")
 							tIcon:Show()
+							
 						else
 							-- NO MOUSEOVER
 							CA_debug("HIDING ICON : NO MOUSEOVER")
@@ -718,6 +722,7 @@ function VUHDO_customizeHealButton(aButton)
 						CA_debug("NO MOUSEOVER NEEDED")
 						CA_debug("SHOWING ICON")
 						tIcon:Show()
+						
 					end
 				-- IF ENABLED AND GROUP NEEDED
 				else
@@ -729,6 +734,7 @@ function VUHDO_customizeHealButton(aButton)
 								-- SHOW
 								CA_debug("SHOWING ICON")
 								tIcon:Show()
+								
 							else
 								-- NO MOUSEOVER
 								CA_debug("HIDING ICON : NO MOUSEOVER")
@@ -745,6 +751,9 @@ function VUHDO_customizeHealButton(aButton)
 				tIcon:Hide()
 			end
 		end
+	
+	else
+		
 	end
 end
 local VUHDO_customizeHealButton = VUHDO_customizeHealButton;

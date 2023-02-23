@@ -750,7 +750,7 @@ local function VUHDO_updateGroupArrays(anWasMacroRestore)
 	VUHDO_initGroupArrays();
 
 	for tUnit, tInfo in pairs(VUHDO_RAID) do
-		if (not tInfo["isPet"]) then
+		if tUnit and (not tInfo["isPet"]) then
 			if ("focus" ~= tUnit and "target" ~= tUnit) then
 				VUHDO_addUnitToGroup(tUnit, tInfo["group"]);
 				VUHDO_addUnitToClass(tUnit, tInfo["classId"]);

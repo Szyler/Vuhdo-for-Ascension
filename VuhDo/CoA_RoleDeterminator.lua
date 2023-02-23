@@ -121,7 +121,8 @@ local function CoA_GetTalentList()
 
 local function CoA_Determine_Role_By_Talents(anInfo)   
     -- LOGIC FOR PLAYER INSPECTION
-   if anInfo["unit"] == "player" then 
+   if anInfo["unit"] == "player" and SpellKitAdvanced.BuildSelectMenu.currentSpec then
+      
       local primarySpec = CA_GetIDInfo(SpellKitAdvanced.BuildSelectMenu.currentSpec).Tab
       local talents = CoA_GetTalentList()
       local class = anInfo["classId"]

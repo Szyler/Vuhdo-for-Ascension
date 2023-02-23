@@ -19,7 +19,7 @@ VUHDO_BUTTON_CACHE = { };
 local VUHDO_BUTTON_CACHE = VUHDO_BUTTON_CACHE;
 
 function VUHDO_getBarRDFRoleIcon(aButton)
-	return VUHDO_GLOBAL[aButton:GetName() .. "BgBarIcBarHlBarIc52"];
+	return VUHDO_GLOBAL[aButton:GetName() .. "BgBarIcBarHlBarHiBarIc52"];
 end
 
 --

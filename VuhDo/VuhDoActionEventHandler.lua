@@ -102,57 +102,57 @@ end
 
 
 --
-function VUHDO_placePlayerIcon(aButton, anIcon, anIndex)
-	anIcon:ClearAllPoints();
-	if (anIndex == 2) then
-		anIcon:SetPoint("CENTER", aButton:GetName(), "TOPRIGHT", -5, -10);
-	elseif (anIndex == 99) then
-		anIcon:SetPoint("CENTER", aButton:GetName(), "TOP", 0, 0);
-	else
-		if (anIndex > 2) then
-			anIndex = anIndex - 1;
-		end
-		local tCol = floor(anIndex * 0.5);
-		local tRow = anIndex - tCol * 2;
-		anIcon:SetPoint("TOPLEFT", aButton:GetName(), "TOPLEFT", tCol * 14, -tRow * 14);
-	end
-	anIcon:SetAlpha(1);
-	anIcon:SetVertexColor(1, 1, 1);
-	anIcon:Show();
-end
-function VUHDO_placeRDF_ICON(aButton,anIcon)
-	anIcon:ClearAllPoints();
-	anIcon:SetPoint("CENTER", aButton:GetName(), "TOP", 0, 0);
-	anIcon:SetAlpha(1);
-	anIcon:SetVertexColor(1, 1, 1);
-	anIcon:Show();
-end
+-- function VUHDO_placePlayerIcon(aButton, anIcon, anIndex)
+-- 	anIcon:ClearAllPoints();
+-- 	if (anIndex == 2) then
+-- 		anIcon:SetPoint("CENTER", aButton:GetName(), "TOPRIGHT", -5, -10);
+-- 	elseif (anIndex == 99) then
+-- 		anIcon:SetPoint("CENTER", aButton:GetName(), "TOP", 0, 0);
+-- 	else
+-- 		if (anIndex > 2) then
+-- 			anIndex = anIndex - 1;
+-- 		end
+-- 		local tCol = floor(anIndex * 0.5);
+-- 		local tRow = anIndex - tCol * 2;
+-- 		anIcon:SetPoint("TOPLEFT", aButton:GetName(), "TOPLEFT", tCol * 14, -tRow * 14);
+-- 	end
+-- 	anIcon:SetAlpha(1);
+-- 	anIcon:SetVertexColor(1, 1, 1);
+-- 	anIcon:Show();
+-- end
+-- function VUHDO_placeRDF_ICON(aButton,anIcon)
+-- 	-- anIcon:ClearAllPoints();
+-- 	-- anIcon:SetPoint("CENTER", aButton:GetName(), "TOP", 0, 0);
+-- 	-- anIcon:SetAlpha(1);
+-- 	-- anIcon:SetVertexColor(1, 1, 1);
+-- 	anIcon:Show();
+-- end
 
 
-local function VUHDO_show_RDF_Icon(aButton)
-	local tRole = VUHDO_determineRole(aButton['raidid'])
-	if (tRole ~= nil) then
-		tIcon = VUHDO_getBarRDFRoleIcon(aButton);
-		if (VUHDO_ID_MELEE_TANK == tRole) then
-			tIcon:SetTexCoord(GetTexCoordsForRole("TANK"));
-		elseif (VUHDO_ID_RANGED_HEAL == tRole) then
-			tIcon:SetTexCoord(GetTexCoordsForRole("HEALER"));
-		else
-			tIcon:SetTexCoord(GetTexCoordsForRole("DAMAGER"));
-		end
-		tIcon:SetWidth(25);
-		tIcon:SetHeight(25);
-		VUHDO_placePlayerIcon(aButton, tIcon, 99);
-	else
+-- local function VUHDO_show_RDF_Icon(aButton)
+-- 	local tRole = VUHDO_determineRole(aButton['raidid'])
+-- 	if (tRole ~= nil) then
+-- 		tIcon = VUHDO_getBarRDFRoleIcon(aButton);
+-- 		if (VUHDO_ID_MELEE_TANK == tRole) then
+-- 			tIcon:SetTexCoord(GetTexCoordsForRole("TANK"));
+-- 		elseif (VUHDO_ID_RANGED_HEAL == tRole) then
+-- 			tIcon:SetTexCoord(GetTexCoordsForRole("HEALER"));
+-- 		else
+-- 			tIcon:SetTexCoord(GetTexCoordsForRole("DAMAGER"));
+-- 		end
+-- 		tIcon:SetWidth(25);
+-- 		tIcon:SetHeight(25);
+-- 		VUHDO_placePlayerIcon(aButton, tIcon, 99);
+-- 	else
 
-	end
-end
-local function VUHDO_hide_RDF_Icon(aButton)
-	if (aButton['raidid'] ~= nil) then
-		tIcon = VUHDO_getBarRDFRoleIcon(aButton);
-		tIcon:Hide()
-	end
-end
+-- 	end
+-- end
+-- local function VUHDO_hide_RDF_Icon(aButton)
+-- 	if (aButton['raidid'] ~= nil) then
+-- 		tIcon = VUHDO_getBarRDFRoleIcon(aButton);
+-- 		tIcon:Hide()
+-- 	end
+-- end
 --
 -- local function VUHDO_showPlayerIcons(aButton)
 	-- local tUnit = VUHDO_resolveButtonUnit(aButton);
@@ -304,7 +304,10 @@ function VUHDO_updateRDF_ICONS(throttled)
 		CA_debug("Ignoring Lock to refresh Immediately")
 	else 
 
-		if RDF_ICONUpdate_Timer_IsRunning and throttled then return end
+		if RDF_ICONUpdate_Timer_IsRunning and throttled then 
+			return 
+		end
+		
 		RDF_ICONUpdateTimer_Start()
 	end
 	local role1,role2,role3 = UnitGroupRolesAssigned('player')
@@ -337,7 +340,8 @@ function VUHDO_updateRDF_ICONS(throttled)
 						end
 						tIcon:SetWidth(25);
 						tIcon:SetHeight(25);
-						VUHDO_placeRDF_ICON(aButton, tIcon);
+						tIcon:Show()
+						-- VUHDO_placeRDF_ICON(aButton, tIcon);
 		
 		
 						if  (not  VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[aButton]]["RDF_ICON"]["groupOnly"]) then
@@ -386,6 +390,8 @@ function VUHDO_updateRDF_ICONS(throttled)
 					else
 						tIcon:Hide()
 					end
+				else
+					CA_debug("RDF icon is nil!",aButton:GetName() )
 				end
 			end
 			else

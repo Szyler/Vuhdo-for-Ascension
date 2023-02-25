@@ -326,6 +326,10 @@ function VUHDO_determineDebuff(aUnit, aClassName)
 
 	  		tDebuff = VUHDO_DEBUFF_TYPES[tType];
 			tAbility = VUHDO_PLAYER_ABILITIES[tDebuff];
+			if type(tAbility) == "table" then 
+				tAbility = next(tAbility) -- CHECK IF TABLE IS EMPTY
+			end
+			--- COA Workaround for Sun Cleric ---
 			if CROWD_CONTROL_DATA[tSpellId] then 
 				tIsFear = CROWD_CONTROL_DATA[tSpellId][2] == "CROWD_CONTROL_MECHANIC_FLEEING"
 				if tIsFear and VUHDO_PLAYER_CLASS == VUHDO_ID_SUNCLERIC then 
@@ -461,11 +465,18 @@ function VUHDO_initDebuffs()
 	local _, tClass = UnitClass("player");
 
 	for tDebuffType, tAbility in pairs(VUHDO_DEBUFF_ABILITIES[tClass] or { }) do
-		if (not VUHDO_isSpellKnown(tAbility)) then
-			VUHDO_DEBUFF_ABILITIES[tClass][tDebuffType] = nil;
+		if type(tAbility) == "table" then 
+			for index,name in pairs(tAbility) do 
+				if (not VUHDO_isSpellKnown(name)) then
+					VUHDO_DEBUFF_ABILITIES[tClass][tDebuffType][index] = nil;
+				end
+			end
+		else
+			if (not VUHDO_isSpellKnown(tAbility)) then
+				VUHDO_DEBUFF_ABILITIES[tClass][tDebuffType] = nil;
+			end
 		end
 	end
-
   VUHDO_PLAYER_ABILITIES = VUHDO_DEBUFF_ABILITIES[tClass];
 
 	twipe(VUHDO_CUSTOM_DEBUFF_LIST);

@@ -750,15 +750,17 @@ local function VUHDO_updateGroupArrays(anWasMacroRestore)
 	VUHDO_initGroupArrays();
 
 	for tUnit, tInfo in pairs(VUHDO_RAID) do
-		if tUnit and (not tInfo["isPet"]) then
-			if ("focus" ~= tUnit and "target" ~= tUnit) then
-				VUHDO_addUnitToGroup(tUnit, tInfo["group"]);
-				VUHDO_addUnitToClass(tUnit, tInfo["classId"]);
-				VUHDO_addUnitToVehicles(tUnit);
-				VUHDO_addUnitToSpecial(tUnit);
+		if tUnit then 
+			if not tInfo["isPet"] then -- FIXES RANDOM ERROR BUT WHY WOULD tUnit EVER BE nil? SAME AS LINE 536!
+				if ("focus" ~= tUnit and "target" ~= tUnit) then
+					VUHDO_addUnitToGroup(tUnit, tInfo["group"]);
+					VUHDO_addUnitToClass(tUnit, tInfo["classId"]);
+					VUHDO_addUnitToVehicles(tUnit);
+					VUHDO_addUnitToSpecial(tUnit);
+				end
+			else
+				VUHDO_addUnitToPets(tUnit);
 			end
-		else
-			VUHDO_addUnitToPets(tUnit);
 		end
 	end
 	tinsert(VUHDO_GROUPS[80], "player"); -- VUHDO_ID_SELF

@@ -189,9 +189,11 @@ function VUHDO_hideAllPlayerIcons()
 		VUHDO_initLocalVars(tPanelNum);
 
 		for _, tButton in pairs(tAllButtons) do
-			if (strfind(tButton:GetName(), "HlU", 1, true) and tButton:IsShown()) then
-				VUHDO_initButtonStatics(tButton, tPanelNum);
-				VUHDO_initAllHotIcons();
+			if( tButton and tButton:GetName()) then 
+				if (strfind(tButton:GetName(), "HlU", 1, true) and tButton:IsShown()) then
+					VUHDO_initButtonStatics(tButton, tPanelNum);
+					VUHDO_initAllHotIcons();
+				end
 			end
 		end
 	end
@@ -212,8 +214,10 @@ local function VUHDO_showAllPlayerIcons(aPanel)
 	local tButton;
 
 	for _, tButton in pairs(tAllButtons) do
-		if (strfind(tButton:GetName(), "HlU", 1, true) and tButton:IsShown()) then
-			VUHDO_showPlayerIcons(tButton);
+		if( tButton and tButton:GetName()) then 
+			if (strfind(tButton:GetName(), "HlU", 1, true) and tButton:IsShown()) then
+				VUHDO_showPlayerIcons(tButton);
+			end
 		end
 	end
 end

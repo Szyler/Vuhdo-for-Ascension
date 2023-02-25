@@ -1497,7 +1497,7 @@ local VUHDO_DEFAULT_PER_PANEL_SETUP = {
 		["yAdjust"] = 0,
 	},
 	["RDF_ICON"] = {
-		["show"] = true,
+		["show"] = false,
 		["scale"] = 1,
 		["point"] = "TOP",
 		["xAdjust"] = 0,

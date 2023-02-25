@@ -35,9 +35,30 @@ VUHDO_BUFF_GROUPS = {
 	["WARLOCK"] = {};
 	["SHAMAN"] = {};
 	["DRUID"] = {};
+	["HERO"] = {};
 	["PRIEST"] = {};
 	["DEATHKNIGHT"] = {};
-	["HERO"] = {};
+	["PROPHET"] = { },
+	["FLESHWARDEN"] = { },
+	["RANGER"] = { },
+	["PYROMANCER"] = { },
+	["WITCHHUNTER"] = { },
+	["STARCALLER"] = { },
+	["SPIRITMAGE"] = { },
+	["CULTIST"] = { },
+	["TINKER"] = { },
+	["SUNCLERIC"] = { },
+	["NECROMANCER"] = { },
+	["WILDWALKER"] = { },
+	["CHRONOMANCER"] = { },
+	["STORMBRINGER"] = { },
+	["SONOFARUGAL"] = { },
+	["REAPER"] = { },
+	["GUARDIAN"] = { },
+	["MONK"] = { },
+	["BARBARIAN"] = { },
+	["WITCHDOCTOR"] = { },
+	["DEMONHUNTER"] = { }
 };
 local VUHDO_BUFF_GROUPS = VUHDO_BUFF_GROUPS;
 
@@ -142,8 +163,16 @@ end
 ----------------------------------------------------
 
 local VUHDO_UNIT_AFK_DC = { };
-
-
+VUHDO_DEBUG = false
+function VUHDO_toggleDebug()
+	if VUHDO_DEBUG then 
+		CA_debug("debug mode is now OFF")
+		VUHDO_DEBUG = false
+	else
+		VUHDO_DEBUG = true
+		CA_debug("debug mode is now ON")
+	end	
+end
 --
 local tUnit, tInfo, tName;
 local function VUHDO_updateAllRaidNames()
@@ -504,6 +533,7 @@ end
 
 -- Add to groups 1-8
 local function VUHDO_addUnitToGroup(aUnit, aGroupNum)
+	if not (aUnit and aGroupNum) then return end -- WEIRD ERROR WITH PETS ??
 	if ("player" == aUnit and VUHDO_CONFIG["OMIT_SELF"]) then
 		return;
 	end
@@ -720,15 +750,17 @@ local function VUHDO_updateGroupArrays(anWasMacroRestore)
 	VUHDO_initGroupArrays();
 
 	for tUnit, tInfo in pairs(VUHDO_RAID) do
-		if (not tInfo["isPet"]) then
-			if ("focus" ~= tUnit and "target" ~= tUnit) then
-				VUHDO_addUnitToGroup(tUnit, tInfo["group"]);
-				VUHDO_addUnitToClass(tUnit, tInfo["classId"]);
-				VUHDO_addUnitToVehicles(tUnit);
-				VUHDO_addUnitToSpecial(tUnit);
+		if tUnit then 
+			if not tInfo["isPet"] then -- FIXES RANDOM ERROR BUT WHY WOULD tUnit EVER BE nil? SAME AS LINE 536!
+				if ("focus" ~= tUnit and "target" ~= tUnit) then
+					VUHDO_addUnitToGroup(tUnit, tInfo["group"]);
+					VUHDO_addUnitToClass(tUnit, tInfo["classId"]);
+					VUHDO_addUnitToVehicles(tUnit);
+					VUHDO_addUnitToSpecial(tUnit);
+				end
+			else
+				VUHDO_addUnitToPets(tUnit);
 			end
-		else
-			VUHDO_addUnitToPets(tUnit);
 		end
 	end
 	tinsert(VUHDO_GROUPS[80], "player"); -- VUHDO_ID_SELF

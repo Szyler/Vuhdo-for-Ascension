@@ -467,15 +467,12 @@ function VUHDO_initDebuffs()
 	for tDebuffType, tAbility in pairs(VUHDO_DEBUFF_ABILITIES[tClass] or { }) do
 		if type(tAbility) == "table" then 
 			for index,name in pairs(tAbility) do 
-				print("Checking ",name)
 				if (not VUHDO_isSpellKnown(name)) then
-					--print(name,"not known, removing ",VUHDO_DEBUFF_ABILITIES[tClass][tDebuffType][index]," from list")
 					VUHDO_DEBUFF_ABILITIES[tClass][tDebuffType][index] = nil;
 				end
 			end
 		else
 			if (not VUHDO_isSpellKnown(tAbility)) then
-				--print(name,"not known, removing from list")
 				VUHDO_DEBUFF_ABILITIES[tClass][tDebuffType] = nil;
 			end
 		end

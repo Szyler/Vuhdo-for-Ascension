@@ -516,7 +516,12 @@ function VUHDO_OnEvent(anInstance, anEvent, anArg1, anArg2, anArg3, anArg4, _, a
 		VUHDO_registerAllBouquets();
 		VUHDO_initBuffs();
 		VUHDO_initDebuffs();
-
+	elseif ("SPELLS_CHANGED" == anEvent) and not InCombatLockdown() then
+		VUHDO_initFromSpellbook();
+		VUHDO_registerAllBouquets();
+		VUHDO_initBuffs();
+		VUHDO_initDebuffs();
+		
 	elseif ("VARIABLES_LOADED" == anEvent) then
 		VUHDO_init();
 

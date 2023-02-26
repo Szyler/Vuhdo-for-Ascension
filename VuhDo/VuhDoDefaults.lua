@@ -626,7 +626,8 @@ local VUHDO_DEFAULT_CONFIG = {
 	["RANGE_CHECK_DELAY"] = 260,
 
 	["SOUND_DEBUFF"] = nil,
-	["DETECT_DEBUFFS_SHOW_ALL"] = true,
+	["DETECT_DEBUFFS_ENABLED"] = true,
+	["DETECT_DEBUFFS_SHOW_ALL"] = false,
 	["DETECT_DEBUFFS_IGNORE_BY_CLASS"] = false,
 	["DETECT_DEBUFFS_IGNORE_NO_HARM"] = true,
 	["DETECT_DEBUFFS_IGNORE_MOVEMENT"] = true,
@@ -1497,7 +1498,7 @@ local VUHDO_DEFAULT_PER_PANEL_SETUP = {
 		["yAdjust"] = 0,
 	},
 	["RDF_ICON"] = {
-		["show"] = false,
+		["show"] = true,
 		["scale"] = 1,
 		["point"] = "TOP",
 		["xAdjust"] = 0,

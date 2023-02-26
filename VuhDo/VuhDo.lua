@@ -554,12 +554,17 @@ end
 
 --
 local function VUHDO_addUnitToClass(aUnit, aClassId)
-	if (("player" == aUnit and VUHDO_CONFIG["OMIT_SELF"]) or aClassId == nil) then
-		return;
+	if VUHDO_ID_CLASSES[aClassId] then 
+		if (("player" == aUnit and VUHDO_CONFIG["OMIT_SELF"]) or aClassId == nil) then
+			return;
+		end
+		
+		tinsert(VUHDO_GROUPS[aClassId], aUnit);
+		tinsert(VUHDO_BUFF_GROUPS[VUHDO_ID_CLASSES[aClassId] or "WARRIOR"], aUnit);
+	else
+		--print("VuhDo error:" , aUnit,"'s class does not match ID:",aClassId)
+		-- CAN HAPPEN RANDOMLY  ¯\_(ツ)_/¯
 	end
-
-	tinsert(VUHDO_GROUPS[aClassId], aUnit);
-	tinsert(VUHDO_BUFF_GROUPS[VUHDO_ID_CLASSES[aClassId] or "WARRIOR"], aUnit);
 end
 
 
@@ -751,7 +756,7 @@ local function VUHDO_updateGroupArrays(anWasMacroRestore)
 
 	for tUnit, tInfo in pairs(VUHDO_RAID) do
 		if tUnit then 
-			if not tInfo["isPet"] then -- FIXES RANDOM ERROR BUT WHY WOULD tUnit EVER BE nil? SAME AS LINE 536!
+			if not tInfo["isPet"] then
 				if ("focus" ~= tUnit and "target" ~= tUnit) then
 					VUHDO_addUnitToGroup(tUnit, tInfo["group"]);
 					VUHDO_addUnitToClass(tUnit, tInfo["classId"]);

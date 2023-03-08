@@ -83,21 +83,21 @@ COA_ROLE_BY_SPEC["DISPLACEMENT"] = VUHDO_ID_MELEE_TANK
 
 local function CoA_GetTalentList()
 	local TALENTS_LIST ={}
-		for	i=1,#SpellKitAdvanced.BuildSelectMenu.cards do
-			local tab = _G["SpellKitAdvanced.spellTree.tab"..i]
-			for tier,tier_data in pairs(tab.specData.Tiers) do
-				for node, node_data in pairs(tier_data) do
-					if node_data then
-						local CA_ID = node_data.ID
-						local spell_ID = CA_GetIDInfo(CA_ID).Spells
-						local name,_ = GetSpellInfo(spell_ID)
-						TALENTS_LIST[spell_ID] = {}
-						TALENTS_LIST[spell_ID]["name"] = name
-						TALENTS_LIST[spell_ID]["isKnown"] = IsSpellKnown(spell_ID)
-					end
+	for i=1,#SpellKitAdvanced.BuildSelectMenu.cards do
+		local tab = _G["SpellKitAdvanced.spellTree.tab"..i]
+		for tier,tier_data in pairs(tab.specData.Tiers) do
+			for node, node_data in pairs(tier_data) do
+				if node_data then
+					local CA_ID = node_data.ID
+					local spell_ID = CA_GetIDInfo(CA_ID).Spells
+					local name,_ = GetSpellInfo(spell_ID)
+					TALENTS_LIST[spell_ID] = {}
+					TALENTS_LIST[spell_ID]["name"] = name
+					TALENTS_LIST[spell_ID]["isKnown"] = IsSpellKnown(spell_ID)
 				end
 			end
 		end
+	end
 	return TALENTS_LIST
 end
 
@@ -112,7 +112,7 @@ local function CoA_Determine_Role_By_Talents(anInfo)
 
 		if class == VUHDO_ID_PROPHET then
 			if primarySpec == "FORTITUDE" then
-				if	CoA_GetTalentList()[704264]["isKnown"] then
+				if CoA_GetTalentList()[704264]["isKnown"] then
 					VUHDO_DF_TOOL_ROLES[anInfo["name"]] = VUHDO_ID_MELEE_DAMAGE
 					return VUHDO_ID_MELEE_DAMAGE
 				else
@@ -120,7 +120,7 @@ local function CoA_Determine_Role_By_Talents(anInfo)
 					return VUHDO_ID_MELEE_TANK
 				end
 			elseif primarySpec == "VENOM" then
-				if	CoA_GetTalentList()[804980]["isKnown"] then
+				if CoA_GetTalentList()[804980]["isKnown"] then
 					VUHDO_DF_TOOL_ROLES[anInfo["name"]] = VUHDO_ID_MELEE_DAMAGE
 					return VUHDO_ID_MELEE_DAMAGE
 				else
@@ -132,10 +132,10 @@ local function CoA_Determine_Role_By_Talents(anInfo)
 
 		if class == VUHDO_ID_WILDWALKER then
 			if primarySpec == "GEOMANCY" then
-				--	BODY OF STONE + MOUNTAIN MOVER + EARTHEN AEGIS													
-				if	IsSpellKnown(803975) and ( CoA_GetTalentList()[805643]["isKnown"] or CoA_GetTalentList()[805634]["isKnown"])	then
+				-- BODY OF STONE + MOUNTAIN MOVER + EARTHEN AEGIS													
+				if IsSpellKnown(803975) and ( CoA_GetTalentList()[805643]["isKnown"] or CoA_GetTalentList()[805634]["isKnown"])	then
 					VUHDO_DF_TOOL_ROLES[anInfo["name"]] = VUHDO_ID_MELEE_TANK
-						return VUHDO_ID_MELEE_TANK
+					return VUHDO_ID_MELEE_TANK
 				else
 					VUHDO_DF_TOOL_ROLES[anInfo["name"]] = VUHDO_ID_MELEE_DAMAGE
 					return VUHDO_ID_MELEE_DAMAGE

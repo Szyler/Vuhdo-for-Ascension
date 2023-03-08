@@ -259,18 +259,17 @@ local function VUHDO_determineDfToolRole(anInfo)
 
   if (tIsTank) then
   	VUHDO_DF_TOOL_ROLES[anInfo["name"]] = VUHDO_ID_MELEE_TANK;
-	  CA_debug("Determined ("..anInfo["unit"]..") "..anInfo["name"].."'s Role by RDF: TANK")
+	CA_debug_from("RoleChecker","Determined ("..anInfo["unit"]..") "..anInfo["name"].."'s Role by RDF: TANK")
   	return VUHDO_ID_MELEE_TANK;
   elseif (tIsHeal) then
   	VUHDO_DF_TOOL_ROLES[anInfo["name"]] = VUHDO_ID_RANGED_HEAL;
-	  CA_debug("Determined ("..anInfo["unit"]..") "..anInfo["name"].."'s Role by RDF : HEAL")
+	CA_debug_from("RoleChecker","Determined ("..anInfo["unit"]..") "..anInfo["name"].."'s Role by RDF : HEAL")
   	return VUHDO_ID_RANGED_HEAL;
   elseif (tIsDps) then
-	CA_debug("Determined ("..anInfo["unit"]..") "..anInfo["name"].."'s Role by RDF : DPS")
+	CA_debug_from("RoleChecker","Determined ("..anInfo["unit"]..") "..anInfo["name"].."'s Role by RDF : DPS")
   	VUHDO_DF_TOOL_ROLES[anInfo["name"]] = VUHDO_ID_MELEE_DAMAGE;
 	return VUHDO_ID_MELEE_DAMAGE;
   end
-  CA_debug(anInfo["name"].."'s Role by RDF is Unknown")
   return nil;
 end
 
@@ -356,9 +355,8 @@ function VUHDO_determineRole(aUnit)
 		VUHDO_FIX_ROLES[tName] = 62; -- VUHDO_ID_RANGED_DAMAGE
 		return 62;
 	else
-		CA_debug("Could not automatically determine "..tInfo["name"].."'s role, Guessing DPS")
+		-- CA_debug_from("RoleChecker","Could not determine "..tInfo["name"].."'s role, Guessing DPS")
 		VUHDO_FIX_ROLES[tName] = 61; -- VUHDO_ID_MELEE_DAMAGE
 		return 61;
 	end
-	return nil;
 end

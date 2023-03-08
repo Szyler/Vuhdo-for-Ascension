@@ -1,3 +1,4 @@
+VUHDO_DEBUG = false
 VUHDO_DID_DC_RESTORE = false;
 
 VUHDO_IN_COMBAT_RELOG = false;
@@ -163,14 +164,13 @@ end
 ----------------------------------------------------
 
 local VUHDO_UNIT_AFK_DC = { };
-VUHDO_DEBUG = false
 function VUHDO_toggleDebug()
 	if VUHDO_DEBUG then 
-		CA_debug("debug mode is now OFF")
+		CA_debug_from("","debug mode is now OFF")
 		VUHDO_DEBUG = false
 	else
 		VUHDO_DEBUG = true
-		CA_debug("debug mode is now ON")
+		CA_debug_from("","debug mode is now ON")
 	end	
 end
 --

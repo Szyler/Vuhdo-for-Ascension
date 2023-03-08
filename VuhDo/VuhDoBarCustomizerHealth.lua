@@ -47,10 +47,8 @@ local _ = _;
 local sIsOverhealText;
 local sIsAggroText;
 
-
-
 function VUHDO_customHealthInitBurst()
-  -- variables
+	-- variables
 	VUHDO_PANEL_SETUP = VUHDO_GLOBAL["VUHDO_PANEL_SETUP"];
 	VUHDO_BUTTON_CACHE = VUHDO_GLOBAL["VUHDO_BUTTON_CACHE"];
 	VUHDO_RAID = VUHDO_GLOBAL["VUHDO_RAID"];
@@ -80,7 +78,7 @@ function VUHDO_customHealthInitBurst()
 	VUHDO_getOverhealText = VUHDO_GLOBAL["VUHDO_getOverhealText"];
 	VUHDO_getBarRoleIcon = VUHDO_GLOBAL["VUHDO_getBarRoleIcon"];
 	VUHDO_getBarIconFrame = VUHDO_GLOBAL["VUHDO_getBarIconFrame"];
-  VUHDO_updateClusterHighlights = VUHDO_GLOBAL["VUHDO_updateClusterHighlights"];
+	VUHDO_updateClusterHighlights = VUHDO_GLOBAL["VUHDO_updateClusterHighlights"];
 	
 	-- statics
 	sIsOverhealText = VUHDO_CONFIG["SHOW_TEXT_OVERHEAL"]
@@ -136,7 +134,7 @@ local function VUHDO_getKiloText(aNumber, aSetup)
 		return aNumber;
 	end
 
-  return floor(aNumber * 0.01) * 0.1 .. "k";
+	return floor(aNumber * 0.01) * 0.1 .. "k";
 end
 
 
@@ -175,52 +173,52 @@ local function _VUHDO_updateIncHeal(aUnit)
 		tHealthPlusInc = 0;
 	end
 
-	if (tAmountInc > 0) then
+	if (tAmountInc > 0) then	
 		tIncColor["R"] = -1;
 
-  	for _, tButton in pairs(tAllButtons) do
-    	tIncBar = VUHDO_getHealthBar(tButton, 6);
+		for _, tButton in pairs(tAllButtons) do
+		tIncBar = VUHDO_getHealthBar(tButton, 6);
 
 			tSetup = VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[tButton]];
 			if (VUHDO_INDICATOR_CONFIG["CUSTOM"]["HEALTH_BAR"]["invertGrowth"] and tInfo["healthmax"] > 0) then
 				tIncBar:SetValueRange(100 * tInfo["health"] / tInfo["healthmax"], tHealthPlusInc);
 			else
-  			tIncBar:SetValue(tHealthPlusInc);
-  		end
+ 				tIncBar:SetValue(tHealthPlusInc);
+ 			end
 
-   		if (tIncColor["R"] == -1) then
-   			tIncColor["R"], tIncColor["G"], tIncColor["B"] = VUHDO_getHealthBar(tButton, 1):GetStatusBarColor();
-   			tIncColor = VUHDO_getDiffColor(tIncColor, VUHDO_PANEL_SETUP["BAR_COLORS"]["INCOMING"]);
-   		end
+ 	 		if (tIncColor["R"] == -1) then
+ 	 			tIncColor["R"], tIncColor["G"], tIncColor["B"] = VUHDO_getHealthBar(tButton, 1):GetStatusBarColor();
+ 	 			tIncColor = VUHDO_getDiffColor(tIncColor, VUHDO_PANEL_SETUP["BAR_COLORS"]["INCOMING"]);
+ 	 		end
 
-    	VUHDO_setStatusBarColor(tIncBar, tIncColor);
-    	tOverhealSetup = tSetup["OVERHEAL_TEXT"];
+ 	 		VUHDO_setStatusBarColor(tIncBar, tIncColor);
+ 	 		tOverhealSetup = tSetup["OVERHEAL_TEXT"];
 			tIsOverhealText = tOverhealSetup["show"];
 
-    	if (tIsOverhealText) then
+ 	 		if (tIsOverhealText) then
 				tScale = tOverhealSetup["scale"];
-  	  	if (tOverheal > 0) then
-    			if (tRatio < 1) then
-    				VUHDO_getOverhealPanel(VUHDO_getHealthBar(tButton, 1)):SetScale((0.5 + tRatio) * tScale);
-    			else
-	    			VUHDO_getOverhealPanel(VUHDO_getHealthBar(tButton, 1)):SetScale(1.5 * tScale);
-  	  		end
+ 		 		if (tOverheal > 0) then
+ 	 				if (tRatio < 1) then
+ 	 					VUHDO_getOverhealPanel(VUHDO_getHealthBar(tButton, 1)):SetScale((0.5 + tRatio) * tScale);
+ 	 				else
+	 	 				VUHDO_getOverhealPanel(VUHDO_getHealthBar(tButton, 1)):SetScale(1.5 * tScale);
+ 		 			end
 
 					VUHDO_getOverhealText(VUHDO_getHealthBar(tButton, 1)):SetText("+" .. floor(tOverheal * 0.01) * 0.1 .. "k");
 				else
 					VUHDO_getOverhealText(VUHDO_getHealthBar(tButton, 1)):SetText("");
 				end
-  		end
+ 			end
 
-  	end
+ 		end
 
 	else
 		for _, tButton in pairs(tAllButtons) do
 			if (VUHDO_INDICATOR_CONFIG["CUSTOM"]["HEALTH_BAR"]["invertGrowth"]) then
 				VUHDO_getHealthBar(tButton, 6):SetValueRange(0, 0);
 			else
-  			VUHDO_getHealthBar(tButton, 6):SetValue(0);
-  		end
+ 				VUHDO_getHealthBar(tButton, 6):SetValue(0);
+ 			end
 			if (tIsOverhealText) then
 				VUHDO_getOverhealText(VUHDO_getHealthBar(tButton, 1)):SetText("");
 			end
@@ -322,8 +320,8 @@ function VUHDO_customizeText(aButton, aMode, anIsTarget)
 		return;
 	end
 
-  tSetup = VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[aButton]];
-  tLifeConfig = tSetup["LIFE_TEXT"];
+ 	tSetup = VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[aButton]];
+ 	tLifeConfig = tSetup["LIFE_TEXT"];
 
 	tIsHideIrrel = tLifeConfig["hideIrrelevant"] and VUHDO_getUnitHealthPercent(tInfo) >= VUHDO_CONFIG["EMERGENCY_TRIGGER"];
 	tIsShowLife = tLifeConfig["show"] and not tIsHideIrrel;
@@ -339,66 +337,66 @@ function VUHDO_customizeText(aButton, aMode, anIsTarget)
 	-- Basic name text
 	if (tIsName) then
 
-	  tOwnerInfo = VUHDO_RAID[tInfo["ownerUnit"]];
-	  tIndex = tInfo["name"] .. (tInfo["ownerUnit"] or "");
+	 	tOwnerInfo = VUHDO_RAID[tInfo["ownerUnit"]];
+	 	tIndex = tInfo["name"] .. (tInfo["ownerUnit"] or "");
 		if (VUHDO_NAME_TEXTS[tIndex] == nil) then
-	  	if (tSetup["ID_TEXT"]["showName"]) then
-	  		if (tSetup["ID_TEXT"]["showClass"] and not tInfo["isPet"]) then
-	  			tTextString = tInfo["className"] .. ": ";
-	  		else
-	  			tTextString = "";
-	  		end
+	 		if (tSetup["ID_TEXT"]["showName"]) then
+	 			if (tSetup["ID_TEXT"]["showClass"] and not tInfo["isPet"]) then
+	 				tTextString = tInfo["className"] .. ": ";
+	 			else
+	 				tTextString = "";
+	 			end
 
-	  		if (tOwnerInfo == nil or not tSetup["ID_TEXT"]["showPetOwners"]) then
-	  			tTextString = tTextString .. tInfo["name"];
-	  		else
-	  			tTextString = tTextString .. tOwnerInfo["name"] .. ": " .. tInfo["name"];
-	  		end
-	  	else
-	  		if (tSetup["ID_TEXT"]["showClass"] and not tInfo["isPet"]) then
-	  			tTextString = tInfo["className"];
-	  		else
-	  			tTextString = "";
-	  		end
+	 			if (tOwnerInfo == nil or not tSetup["ID_TEXT"]["showPetOwners"]) then
+	 				tTextString = tTextString .. tInfo["name"];
+	 			else
+	 				tTextString = tTextString .. tOwnerInfo["name"] .. ": " .. tInfo["name"];
+	 			end
+	 		else
+	 			if (tSetup["ID_TEXT"]["showClass"] and not tInfo["isPet"]) then
+	 				tTextString = tInfo["className"];
+	 			else
+	 				tTextString = "";
+	 			end
 
-	  		if (tOwnerInfo ~= nil and tSetup["ID_TEXT"]["showPetOwners"]) then
-	  			tTextString = tTextString .. tOwnerInfo["name"];
-	  		end
-	  	end
-	  	tMaxChars = tSetup["PANEL_COLOR"]["TEXT"]["maxChars"];
-	  	if (tMaxChars > 0 and strlen(tTextString) > tMaxChars) then
-	  		tTextString = VUHDO_utf8Cut(tTextString, tMaxChars);
-	  	end
-	  	VUHDO_NAME_TEXTS[tIndex] = tTextString;
-	  else
-	  	tTextString = VUHDO_NAME_TEXTS[tIndex];
-	  end
+	 			if (tOwnerInfo ~= nil and tSetup["ID_TEXT"]["showPetOwners"]) then
+	 				tTextString = tTextString .. tOwnerInfo["name"];
+	 			end
+	 		end
+	 		tMaxChars = tSetup["PANEL_COLOR"]["TEXT"]["maxChars"];
+	 		if (tMaxChars > 0 and strlen(tTextString) > tMaxChars) then
+	 			tTextString = VUHDO_utf8Cut(tTextString, tMaxChars);
+	 		end
+	 		VUHDO_NAME_TEXTS[tIndex] = tTextString;
+	 	else
+	 		tTextString = VUHDO_NAME_TEXTS[tIndex];
+	 	end
 
-  	-- Add player flags
-  	if (tSetup["ID_TEXT"]["showTags"]) then
-    	if (not tInfo["connected"]) then
-    		tTextString = "d/c-" .. tTextString;
-    	elseif (tInfo["dead"]) then
-    		if (UnitIsGhost(tUnit)) then
-    			tTextString = "|cffff0000ghost|r-" .. tTextString;
-    		else
-    			tTextString = "rip-" .. tTextString;
-    		end
-    	else
-    		if ("focus" == tUnit) then
-   				tTextString = "|cffff0000foc|r-" .. tTextString;
-    		elseif ("target" == tUnit) then
-   				tTextString = "|cffff0000tar|r-" .. tTextString;
-   			elseif (tInfo["afk"]) then
-   				tTextString = "afk-" .. tTextString;
-   			elseif(tOwnerInfo ~= nil and tOwnerInfo["isVehicle"]) then
-   				tTextString = "|cffff0000pet|r-" .. tTextString;
-   			end
-    	end
-  	end
-  	if (tMaxChars > 0 and strlen(tTextString) > tMaxChars and strbyte(tTextString, 1) ~= 124) then --|
-  		tTextString = VUHDO_utf8Cut(tTextString, tMaxChars);
-  	end
+ 		-- Add player flags
+ 		if (tSetup["ID_TEXT"]["showTags"]) then
+ 	 		if (not tInfo["connected"]) then
+ 	 			tTextString = "d/c-" .. tTextString;
+ 	 		elseif (tInfo["dead"]) then
+ 	 			if (UnitIsGhost(tUnit)) then
+ 	 				tTextString = "|cffff0000ghost|r-" .. tTextString;
+ 	 			else
+ 	 				tTextString = "rip-" .. tTextString;
+ 	 			end
+ 	 		else
+ 	 			if ("focus" == tUnit) then
+ 	 				tTextString = "|cffff0000foc|r-" .. tTextString;
+ 	 			elseif ("target" == tUnit) then
+ 	 				tTextString = "|cffff0000tar|r-" .. tTextString;
+ 	 			elseif (tInfo["afk"]) then
+ 	 				tTextString = "afk-" .. tTextString;
+ 	 			elseif(tOwnerInfo ~= nil and tOwnerInfo["isVehicle"]) then
+ 	 				tTextString = "|cffff0000pet|r-" .. tTextString;
+ 	 			end
+ 	 		end
+ 		end
+ 		if (tMaxChars > 0 and strlen(tTextString) > tMaxChars and strbyte(tTextString, 1) ~= 124) then --|
+ 			tTextString = VUHDO_utf8Cut(tTextString, tMaxChars);
+ 		end
 	end
 
 	-- Life Text
@@ -416,7 +414,7 @@ function VUHDO_customizeText(aButton, aMode, anIsTarget)
 		elseif (3 == tLifeConfig["mode"]) then -- VUHDO_LT_MODE_MISSING
 			tMissLife = tLifeAmount - tInfo["healthmax"];
 			if (tMissLife < -10) then
-				tLifeString =  VUHDO_getKiloText(tMissLife, tSetup);
+				tLifeString = VUHDO_getKiloText(tMissLife, tSetup);
 			else
 				tLifeString = "";
 			end
@@ -437,11 +435,11 @@ function VUHDO_customizeText(aButton, aMode, anIsTarget)
 		VUHDO_getLifeText(tHealthBar):SetText("");
 	end
 
-  -- Aggro Text
-  if (tIsName) then
-	  if (tInfo["aggro"] and sIsAggroText) then
+ -- Aggro Text
+ if (tIsName) then
+	 if (tInfo["aggro"] and sIsAggroText) then
 			tTextString =
-			   "|cffff2020" .. VUHDO_THREAT_CFG["AGGRO_TEXT_LEFT"] .. "|r"
+				 "|cffff2020" .. VUHDO_THREAT_CFG["AGGRO_TEXT_LEFT"] .. "|r"
 				.. tTextString
 				.. "|cffff2020" .. VUHDO_THREAT_CFG["AGGRO_TEXT_RIGHT"] .. "|r";
 		end
@@ -524,7 +522,7 @@ function VUHDO_healthBarBouquetCallback(aUnit, anIsActive, anIcon, aCurrValue, a
 							VUHDO_getLifeText(tHealthBar):SetTextColor(aColor["TR"], aColor["TG"], aColor["TB"], aColor["TO"]);
 						end
 					end
-				  tHealthBar:SetValue(tQuota);
+					tHealthBar:SetValue(tQuota);
 				else
 					tHealthBar:SetValue(0);
 				end
@@ -539,7 +537,7 @@ function VUHDO_healthBarBouquetCallback(aUnit, anIsActive, anIcon, aCurrValue, a
 	tTargetQuota = nil;
 
 	-- Targets und targets-of-target, die im Raid sind
-  tAllButtons = VUHDO_IN_RAID_TARGET_BUTTONS[VUHDO_RAID[aUnit]["name"]];
+ tAllButtons = VUHDO_IN_RAID_TARGET_BUTTONS[VUHDO_RAID[aUnit]["name"]];
 	if (tAllButtons == nil) then
 		return;
 	end
@@ -601,7 +599,7 @@ function VUHDO_healthBarBouquetCallbackCustom(aUnit, anIsActive, anIcon, aCurrVa
 							VUHDO_getLifeText(tHealthBar):SetTextColor(aColor["TR"], aColor["TG"], aColor["TB"], aColor["TO"]);
 						end
 					end
-				  tHealthBar:SetValue(tQuota);
+				 tHealthBar:SetValue(tQuota);
 				else
 					tHealthBar:SetValue(0);
 				end
@@ -649,7 +647,7 @@ function VUHDO_backgroundBarBouquetCallback(aUnit, anIsActive, anIcon, aCurrValu
 		tQuota = 0;
 	end
 
-	tAllButtons =  VUHDO_getUnitButtons(aUnit);
+	tAllButtons = VUHDO_getUnitButtons(aUnit);
 	if (tAllButtons ~= nil) then
 		for _, tButton in pairs(tAllButtons) do
 			tBar = VUHDO_getHealthBar(tButton, 3);
@@ -664,6 +662,11 @@ end
 
 
 --
+
+
+
+
+
 local tTexture;
 local tIcon;
 local tUnit;
@@ -688,68 +691,8 @@ function VUHDO_customizeHealButton(aButton)
 	if strfind(aButton:GetName(), "VdAc1", 1, true) and VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[aButton]]["RDF_ICON"]["show"] then
 		tIcon = VUHDO_getBarRDFRoleIcon(aButton);
 		
-		if (tIcon ~= nil and tUnit ~= nil )  then
-			local tRole = VUHDO_determineRole(aButton['raidid'])
-			if (tRole ~= nil) then
-				if (VUHDO_ID_MELEE_TANK == tRole) then
-					tIcon:SetTexCoord(GetTexCoordsForRole("TANK"));
-				elseif (VUHDO_ID_RANGED_HEAL == tRole) then
-					tIcon:SetTexCoord(GetTexCoordsForRole("HEALER"));
-				else
-					tIcon:SetTexCoord(GetTexCoordsForRole("DAMAGER"));
-				end
-				tIcon:SetWidth(25);
-				tIcon:SetHeight(25);
-				tIcon:Show()
-				-- VUHDO_placeRDF_ICON(aButton, tIcon);
-
-
-				if  (not  VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[aButton]]["RDF_ICON"]["groupOnly"]) then
-					CA_debug("NO GROUP NEEDED")
-					if (VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[aButton]]["RDF_ICON"]["mouseOnly"])  then 
-						CA_debug("MOUSEOVER NEEDED")
-						if  tMouseOverUnit then 
-							-- SHOW
-							CA_debug("SHOWING ICON")
-							tIcon:Show()
-							
-						else
-							-- NO MOUSEOVER
-							CA_debug("HIDING ICON : NO MOUSEOVER")
-								tIcon:Hide()
-						end
-					else
-						CA_debug("NO MOUSEOVER NEEDED")
-						CA_debug("SHOWING ICON")
-						tIcon:Show()
-						
-					end
-				-- IF ENABLED AND GROUP NEEDED
-				else
-					CA_debug("GROUP NEEDED")
-					if  role1 or role2 or role3 then 
-						if VUHDO_PANEL_SETUP[VUHDO_BUTTON_CACHE[aButton]]["RDF_ICON"]["mouseOnly"] then 
-							CA_debug("MOUSEOVER NEEDED")
-							if  tMouseOverUnit then 
-								-- SHOW
-								CA_debug("SHOWING ICON")
-								tIcon:Show()
-								
-							else
-								-- NO MOUSEOVER
-								CA_debug("HIDING ICON : NO MOUSEOVER")
-								tIcon:Hide()
-							end
-						else
-						end
-					else					-- HIDE
-						CA_debug("HIDING ICON : NO GROUP")
-							tIcon:Hide()
-					end
-				end
-			else
-				tIcon:Hide()
-			end
+		if (tIcon ~= nil and tUnit ~= nil ) then
+			PlaceRDFIcon(aButton,tIcon,"CustomizerHealth")
 		end
 	
 	else
@@ -765,17 +708,17 @@ local tInfo, tCnt, tAlpha;
 local function VUHDO_customizeDebuffIconsRange(aButton)
 	_, tInfo = VUHDO_getDisplayUnit(aButton);
 
-  if (tInfo ~= nil) then
-    if (tInfo["range"]) then
-      tAlpha = 1;
-    else
-      tAlpha = VUHDO_BAR_COLOR["OUTRANGED"]["O"];
-    end
+	if (tInfo ~= nil) then
+		if (tInfo["range"]) then
+			tAlpha = 1;
+		else
+			tAlpha = VUHDO_BAR_COLOR["OUTRANGED"]["O"];
+		end
 
-  	for tCnt = 40, 44 do
-  		VUHDO_getBarIconFrame(aButton, tCnt):SetAlpha(tAlpha);
-  	end
-  end
+		for tCnt = 40, 44 do
+			VUHDO_getBarIconFrame(aButton, tCnt):SetAlpha(tAlpha);
+		end
+	end
 end
 
 
@@ -791,7 +734,7 @@ function VUHDO_updateHealthBarsFor(aUnit, anUpdateMode)
 		return;
 	end
 
-  tAllButtons = VUHDO_getUnitButtons(aUnit);
+	tAllButtons = VUHDO_getUnitButtons(aUnit);
 	tInfo = VUHDO_RAID[aUnit];
 	if (tInfo == nil or tAllButtons == nil) then
 		return;
@@ -859,7 +802,7 @@ function VUHDO_updateHealthBarsFor(aUnit, anUpdateMode)
 	-- In-Raid Targets
 	------------------
 
-  tAllButtons = VUHDO_IN_RAID_TARGET_BUTTONS[tInfo["name"]];
+	tAllButtons = VUHDO_IN_RAID_TARGET_BUTTONS[tInfo["name"]];
 	if (tAllButtons == nil) then
 		return;
 	end
@@ -925,7 +868,7 @@ function VUHDO_updateAllRaidBars()
 	if (VUHDO_REMOVE_HOTS) then
 		VUHDO_removeAllHots();
 		VUHDO_updateAllHoTs();
-	  if (VUHDO_INTERNAL_TOGGLES[18]) then -- VUHDO_UPDATE_MOUSEOVER_CLUSTER
+		if (VUHDO_INTERNAL_TOGGLES[18]) then -- VUHDO_UPDATE_MOUSEOVER_CLUSTER
 			VUHDO_updateClusterHighlights();
 		end
 	else

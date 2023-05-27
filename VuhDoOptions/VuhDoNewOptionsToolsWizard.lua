@@ -112,7 +112,7 @@ function VUHDO_panelWizardInitVarsMainTanks(aPanelNum)
 
 	tAktPanel["SCALING"].showTarget = true;
 
-  tAktPanel["SCALING"].barWidth = 100;
+  	tAktPanel["SCALING"].barWidth = 100;
 	tAktPanel["SCALING"].barHeight = 30;
 
  	tAktPanel["SCALING"].scale = 1;

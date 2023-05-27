@@ -325,12 +325,16 @@ function VUHDO_determineRole(aUnit)
 	local _, _, tBuffExist_BF = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_BEAR_FORM);
 	local _, _, tBuffExist_DBF = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_DIRE_BEAR_FORM);
 	local _, _, tBuffExist_MFB = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_MANAFORGED_BARRIER);
+	local _, _, tBuffExist_MDA = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_DARK_APOTHEOSIS);
 
 	-- DPS
 	local _, _, tBuffExist_SF = UnitBuff(aUnit, VUHDO_SPELL_ID_SHADOWFORM);
 	local _, _, tBuffExist_MKF = UnitBuff(aUnit, VUHDO_SPELL_ID_MOONKIN_FORM);
 	local _, _, tBuffExist_AotH = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_ASPECT_OF_THE_HAWK);
 	local _, _, tBuffExist_CC = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_CRIMSON_CHAMPION);
+	local _, _, tBuffExist_INT = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_INTELLECT);
+	local _, _, tBuffExist_AGI = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_AGILITY);
+	local _, _, tBuffExist_STR = UnitBuff(aUnit, VUHDO_SPELL_ID_BUFF_STRENGTH);
 	
 	-- Healers
 	local _, _, tBuffExist_ToL = UnitBuff(aUnit, VUHDO_SPELL_ID_TREE_OF_LIFE);
@@ -338,13 +342,13 @@ function VUHDO_determineRole(aUnit)
 
 	if (VUHDO_FIX_ROLES[tName] ~= nil) then -- TODO: Add Ascension talent check here
 		return VUHDO_FIX_ROLES[tName];
-	elseif (tBuffExist_RF or tBuffExist_AotM or tBuffExist_BF or tBuffExist_DBF or tBuffExist_CC or tDefense>20 or tBuffExist_MFB) then
+	elseif (tBuffExist_RF or tBuffExist_AotM or tBuffExist_BF or tBuffExist_DBF or tBuffExist_CC or tDefense>20 or tBuffExist_MFB or tBuffExist_MDA) then
 		VUHDO_FIX_ROLES[tName] = 60; -- VUHDO_ID_MELEE_TANK
 		return 60; -- VUHDO_ID_MELEE_TANK
 	elseif (tBuffExist_ToL or tBuffExist_Spir) then
 		VUHDO_FIX_ROLES[tName] = 63; -- VUHDO_ID_RANGED_HEAL
 		return 63;
-	elseif (tBuffExist_SF or tBuffExist_MKF or tBuffExist_AotH) then
+	elseif (tBuffExist_SF or tBuffExist_MKF or tBuffExist_AotH or tBuffExist_INT) then
 		VUHDO_FIX_ROLES[tName] = 62; -- VUHDO_ID_RANGED_DAMAGE
 		return 62;
 	else

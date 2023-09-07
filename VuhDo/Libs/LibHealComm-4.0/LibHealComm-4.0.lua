@@ -961,9 +961,8 @@ if (playerClass == "DRUID" or playerClass == "HERO") then
 			-- coeff = 0.25,
 			coeff = 0.054,
 			maxlevels = { 69, 74, 79, 84 },
-			averages = { 388, 515, 876, 1215 },
-			levels = { 60, 70, 75, 80 },
-			averages = { 665, 885, 1435, 1670 }
+			averages = { 105, 145, 185, 225, 265, 310, 530, 1085, 1255 },
+			levels = { 20, 28, 36, 44, 52, 60, 70, 75, 80 },
 		}
 		-- Earthliving Weapon proc
 		local Earthliving = GetSpellInfo(52000)
@@ -999,9 +998,22 @@ if (playerClass == "DRUID" or playerClass == "HERO") then
 			coeff = 0.444,
 			maxlevels = { 5, 11, 17, 23, 29, 37, 45, 53, 61, 65, 68, 74, 79, 84 },
 			levelincrease = { 0.7, 1, 1.5, 2.3, 2.7, 3.3, 3.9, 4.7, 5.5, 5.5, 6.3, 7.1, 8, 9 },
-			averages = { avg(24, 33), avg(46, 58), avg(92, 114), avg(192, 231), avg(270, 322), avg(386, 456),
-				avg(532, 624), avg(731, 852), avg(983, 1139), avg(1166, 1351), avg(1342, 1538), avg(1636, 1878),
-				avg(2361, 2734), avg(2730, 3163) },
+			averages = {
+				avg(24, 33),
+				avg(46, 58),
+				avg(92, 114),
+				avg(192, 231),
+				avg(270, 322),
+				avg(386, 456),
+				avg(532, 624),
+				avg(731, 852),
+				avg(983, 1139),
+				avg(1166, 1351),
+				avg(1342, 1538),
+				avg(1636, 1878),
+				avg(2361, 2734),
+				avg(2730, 3163)
+			},
 			-- increase = {55, 74, 102, 142, 151, 158, 156, 150, 132, 110, 107, 71, 40, 0}
 		}
 		-- Lesser Healing Wave
@@ -1338,7 +1350,6 @@ if (playerClass == "DRUID" or playerClass == "HERO") then
 				-- totalTicks = hotData[spellName].ticks
 			end
 
-
 			healAmount = calculateGeneralAmount(hotData[spellName].levels[rank], healAmount, spellPower, spModifier,
 				healModifier)
 			return HOT_HEALS, math.ceil(healAmount), totalTicks, hotData[spellName].interval, bombAmount
@@ -1554,7 +1565,6 @@ if (playerClass == "DRUID" or playerClass == "HERO") then
 			end
 
 			------------------------------------------------------------------------------------------------------------------------------------
-
 
 			healAmount = calculateGeneralAmount(spellData[spellName].levels[rank], healAmount, spellPower, spModifier,
 				healModifier)

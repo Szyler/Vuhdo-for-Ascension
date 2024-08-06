@@ -1,4 +1,7 @@
 --- COA W.I.P. ---
+
+-- TODO: ADAPT FUNCTIONS TO DRAGONFLIGHT TREES
+
 local COA_ROLE_BY_SPEC = {}
 local COA_ROLE_BY_CLASS = {}
 
@@ -89,7 +92,7 @@ local function CoA_GetTalentList()
 			for node, node_data in pairs(tier_data) do
 				if node_data then
 					local CA_ID = node_data.ID
-					local spell_ID = CA_GetIDInfo(CA_ID).Spells
+					local spell_ID = C_CharacterAdvancement.GetEntryByInternalID(CA_ID).Spells
 					local name,_ = GetSpellInfo(spell_ID)
 					TALENTS_LIST[spell_ID] = {}
 					TALENTS_LIST[spell_ID]["name"] = name
@@ -106,7 +109,7 @@ local function CoA_Determine_Role_By_Talents(anInfo)
 	-- LOGIC FOR PLAYER INSPECTION
 	if anInfo["unit"] == "player" and SpellKitAdvanced.BuildSelectMenu.currentSpec then
 
-		local primarySpec = CA_GetIDInfo(SpellKitAdvanced.BuildSelectMenu.currentSpec).Tab
+		local primarySpec = C_CharacterAdvancement.GetEntryByInternalID(SpellKitAdvanced.BuildSelectMenu.currentSpec).Tab
 		local talents = CoA_GetTalentList()
 		local class = anInfo["classId"]
 
@@ -150,7 +153,7 @@ end
 local function CoA_Determine_Role_By_Specialization(anInfo)
 	local activeSpec
 	if SpellKitAdvanced.BuildSelectMenu.currentSpec then
-		activeSpec = CA_GetIDInfo(SpellKitAdvanced.BuildSelectMenu.currentSpec).Tab
+		activeSpec = C_CharacterAdvancement.GetEntryByInternalID(SpellKitAdvanced.BuildSelectMenu.currentSpec).Tab
 
 		if COA_ROLE_BY_SPEC[activeSpec] == nil then
 			CA_debug_from("CoA_RoleDeterminator","Specialization "..activeSpec.." is Unknown","ce7e00")
@@ -181,7 +184,12 @@ local function CoA_Determine_Role_By_Class(anInfo)
 end
 
 function CoA_Determine_Role(anInfo)
-	if not IsCustomClass(anInfo["unit"]) then return end
+	if not IsCustomClass(anInfo["unit"]) then 
+		return
+	end
+	if not SpellKitAdvanced then
+		return
+	end
 
 	local results = (CoA_Determine_Role_By_Class(anInfo) or CoA_Determine_Role_By_Specialization(anInfo) or CoA_Determine_Role_By_Talents(anInfo))
 

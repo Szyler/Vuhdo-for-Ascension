@@ -11,8 +11,8 @@ local UnitPowerType = UnitPowerType;
 local UnitHealthMax = UnitHealthMax;
 local UnitHealth = UnitHealth;
 local UnitName = UnitName;
-local UnitPower = UnitPower;
-local UnitPowerMax = UnitPowerMax;
+local UnitMana = UnitMana;
+local UnitManaMax = UnitManaMax;
 local UnitIsDeadOrGhost = UnitIsDeadOrGhost;
 local UnitIsConnected = UnitIsConnected;
 local UnitIsUnit = UnitIsUnit;
@@ -107,8 +107,8 @@ local function VUHDO_fillCustomInfo(aUnit)
 	tInfo["unit"] = aUnit;
 	tInfo["class"] = tClassName;
 	tInfo["powertype"] = tonumber(tPowerType);
-	tInfo["power"] = UnitPower(aUnit);
-	tInfo["powermax"] = UnitPowerMax(aUnit);
+	tInfo["power"] = UnitMana(aUnit);
+	tInfo["powermax"] = UnitManaMax(aUnit);
 	tInfo["dead"] = UnitIsDeadOrGhost(aUnit);
 	tInfo["connected"] = UnitIsConnected(aUnit);
 	if (tLocalClass == tInfo["name"]) then

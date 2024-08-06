@@ -438,6 +438,7 @@ function VuhDoActionOnEnter(aButton)
 		VuhDoGcdStatusBar:SetValue(0);
 		VuhDoGcdStatusBar:Show();
 	end
+
 	if (VUHDO_INTERNAL_TOGGLES[18]) then -- VUHDO_UPDATE_MOUSEOVER_CLUSTER
 		if (VUHDO_CURRENT_MOUSEOVER ~= nil) then
 			VUHDO_highlightClusterFor(VUHDO_CURRENT_MOUSEOVER);

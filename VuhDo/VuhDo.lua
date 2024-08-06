@@ -1,3 +1,4 @@
+VUHDO_DEBUG = false
 VUHDO_DID_DC_RESTORE = false;
 
 VUHDO_IN_COMBAT_RELOG = false;
@@ -108,8 +109,8 @@ local UnitCanAttack = UnitCanAttack;
 local GetNumRaidMembers = GetNumRaidMembers;
 local GetNumPartyMembers = GetNumPartyMembers;
 local UnitName = UnitName;
-local UnitMana = UnitMana;
-local UnitManaMax = UnitManaMax;
+local UnitPower = UnitPower;
+local UnitPowerMax = UnitPowerMax;
 local UnitThreatSituation = UnitThreatSituation;
 local UnitClass = UnitClass;
 local UnitPowerType = UnitPowerType;
@@ -163,14 +164,13 @@ end
 ----------------------------------------------------
 
 local VUHDO_UNIT_AFK_DC = { };
-VUHDO_DEBUG = false
 function VUHDO_toggleDebug()
 	if VUHDO_DEBUG then 
-		CA_debug("debug mode is now OFF")
+		CA_debug_from("","debug mode is now OFF")
 		VUHDO_DEBUG = false
 	else
 		VUHDO_DEBUG = true
-		CA_debug("debug mode is now ON")
+		CA_debug_from("","debug mode is now ON")
 	end	
 end
 --
@@ -389,8 +389,8 @@ function VUHDO_setHealth(aUnit, aMode)
 			tInfo["debuff"], tInfo["debuffName"] = VUHDO_determineDebuff(aUnit, tClassName);
 			tInfo["isPet"] = tIsPet;
 			tInfo["powertype"] = tonumber(tPowerType);
-			tInfo["power"] = UnitMana(aUnit);
-			tInfo["powermax"] = UnitManaMax(aUnit);
+			tInfo["power"] = UnitPower(aUnit);
+			tInfo["powermax"] = UnitPowerMax(aUnit);
 			tInfo["charmed"] = UnitIsCharmed(aUnit) and UnitCanAttack("player", aUnit);
 			tInfo["aggro"] = false;
 			tInfo["group"] = VUHDO_getUnitGroup(aUnit, tIsPet);
@@ -554,12 +554,17 @@ end
 
 --
 local function VUHDO_addUnitToClass(aUnit, aClassId)
-	if (("player" == aUnit and VUHDO_CONFIG["OMIT_SELF"]) or aClassId == nil) then
-		return;
+	if VUHDO_ID_CLASSES[aClassId] then 
+		if (("player" == aUnit and VUHDO_CONFIG["OMIT_SELF"]) or aClassId == nil) then
+			return;
+		end
+		
+		tinsert(VUHDO_GROUPS[aClassId], aUnit);
+		tinsert(VUHDO_BUFF_GROUPS[VUHDO_ID_CLASSES[aClassId] or "WARRIOR"], aUnit);
+	else
+		--print("VuhDo error:" , aUnit,"'s class does not match ID:",aClassId)
+		-- CAN HAPPEN RANDOMLY  ¯\_(ツ)_/¯
 	end
-
-	tinsert(VUHDO_GROUPS[aClassId], aUnit);
-	tinsert(VUHDO_BUFF_GROUPS[VUHDO_ID_CLASSES[aClassId] or "WARRIOR"], aUnit);
 end
 
 
@@ -751,7 +756,7 @@ local function VUHDO_updateGroupArrays(anWasMacroRestore)
 
 	for tUnit, tInfo in pairs(VUHDO_RAID) do
 		if tUnit then 
-			if not tInfo["isPet"] then -- FIXES RANDOM ERROR BUT WHY WOULD tUnit EVER BE nil? SAME AS LINE 536!
+			if not tInfo["isPet"] then
 				if ("focus" ~= tUnit and "target" ~= tUnit) then
 					VUHDO_addUnitToGroup(tUnit, tInfo["group"]);
 					VUHDO_addUnitToClass(tUnit, tInfo["classId"]);

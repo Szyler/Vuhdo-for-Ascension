@@ -305,7 +305,7 @@ local function VUHDO_createTestUser()
     tPetDemoIdx = tPetDemoIdx + 1;
   else
     tUnit = "raid" .. tRaidDemoIdx;
-    tClassId = VUHDO_getNextFreeModelInRange(VUHDO_ID_WARRIORS, VUHDO_ID_DEATH_KNIGHT);
+	tClassId = VUHDO_getNextFreeModelInRange(VUHDO_ID_WARRIORS, VUHDO_ID_DEATH_KNIGHT);
     tGroup = VUHDO_getNextFreeModelInRange(VUHDO_ID_GROUP_1, VUHDO_ID_GROUP_8);
     tNumber = tRaidDemoIdx;
     tRaidDemoIdx = tRaidDemoIdx + 1;

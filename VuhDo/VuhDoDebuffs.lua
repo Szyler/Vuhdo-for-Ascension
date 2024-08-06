@@ -17,19 +17,19 @@ local VUHDO_IGNORE_DEBUFFS_DURATION = { };
 
 --
 local VUHDO_DEBUFF_TYPES = {
-  ["Magic"] = VUHDO_DEBUFF_TYPE_MAGIC,
-  ["Disease"] = VUHDO_DEBUFF_TYPE_DISEASE,
-  ["Poison"] = VUHDO_DEBUFF_TYPE_POISON,
-  ["Curse"] = VUHDO_DEBUFF_TYPE_CURSE
+	["Magic"] = VUHDO_DEBUFF_TYPE_MAGIC,
+	["Disease"] = VUHDO_DEBUFF_TYPE_DISEASE,
+	["Poison"] = VUHDO_DEBUFF_TYPE_POISON,
+	["Curse"] = VUHDO_DEBUFF_TYPE_CURSE
 };
 
 
 
 
 VUHDO_DEBUFF_BLACKLIST = {
-	[GetSpellInfo(69127)] = true, -- Chill of the Throne (st�ndiger debuff)
-	[GetSpellInfo(57724)] = true, -- Sated
-	[GetSpellInfo(71328)] = true  -- Dungeon Cooldown
+	[GetSpellInfo(69127)] = true,	-- Chill of the Throne (st�ndiger debuff)
+	[GetSpellInfo(57724)] = true,	-- Sated
+	[GetSpellInfo(71328)] = true	-- Dungeon Cooldown
 }
 
 
@@ -70,10 +70,12 @@ local twipe = table.wipe;
 local pairs = pairs;
 local _ = _;
 
+sShowDebuffs = nil
 local sShowAllDebuffs;
 local sIsUseDebuffIcon;
 local sIsMiBuColorsInFight;
 local sStdDebuffSound;
+
 
 function VUHDO_debuffsInitBurst()
 	VUHDO_CONFIG = VUHDO_GLOBAL["VUHDO_CONFIG"];
@@ -82,8 +84,9 @@ function VUHDO_debuffsInitBurst()
 	VUHDO_DEBUFF_BLACKLIST = VUHDO_GLOBAL["VUHDO_DEBUFF_BLACKLIST"];
 
 	VUHDO_shouldScanUnit = VUHDO_GLOBAL["VUHDO_shouldScanUnit"];
-
+	sShowDebuffs = VUHDO_CONFIG["DETECT_DEBUFFS_ENABLED"];
 	sShowAllDebuffs = VUHDO_CONFIG["DETECT_DEBUFFS_SHOW_ALL"];
+	
 	sIsUseDebuffIcon = VUHDO_PANEL_SETUP["BAR_COLORS"]["useDebuffIcon"];
 	sIsMiBuColorsInFight = VUHDO_BUFF_SETTINGS["CONFIG"]["BAR_COLORS_IN_FIGHT"];
 	sStdDebuffSound = VUHDO_CONFIG["SOUND_DEBUFF"];
@@ -166,7 +169,7 @@ local function _VUHDO_getDebuffColor(anInfo, aNewColor)
 	if (anInfo["charmed"]) then
 		return VUHDO_copyColorTo(VUHDO_PANEL_SETUP["BAR_COLORS"]["CHARMED"], aNewColor);
 	elseif (anInfo["mibucateg"] == nil and (tDebuff or 0) == 0) then -- VUHDO_DEBUFF_TYPE_NONE
-	  return aNewColor;
+		return aNewColor;
 	end
 
 	tDebuffSettings = sAllDebuffSettings[anInfo["debuffName"]];
@@ -190,9 +193,9 @@ local function _VUHDO_getDebuffColor(anInfo, aNewColor)
 		return aNewColor;
 	end
 
-  if (anInfo["mibucateg"] == nil or VUHDO_BUFF_SETTINGS[anInfo["mibucateg"]] == nil) then
-    return aNewColor;
-  end
+	if (anInfo["mibucateg"] == nil or VUHDO_BUFF_SETTINGS[anInfo["mibucateg"]] == nil) then
+		return aNewColor;
+	end
 
 	tSourceColor = VUHDO_BUFF_SETTINGS[anInfo["mibucateg"]]["missingColor"];
 	if (VUHDO_BUFF_SETTINGS["CONFIG"]["BAR_COLORS_TEXT"]) then
@@ -324,7 +327,7 @@ function VUHDO_determineDebuff(aUnit, aClassName)
 				tSoundDebuff = tName;
 			end
 
-	  		tDebuff = VUHDO_DEBUFF_TYPES[tType];
+				tDebuff = VUHDO_DEBUFF_TYPES[tType];
 			tAbility = VUHDO_PLAYER_ABILITIES[tDebuff];
 			if type(tAbility) == "table" then 
 				tAbility = next(tAbility) -- CHECK IF TABLE IS EMPTY
@@ -339,23 +342,26 @@ function VUHDO_determineDebuff(aUnit, aClassName)
 
 			-- VUHDO_I18N_TT_060 = "Check this to have only debuffs shown which are removable by yourself. All debuffs will be shown otherwise.";
 			-- -> "Check this to have all debuffs shown, even ones not removable by yourself. Unchecked will still show ones you can remove.";
-			if ((sShowAllDebuffs or tAbility ~= nil) and tChosen ~= 6) then --VUHDO_DEBUFF_TYPE_CUSTOM
-				if (sIsUseDebuffIcon and not VUHDO_DEBUFF_BLACKLIST[tName]) then
-					tIconsSet[tName] = { tIcon, tExpiry, tStacks, false };
-					tIsStandardDebuff = true;
-				end
-
-				if (tDebuff ~= nil) then
-					tRemaining = floor(tExpiry - GetTime());
-					tSchool = tAllSchools[tDebuff];
-					if ((tSchool[2] or 0) < tRemaining) then
-						tSchool[1], tSchool[2], tSchool[3], tSchool[4] = tIcon, tRemaining, tStacks, tDuration;
+			
+			if sShowDebuffs then 
+				if ((sShowAllDebuffs or tAbility ~= nil) and tChosen ~= 6) then --VUHDO_DEBUFF_TYPE_CUSTOM
+					if (sIsUseDebuffIcon and not VUHDO_DEBUFF_BLACKLIST[tName]) then
+						tIconsSet[tName] = { tIcon, tExpiry, tStacks, false };
+						tIsStandardDebuff = true;
 					end
 
-					if (VUHDO_isDebuffRelevant(tName, aClassName)) then
-						if (tAbility ~= nil or tChosen == 0) then --VUHDO_DEBUFF_TYPE_NONE
-							tChosen = tDebuff;
-							tChosenInfo[1], tChosenInfo[2], tChosenInfo[3], tChosenInfo[4] = tIcon, tRemaining, tStacks, tDuration;
+					if (tDebuff ~= nil) then
+						tRemaining = floor(tExpiry - GetTime());
+						tSchool = tAllSchools[tDebuff];
+						if ((tSchool[2] or 0) < tRemaining) then
+							tSchool[1], tSchool[2], tSchool[3], tSchool[4] = tIcon, tRemaining, tStacks, tDuration;
+						end
+
+						if (VUHDO_isDebuffRelevant(tName, aClassName)) then
+							if (tAbility ~= nil or tChosen == 0) then --VUHDO_DEBUFF_TYPE_NONE
+								tChosen = tDebuff;
+								tChosenInfo[1], tChosenInfo[2], tChosenInfo[3], tChosenInfo[4] = tIcon, tRemaining, tStacks, tDuration;
+							end
 						end
 					end
 				end
@@ -477,7 +483,7 @@ function VUHDO_initDebuffs()
 			end
 		end
 	end
-  VUHDO_PLAYER_ABILITIES = VUHDO_DEBUFF_ABILITIES[tClass];
+	VUHDO_PLAYER_ABILITIES = VUHDO_DEBUFF_ABILITIES[tClass];
 
 	twipe(VUHDO_CUSTOM_DEBUFF_LIST);
 	if (VUHDO_CONFIG == nil) then

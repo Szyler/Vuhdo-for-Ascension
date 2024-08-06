@@ -11,8 +11,8 @@ local UnitPowerType = UnitPowerType;
 local UnitHealthMax = UnitHealthMax;
 local UnitHealth = UnitHealth;
 local UnitName = UnitName;
-local UnitMana = UnitMana;
-local UnitManaMax = UnitManaMax;
+local UnitPower = UnitPower;
+local UnitPowerMax = UnitPowerMax;
 local UnitIsDeadOrGhost = UnitIsDeadOrGhost;
 local UnitIsConnected = UnitIsConnected;
 local UnitIsUnit = UnitIsUnit;
@@ -107,8 +107,8 @@ local function VUHDO_fillCustomInfo(aUnit)
 	tInfo["unit"] = aUnit;
 	tInfo["class"] = tClassName;
 	tInfo["powertype"] = tonumber(tPowerType);
-	tInfo["power"] = UnitMana(aUnit);
-	tInfo["powermax"] = UnitManaMax(aUnit);
+	tInfo["power"] = UnitPower(aUnit);
+	tInfo["powermax"] = UnitPowerMax(aUnit);
 	tInfo["dead"] = UnitIsDeadOrGhost(aUnit);
 	tInfo["connected"] = UnitIsConnected(aUnit);
 	if (tLocalClass == tInfo["name"]) then
@@ -163,7 +163,7 @@ end
 
 
 -- Wir merken uns die Target-Buttons, wenn das Ziel im Raid ist,
--- um Gesundheitsupdates mit dem regulären Mechanismus durchzuführen
+-- um Gesundheitsupdates mit dem regulï¿½ren Mechanismus durchzufï¿½hren
 -- die Target-Buttons sind also durch den Target-Namen indiziert.
 local tUnit, tInfo;
 local tName;
@@ -184,7 +184,7 @@ end
 
 
 
--- Lösche alle Target-Buttons der Person, deren Ziel sich geändert hat
+-- Lï¿½sche alle Target-Buttons der Person, deren Ziel sich geï¿½ndert hat
 -- Wobei die Buttons mit dem Namen des TARGETS indiziert sind, welchen
 -- wir uns VUHDO_IN_RAID_TARGETS aber gemerkt haben
 local tName;
